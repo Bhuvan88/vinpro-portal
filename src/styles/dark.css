@@ -1,0 +1,9 @@
+.dark {
+    --primary-color: #00d889;
+    --primary-bg-color: #1c1c24;
+    --primary-text-color: #ffffff;
+    --primary-border-color: #000000;
+    --secondary-color: #13131a;
+    --list-hover-color: #262626;
+    --list-border-color: #303030;
+}

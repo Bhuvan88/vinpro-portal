@@ -1,0 +1,67 @@
+[
+	
+
+	{
+		"icon": "SettingOutlined",
+		"title": "Settings",
+		"module": "administration",
+		"resource": "cuisine",
+		"link": "/countries",
+		"roles": [ "Administrator" ],
+		"sublink": [
+			{
+				"icon": "SettingOutlined",
+				"title": "Country",	
+				"module": "administration",
+				"resource": "countries",
+				"link": "/countries",
+				"roles": [ "Administrator" ]
+			}
+			
+			
+		]
+	},
+
+	
+	{
+		"icon": "TeamOutlined",
+		"title": "Customers",
+		"module": "administration",
+		"resource": "customerlist",
+		"link": "/customerlist",
+		"roles": [ "Administrator" ],
+		"sublink": [
+			{
+				"icon": "TeamOutlined",
+				"title": "Customers",
+				"module": "administration",
+				"resource": "customerlist",
+				"link": "/customerlist",
+				"roles": [ "Administrator"]
+			}
+		]
+	},
+	
+
+
+
+	{
+		"icon": "UserOutlined",
+		"title": "profile",
+		"module": "administration",
+		"resource": "",
+		"link": "../profile",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "UserOutlined",
+				"title": "profile",
+				"module": "administration",
+				"resource": "",
+				"link": "../profile",
+				"roles": [ "Administrator", "Owner" ]
+			}			
+		]
+	}
+	
+]

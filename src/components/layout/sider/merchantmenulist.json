@@ -1,0 +1,160 @@
+[
+	{
+		"icon": "ShoppingCartOutlined",
+		"title": "orderslist",
+		"module": "administration",
+		"link": "/orders",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "ShoppingCartOutlined",
+				"title": "orderslist",
+				"module": "administration",
+				"resource": "orders",
+				"link": "/orders",
+				"roles": ["Owner" ]
+			},
+			{
+				"icon": "DashboardOutlined",
+				"title": "dashboard",
+				"module": "administration",
+				"resource": "orders",
+				"link": "/dashboard",
+				"roles": [ "Administrator", "Owner" ]
+			}
+		]
+	},
+	{
+		"icon": "SettingOutlined",
+		"title": "settings",
+		"link": "/shop",
+		"module": "administration",
+		"resource": "merchant",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "ShopOutlined",
+				"title": "settings",
+				"link": "/shop",
+				"module": "administration",
+				"resource": "merchant",
+				"roles": [ "Owner" ]
+			}
+		]
+	},
+	{
+		"icon": "FaUtensils",
+		"title": "fooditems",
+		"module": "administration",
+		"resource": "fooditems",
+		"link": "/category",
+		"roles": [ "Owner" ],
+		"sublink": [
+			
+			{
+				"icon": "PartitionOutlined",
+				"link": "/category",
+				"module": "administration",
+				"title": "category",
+				"roles": [ "Owner" ],
+				"resource": "category"
+			},
+			{
+				"icon": "ApartmentOutlined",
+				"title": "fooditemslist",
+				"module": "administration",
+				"resource": "fooditems",
+				"link": "/fooditems",
+				"roles": [ "Owner" ]
+			},
+			{
+				"icon": "ControlOutlined",
+				"title": "variants",
+				"module": "administration",
+				"resource": "vairants",
+				"link": "/variants",
+				"roles": [ "Owner" ],
+				"sublink": []
+			}
+		]
+	},
+	{
+		"icon": "StarOutlined",
+		"title": "ratings",
+		"module": "administration",
+		"resource": "ratings",
+		"link": "/ratings",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "StarOutlined",
+				"title": "ratings",
+				"module": "administration",
+				"resource": "ratings",
+				"link": "/ratings",
+				"roles": [ "Administrator", "Owner" ]
+			}
+		]
+	},
+	{
+		"icon": "ContainerOutlined",
+		"title": "reports",
+		"module": "administration",
+		"resource": "orders",
+		"link": "/salesreports",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+            {
+                "title": "",
+                "module": "administration",
+                "icon": "",
+                "roles": [ "Administrator", "Owner" ],
+				"sublink": [
+					{
+						"icon": "ContainerOutlined",
+						"title": "dailyreport",
+						"module": "administration",
+						"resource": "orders",
+						"link": "/salesreports",
+						"roles": [ "Administrator", "Owner" ]
+					},
+					{
+						"icon": "FileDoneOutlined",
+						"title": "weeklyreport",
+						"module": "administration",
+						"resource": "orders",
+						"link": "/salesreports/weeklyreport",
+						"roles": [ "Administrator", "Owner" ]
+					},
+					{
+						"icon": "CarryOutOutlined",
+						"title": "monthlyreport",
+						"module": "administration",
+						"resource": "orders",
+						"link": "/salesreports/monthlyreport",
+						"roles": [ "Administrator", "Owner" ]
+					}
+					
+                ]
+            }]
+	},
+	{
+		"icon": "UserOutlined",
+		"title": "profile",
+		"module": "administration",
+		"resource": "",
+		"link": "../profile",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "UserOutlined",
+				"title": "profile",
+				"module": "administration",
+				"resource": "",
+				"link": "../profile",
+				"roles": [ "Administrator", "Owner" ]
+			}
+		]
+	}
+
+]
