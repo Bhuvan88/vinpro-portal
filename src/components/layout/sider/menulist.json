@@ -21,6 +21,16 @@
 			
 		]
 	},
+	{
+		"icon": "UserOutlined",
+		"title": "Contact us",
+		"module": "administration",
+		"resource": "contactus",
+		"link": "/contactus",
+		"roles": [ "Administrator" ]
+		
+	},
+
 
 	
 	{
@@ -39,6 +49,7 @@
 				"link": "/customerlist",
 				"roles": [ "Administrator"]
 			}
+			
 		]
 	},
 	
