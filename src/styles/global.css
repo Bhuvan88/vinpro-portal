@@ -368,7 +368,7 @@ body {
 
 /*Menu*/
 .antMainMenu {
-    width: 60px !important;
+    /* width: 60px !important; */
     height: calc(100vh - 52px) !important;
     overflow-y: auto !important;
     padding: 6px 8px !important;
@@ -378,7 +378,7 @@ body {
 .antMainMenuButton {
     display: flex !important;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     margin: 5px 0px;
     margin-bottom: 8px;
    /* background-color: #f1f1f1 !important; */
@@ -386,11 +386,13 @@ body {
 }
 
 .antMainMenuButtonSelected {
-    font-weight: bold !important;
+   /* font-weight: bold !important; */
     background-color: #fff !important;
     color: #0f2b71 !important;
+	width: 100%;
 }
 .antMainMenuButton:hover {
+	width: 100%;
     background-color: #fff !important;
     color: #0f2b71 !important;
 }

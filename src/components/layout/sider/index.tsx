@@ -184,7 +184,7 @@ export const Sider: React.FC<SiderProps> = () => {
                                                 ? "antMainMenuButton antMainMenuButtonSelected"
                                                 : "antMainMenuButton"
                                         }
-                                    />
+                                    >{title}</Button>
                                    
                                 </Tooltip>
                            </CanAccess>
@@ -192,9 +192,17 @@ export const Sider: React.FC<SiderProps> = () => {
                     );
                 })}
 
-                <Menu.Item key="logout" icon={<LogoutOutlined />}>
+                {/* <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     {t("logout")}
-                </Menu.Item>
+                </Menu.Item> */}
+                 <Button
+                    type="text"
+                    size="large"
+                    icon={<LogoutOutlined />}
+                    onClick={() =>  logout()}
+                    //active ={isSelected ? true : false}
+                    className={"antMainMenuButton"}
+                >{t("logout")}</Button>
             </Menu>
         );
     };
@@ -378,18 +386,18 @@ export const Sider: React.FC<SiderProps> = () => {
             <div style={{ display: "flex", flexDirection: "column" }}>
                 <Space align="start" size={0}>
                     <AntdLayout.Sider
-                        collapsed={true}
-                        onCollapse={(collapsed: boolean): void =>
+                        collapsed={false}
+                        /*onCollapse={(collapsed: boolean): void =>
                             setCollapsed(collapsed)
-                        }
-                        collapsedWidth={isMobile ? 60 : 60 }
+                        } */
+                        //collapsedWidth={isMobile ? 60 : 60 }
                         breakpoint="lg"
                         style={isMobile ? antLayoutSiderMobile : antLayoutSider}
                     >
                         <Title collapsed={secondaryCollapsed} />
                         {menu()}
                     </AntdLayout.Sider>
-                    {secondaryMenu()}
+                    {/* secondaryMenu() */}
                 </Space>
             </div>
         </Affix>

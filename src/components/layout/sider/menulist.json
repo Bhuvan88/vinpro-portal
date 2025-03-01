@@ -1,6 +1,51 @@
 [
-	
 
+	{
+		"icon": "TeamOutlined",
+		"title": "Enquiries Request",
+		"module": "administration",
+		"resource": "customerlist",
+		"link": "/customerlist",
+		"roles": [ "Administrator" ],
+		"sublink": [
+			{
+				"icon": "TeamOutlined",
+				"title": "Customers",
+				"module": "administration",
+				"resource": "customerlist",
+				"link": "/customerlist",
+				"roles": [ "Administrator"]
+			}
+			
+		]
+	},
+	{
+		"icon": "UserOutlined",
+		"title": "Contact Users",
+		"module": "administration",
+		"resource": "contactus",
+		"link": "/contactus",
+		"roles": [ "Administrator" ]
+		
+	},
+	{
+		"icon": "UserOutlined",
+		"title": "My Profile",
+		"module": "administration",
+		"resource": "",
+		"link": "../profile",
+		"roles": [ "Administrator", "Owner" ],
+		"sublink": [
+			{
+				"icon": "UserOutlined",
+				"title": "profile",
+				"module": "administration",
+				"resource": "",
+				"link": "../profile",
+				"roles": [ "Administrator", "Owner" ]
+			}			
+		]
+	},
 	{
 		"icon": "SettingOutlined",
 		"title": "Settings",
@@ -19,59 +64,6 @@
 			}
 			
 			
-		]
-	},
-	{
-		"icon": "UserOutlined",
-		"title": "Contact us",
-		"module": "administration",
-		"resource": "contactus",
-		"link": "/contactus",
-		"roles": [ "Administrator" ]
-		
-	},
-
-
-	
-	{
-		"icon": "TeamOutlined",
-		"title": "Customers",
-		"module": "administration",
-		"resource": "customerlist",
-		"link": "/customerlist",
-		"roles": [ "Administrator" ],
-		"sublink": [
-			{
-				"icon": "TeamOutlined",
-				"title": "Customers",
-				"module": "administration",
-				"resource": "customerlist",
-				"link": "/customerlist",
-				"roles": [ "Administrator"]
-			}
-			
-		]
-	},
-	
-
-
-
-	{
-		"icon": "UserOutlined",
-		"title": "profile",
-		"module": "administration",
-		"resource": "",
-		"link": "../profile",
-		"roles": [ "Administrator", "Owner" ],
-		"sublink": [
-			{
-				"icon": "UserOutlined",
-				"title": "profile",
-				"module": "administration",
-				"resource": "",
-				"link": "../profile",
-				"roles": [ "Administrator", "Owner" ]
-			}			
 		]
 	}
 	
