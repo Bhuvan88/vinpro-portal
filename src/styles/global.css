@@ -386,14 +386,14 @@ body {
 }
 
 .antMainMenuButtonSelected {
-   /* font-weight: bold !important; */
-    background-color: #fff !important;
+   /* font-weight: bold !important;
+    background-color: #fff !important; */
     color: #0f2b71 !important;
 	width: 100%;
 }
 .antMainMenuButton:hover {
 	width: 100%;
-    background-color: #fff !important;
+    /*background-color: #fff !important; */
     color: #0f2b71 !important;
 }
 .antMainMenuList {

@@ -86,16 +86,17 @@ export interface ILoginForm {
             <div className="logincontainer">
               <div className="loginimageContainer">
                 <img
-                  src={"/images/logo.svg"}
-                  alt="Mrlocal Logo"
+                  src={"/images/logo2.svg"}
+                  alt="Logo"
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: "100px",
-                    height: "84px",
+                    height: "64px",
                     objectFit: "contain",
-                    // borderRadius: 8,
+                  marginBottom : 22,
+                  marginLeft :-15
+                     // borderRadius: 8,
                   }}
                 />
               </div>

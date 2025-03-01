@@ -16,11 +16,11 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => (
           alignItems: "center",
           justifyContent: "center",
           margin: "6px 9px",
-          width: "40px",
+          //width: "40px",
           height: "40px",
           objectFit: "contain",
           borderRadius: 8,
-          backgroundColor:'#f8f9fe',
+          //backgroundColor:'#f8f9fe',
           // borderBottom: "1px solid #3c3b3b"
         }}
       />
@@ -29,13 +29,14 @@ export const Title: React.FC<TitleProps> = ({ collapsed }) => (
         src={"/images/logo.svg"}
         alt="Refine"
         style={{
-          width: "40px",
-          margin: "6px 9px",
-          height: "40px",
+          //width: "40px",
+          margin: "7px 9px",
+          height: "34px",
           objectFit: "contain",
-          backgroundColor:'#f8f9fe',
+          //backgroundColor:'#f8f9fe',
           borderRadius: 8,
           // borderBottom: "1px solid #3c3b3b"
+          marginLeft : 22
         }}
       />
     )}
