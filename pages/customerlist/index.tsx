@@ -9,6 +9,7 @@ import {
   TextField,
   getDefaultSortOrder,
   useTable,
+  DeleteButton
 } from "@refinedev/antd";
 
 import {
@@ -16,13 +17,16 @@ import {
   Typography,
   Input,
   Form,
+  Space,
 } from "antd";
 
 import AvatarField from "@components/datacomponents/AvatarField";
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 import { commonServerSideProps } from "src/commonServerSideProps";
 import { useTeam } from "src/teamProvider";
+import CustomDrawer from "@components/datacomponents/CustomDrawer";
+import UserShow from "./show";
 
 export const getServerSideProps = commonServerSideProps;
 
@@ -30,13 +34,17 @@ const CustomerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
   const t = useTranslate();
   const { setSelectedMenu, setHeaderTitle} = useTeam();
+ 
+      const [showEditDrawer, setShowEditDrawer] = useState(false);
+      const [editId, setEditId] = useState(null);
+      const [ showDrawer, setShowDrawer] = useState<boolean>(false);
 
   useEffect(() => {
     setSelectedMenu("/customerlist", "/customerlist");
     setHeaderTitle(t("customerlist"));
   }, []);
 
-  const { tableProps, sorters, searchFormProps } =
+  const { tableProps, sorters, searchFormProps,tableQueryResult } =
     useTable<any>({
       resource: "demo_users",
       syncWithLocation: true,
@@ -74,6 +82,21 @@ const CustomerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       },
      
     });
+
+    const editCallback = (status) => {
+      if (status === "success") {
+        setShowEditDrawer(false);
+        tableQueryResult.refetch();
+      }
+      if (status === "error") {
+        setShowEditDrawer(false);
+      }
+      if (status === "close") {
+        setShowEditDrawer(false);
+      }
+      setShowDrawer(false);
+      setEditId(undefined);
+    };
 
   return (
     <>
@@ -186,8 +209,66 @@ const CustomerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
          // defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
           sorter
         /> 
+         <Table.Column<any>
+            width={100}
+            title={t("actions")}
+            dataIndex="actions"
+            render={(_, record) => (
+              <Space>
+                <div
+                  className="actionBtn"
+                  onClick={(): void => {
+                    setEditId(record?.id);
+                    setShowEditDrawer(true);
+                    console.log("record", record);
+                  }}
+                >
+                 <CustomIcon type="EyeOutlined" />
+                </div>
+              
+
+              <DeleteButton
+                hideText
+                resource={"demo_users"}
+                size="small"
+                onSuccess={() => tableQueryResult.refetch()}
+                recordItemId={record?.id}
+                accessControl={{ enabled: true }}
+                meta={{ deleteType: "archive" }}
+                confirmTitle={t("confirm")}
+                successNotification={{
+                  message: t("deletedsuccessfully"),
+                  type: "success",
+                }}
+              />
+                {/* <div
+                  className="actionBtn"
+                  onClick={(): void => { 
+                    setEditId(record?.id);
+                    setShowDrawer(true);  
+                    console.log("record>>>>>.", record);               
+                  }}
+                >
+                  <CustomIcon type="LockOutlined" />
+                </div> */}
+              </Space>
+            )}
+          />
       
       </Table>
+      {showEditDrawer && (
+        <CustomDrawer
+          callback={editCallback}
+          visible={showEditDrawer}
+          resource={"demo_"}
+          permissionResource={"directus_users"}
+          module={"administration"}
+          id={editId}
+          viewProps={<UserShow id={editId} />}
+          // editProps={<OwnerEdit id={editId} callback={editCallback} visible={false} />}
+          hideDelete
+        />
+      )}  
     </>
   );
 };
