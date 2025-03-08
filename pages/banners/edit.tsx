@@ -56,7 +56,7 @@ const BannerEdit: React.FC<EditProps> = ({ callback, id }) => {
     id:id,
     resource: "banners",
     metaData: {
-      fields: ["merchant","image.*", "city.*","link","isactive"],
+      fields: ["image.*","client_name","link","isactive"],
     },
     redirect: false,
     warnWhenUnsavedChanges: true,
@@ -72,57 +72,7 @@ const BannerEdit: React.FC<EditProps> = ({ callback, id }) => {
   const { data, isLoading } = queryResult;
   const record = data?.data;
 
-  const { selectProps: merchantProps } = useSelect({
-    resource: "merchant",
-    optionLabel: "name",
-    optionValue: "id",
-    pagination: { pageSize: -1 },
-    onSearch: (params: any) => {
-      const filters: CrudFilters = [];
 
-      filters.push({
-        field: "search",
-        operator: "contains",
-        value: params,
-      });
-      return filters;
-    },
-    sorters: [
-      {
-        field: "name",
-        order: "asc",
-      },
-    ],
-  });
-
-  const { selectProps: cityProps } = useSelect({
-    resource: "city",
-    optionLabel: "name",
-    optionValue: "id",
-    sorters: [
-      {
-        field: "name",
-        order: "asc",
-      },
-    ],
-    filters: [
-      {
-          field: "name",
-          operator:  "ne",
-          value:"Namakkal"
-      },
-    ],
-    pagination:{
-      pageSize:-1
-    }
-    // filters: [
-    //   {
-    //     field: "merchant",
-    //     operator: "eq",
-    //     value: record?.merchant,
-    //   },
-    // ],
-  });
 
   const defaultMapper = (params: any) => {
 //    { "create": [
@@ -142,24 +92,8 @@ const BannerEdit: React.FC<EditProps> = ({ callback, id }) => {
 //   "update": [],
 //   "delete": []
 // }
-if(params["city"] && params["city"].length > 0){
-    let cities = [];
-    params["city"].map((item: any) => {
-      cities.push({banners_id:id, city_id:{id:item}})
-      //recommended_category.push({fooditems_id:fooditemId, category_id:{id:item}})
-    });
-    if(record?.city && record?.city.length > 0){
-      let deleteCities = [];
-      record?.city.map((item: any) => {
-        if(!params["city"].includes(item.id)){
-          deleteCities.push(item.id);
-        }
-      });
-      params["city"] = {create:cities, delete:deleteCities};
-    }else{
-      params["city"] = {create:cities};
-    }
-    }
+
+    
     mediaUploadMapper(params, mediaConfigList);
     if (params?.image) {
       params["image"] = params?.image;
@@ -200,8 +134,7 @@ if(params["city"] && params["city"].length > 0){
         }}
         initialValues={
           {
-            ...record,
-            city: record?.city?.map((item: any) => item?.city_id),          
+            ...record,      
           }
         }
       >
@@ -213,19 +146,19 @@ if(params["city"] && params["city"].length > 0){
           icon={"LinkOutlined"}
         />
 
-        <FormIconInput
+        {/* <FormIconInput
           label={t("city")}
           name={"city"}
           rules={[{ required: true, message: t("choosecity") }]}
           children={<Select {...cityProps} style={{ width: "100%" }} mode="multiple" />}
           icon={"GlobalOutlined"}
-        />
+        /> */}
 
         <FormIconInput
-          label={t("shopname")}
-          name={"merchant"}
-          rules={[{ required: true, message: t("chooseshop") }]}
-          children={<Select {...merchantProps} allowClear style={{ width: "100%" }} />}
+          label="Client Name"
+          name={"client_name"}
+          rules={[{ required: true, message:"Enter Client Name" }]}
+          children={<Input />}
           icon={"ShopOutlined"}
         />
 

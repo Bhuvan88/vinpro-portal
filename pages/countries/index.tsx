@@ -4,6 +4,7 @@ import {
   useExport,
   useShow,
   CrudFilters,
+  useApiUrl
 } from "@refinedev/core";
 import {
   DateField,
@@ -12,6 +13,7 @@ import {
   useTable,
   TextField,
   getDefaultSortOrder,
+  ImageField
 } from "@refinedev/antd";
 import {
   Table,
@@ -38,6 +40,7 @@ export const getServerSideProps = commonServerSideProps;
 
 const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const t = useTranslate();
+   const apiUrl = useApiUrl();
   const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
   const [showCreateDrawer, setShowCreateDrawer] = useState(false);
   const [showEditDrawer, setShowEditDrawer] = useState(false);
@@ -62,7 +65,7 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         initialData,
       },
       metaData: {
-        fields: ["id","name","date_created"],
+        fields: ["id","name","date_created","image","description"]
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -223,6 +226,30 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           //defaultSortOrder={getDefaultSortOrder("name", sorters)}
           //sorter
         />
+        
+        <Table.Column
+                  width={100}
+                  dataIndex="image"
+                  key="image"
+                  title={t("image")}
+                  render={(value: any) => (
+                    <ImageField
+                      value={apiUrl + "assets/" + value}
+                      width={40}
+                      height={40}
+                      style={{ objectFit: "cover" }}
+                    />
+                  )}
+                  defaultSortOrder={getDefaultSortOrder("image", sorters)}
+                  //sorter
+                />
+                <Table.Column
+                          width={150}
+                          dataIndex="description"
+                          key="description"
+                          title="Description"
+                          render={(value) => <TextField value={value} />}               
+                        />
 
         {/* <Table.Column
           width={150}

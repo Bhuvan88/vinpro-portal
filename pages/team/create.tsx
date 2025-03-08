@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useApiUrl, useTranslate,CrudFilters } from "@refinedev/core";
 import {
   Create,
-  useSelect,
   useDrawerForm,
+  useSelect,
 } from "@refinedev/antd";
-import { 
+import {
   Form,
   Input,
   Drawer,
-  Upload,
   Select,
-  Switch,
+  message,
+  Upload,
+  
 } from "antd";
 import FormIconInput from "@components/Inputs/FormIconInput";
-import { ICategory } from "src/interfaces";
 import {
   getValueProps,
   MediaConfig,
@@ -22,24 +21,22 @@ import {
   useDirectusUpload,
 } from "@tspvivek/refine-directus";
 import { directusClient } from "src/directusClient";
-import { CustomIcon } from "@components/datacomponents/CustomIcon";
+import { useTranslate,useApiUrl } from "@refinedev/core";
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
 };
 
-const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const DriverCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const { TextArea } = Input;
-  const t = useTranslate();
-  const apiUrl = useApiUrl();
   const [formdata, setFormData] = useState<any>({});
-
+  const t = useTranslate();
   const mediaConfigList: MediaConfig[] = [
     { name: "image", multiple: false, maxCount: 1 },
   ];
   const getUploadProps = useDirectusUpload(mediaConfigList, directusClient);
-
+   const apiUrl = useApiUrl();
   // Create Drawer
   const { drawerProps, formProps, saveButtonProps, show, close } =
     useDrawerForm({
@@ -49,13 +46,20 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         callback("success");
       },
       action: "create",
-      resource: "banners",
+      resource: "team_members",
       redirect: false,
       successNotification: (data) => {
         return {
           message: t("successfullycreated"),
           description: t("successfull"),
           type: "success",
+        };
+      },
+      errorNotification: (data) => {
+        return {
+          message: t("emailalert"),
+          description: t("error"),
+          type: "error",
         };
       },
     });
@@ -74,59 +78,43 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   //   optionValue: "id",
   //   sorters: [
   //     {
-  //       field: "name",
-  //       order: "asc",
-  //     },
-  //   ],
-  //   filters: [
-  //     {
   //         field: "name",
-  //         operator:  "ne",
-  //         value:"Namakkal"
-  //     },
-  //   ],
-  //   pagination:{
-  //     pageSize:-1
-  //   }
+  //         order: "asc",
+  //     }
+  // ],
+  // filters: [
+  //   {
+  //       field: "name",
+  //       operator:  "ne",
+  //       value:"Namakkal"
+  //   },
+  // ],
+  // pagination:{
+  //   pageSize:-1
+  // },
   // });
 
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
-  //   [
-  //     {
-  //         "banners_id": "+",
-  //         "city_id": {
-  //             "id": 1
-  //         }
-  //     },
-  //     {
-  //         "banners_id": "+",
-  //         "city_id": {
-  //             "id": 2
-  //         }
-  //     }
-  // ]
+    var obj = {};
     
-
     return {
+      ...obj,
       ...params,
     };
   };
-
-
+   
   return (
     <Drawer
       {...drawerProps}
       onClose={() => {
         callback("close");
       }}
-      width={450}
+      width={400}
     >
       <Create saveButtonProps={saveButtonProps} goBack
-       headerProps={{ extra: false, title: t("create"), className: "drawer-body" }}
-       >
-        {" "}
-        {/* actionbutton={false} */}
+        headerProps={{ extra: false, title: t("create"), className: "drawer-body" }}
+      >
         <Form
           {...formProps}
           layout="vertical"
@@ -138,53 +126,70 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           onValuesChange={(changedValues, allValues) => {
             setFormData(allValues);
           }}
-          initialValues={{
-              isactive:true
-          }}
         >
+            <FormIconInput
+                label="Designation"
+                name={"designation"}
+                rules={[{ required: true, message:"Designation is required" }]}
+                children={
+                  <Select                    
+                       allowClear
+                       placeholder="Select Designation"
+                      options={[
+                      { label:"Manager",value:"Manager"},
+                      { label:"HR",value:"HR"},
+                      { label:"TeamLead",value:"Team Lead"},
+                      ]}
+                    />
+                }
+                icon={"UserSwitchOutlined"}
+            />
           <FormIconInput
-            label="Banner Link"
-            name={"link"}
-            rules={[{ required: true, message: t("enterlink") }]}
+           label={t("firstname")}
+            name={"first_name"}
+            rules={[{ required: true, message: t("firstnameisrequired") }]}
             children={<Input />}
-            icon={"LinkOutlined"}
+            icon={"UserOutlined"}
           />
 
-          {/* <FormIconInput
+            <FormIconInput
+            label={t("lastname")}
+            name={"last_name"}
+            rules={[{ required: true, message: t("lastnameisrequired") }]}
+            children={<Input />}
+            icon={"UserOutlined"}
+          />
+
+         {/* <FormIconInput
             label={t("city")}
-            name={"city"}
+            name={"drivercity"}
             rules={[{ required: true, message: t("choosecity") }]}
-            children={<Select {...cityProps} style={{ width: "100%" }} mode="multiple" />}
+            children={<Select {...cityProps} />}
             icon={"GlobalOutlined"}
           /> */}
-         <FormIconInput
-          label="Client Name"
-          name="client_name"
-          rules={[{ required: true, message: "Enter Client Name" }]}
-          children={<Input />}
-          icon={"ShopOutlined"}
-         />
-
+       
           <FormIconInput
-            label={t("isactive")}
-            name={"isactive"}
-            children={<Switch checkedChildren="Yes" unCheckedChildren="No" defaultChecked={true} disabled/>}
-            icon={"CheckCircleOutlined"}
-          />
-
-          {/* <FormIconInput
-            label="Is commercial"
-            name={"iscommercial"}
-            children={<Switch checkedChildren="Yes" unCheckedChildren="No" />}
-            icon={"DollarOutlined"}
-          /> */}
-
-          <div className="icon-input-field">
-            <CustomIcon
-              type={"PictureOutlined"}
-              styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                 label={t("email")}
+                name={"email"}
+                rules={[
+                  { required: true, message:  t("emailidisrequired") },
+                  {
+                    type: "email",
+                    message: t("invalidemailaddress"),
+                  },
+                ]}
+                children={<Input />}
+                icon={"MailOutlined"}
             />
-            <Form.Item label={t("image")}>
+            <FormIconInput
+                    label="Description"
+                    name={"description"}
+                    rules={[{ required: false, message: t("enteritemdescrption") }]}
+                    children={<TextArea />}
+                    icon={"DollarOutlined"}
+                  />
+
+<Form.Item label={t("image")}>
               <Form.Item
                 name="image"
                 valuePropName="fileList"
@@ -214,11 +219,12 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 </Upload.Dragger>
               </Form.Item>
             </Form.Item>
-          </div>
-        </Form>
+       
+     
+           </Form>
       </Create>
     </Drawer>
   );
 };
 
-export default BannerCreate;
+export default DriverCreate;

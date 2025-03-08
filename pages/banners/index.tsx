@@ -16,6 +16,7 @@ import {
   getDefaultSortOrder,
   ImageField,
   useSelect,
+  TextField
 } from "@refinedev/antd";
 import {
   Table,
@@ -68,7 +69,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         initialData,
       },
       metaData: {
-        fields: ["id","image","city.city_id.*","merchant.id","merchant.name", "merchant.logo.id","link","isactive","date_created"],
+        fields: ["id","image","client_name","link","isactive","date_created"],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -80,17 +81,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           value: search,
         });
 
-        filters.push({
-          field: "city.city_id.name",
-          operator: "eq",
-          value: city,
-        });
-        
-      filters.push({
-        field: "merchant",
-        operator: "eq",
-        value: merchant,
-       });
+      
 
         return filters;
       },
@@ -106,43 +97,8 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
     console.log('tableProps',tableProps);
 
-    const { selectProps: CityProps } = useSelect({
-      resource: "city",
-      optionLabel: "name",
-      optionValue: "name",
-      sorters: [
-        {
-          field: "name",
-          order: "asc",
-        },
-      ],
-      filters: [
-        {
-            field: "name",
-            operator:  "ne",
-            value:"Namakkal"
-        },
-      ],
-      pagination:{
-        pageSize:-1
-      }
-    });
 
     
-  const { selectProps: merchantSelectProps } = useSelect({
-    resource: "merchant",
-    optionLabel: "name",
-    optionValue: "id",
-    pagination:{
-      pageSize:20
-    },
-    sorters: [
-      {
-        field: "name",
-        order: "asc",
-      },
-    ],
-  });
 
     
   const createCallback = (status) => {
@@ -175,7 +131,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
     resource: "banners",
     filters: filters,
     metaData: {
-      fields: ["id","image","link","isactive","date_created","city.city_id.*" ,"merchant.name"],
+      fields: ["id","image","link","isactive","date_created" ],
     },
     mapData: (item) => {
       return {
@@ -201,18 +157,8 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
                 />
               </Form.Item>
 
-         <Form.Item name="merchant" className="card-search mt-20 ml-10">  
-							<Select
-							showSearch
-							placeholder={t("shopname")}
-							allowClear
-							{...merchantSelectProps}             
-							/>
-						</Form.Item>
-
-            <Form.Item name="city" className="card-search mt-20 ml-10">
-              <Select allowClear placeholder={t("selectcity")} {...CityProps} />
-            </Form.Item> 
+        
+          
     </div>
   );
 
@@ -234,7 +180,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
               searchFormProps.form?.submit();
             }}
           >
-            <Space>           
+            {/* <Space>           
             <Tooltip title={t("Filter")}>
                     <Popover
                       placement="bottom"
@@ -248,7 +194,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
                       />
                     </Popover>
                   </Tooltip>                  
-            </Space>
+            </Space> */}
           </Form>          
           <CreateButton
             onClick={() => setShowCreateDrawer(true)}
@@ -257,14 +203,14 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           >
             {t("new")}
           </CreateButton>
-          <ExportButton
+          {/* <ExportButton
             type="primary"
             onClick={triggerExport}
             loading={isLoading}
             className="ml-5"
           >
             {t("export")}
-          </ExportButton>
+          </ExportButton> */}
           </Space>
         </div>  
       </div>
@@ -292,6 +238,15 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           render={(text, object, index) => index + 1}
          // render={(value) => <TextField value={value} />}
          // defaultSortOrder={getDefaultSortOrder("id", sorter)}
+         // sorter
+        />
+         <Table.Column
+          width={80}
+          dataIndex="client_name"
+          key="client_name"
+          title="Client"
+         render={(value) => <TextField value={value} />}
+
          // sorter
         />
         <Table.Column
@@ -329,26 +284,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           //sorter
         />
 
-        <Table.Column
-          width={100}
-          dataIndex={["city", "name"]}
-          key="city"
-          title={t("city")}
-          render={(_, record: any) => {
-            console.log('record',record?.city.length);
-           
-            
-            return (
-              record?.city?.length > 0 ? (
-                <Typography.Text> {record?.city?.map((item: any) => item?.city_id?.name).join(", ")} </Typography.Text>
-              ) : (
-                <Typography.Text> {record?.city?.city_id?.name} </Typography.Text>
-              )
-            );
-             
-          } }
-            
-        />
+       
         <Table.Column
           width={80}
           dataIndex="isactive"
@@ -382,59 +318,8 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             />
           )}
         />
-        {/* <Table.Column
-          width={100}
-          dataIndex="iscommercial"
-          key="iscommercial"
-          title="Is commercial"
-          render={(value) => (
-            <BooleanField
-              value={value}
-              trueIcon={
-                <CustomIcon
-                  type="CheckCircleFilled"
-                  styleProps={{
-                    style: {
-                      color: "green",
-                      fontSize: "20px",
-                    },
-                  }}
-                />
-              }
-              falseIcon={
-                <CustomIcon
-                  type="CloseCircleFilled"
-                  styleProps={{
-                    style: {
-                      color: "red",
-                      fontSize: "20px",
-                    },
-                  }}
-                />
-              }
-            />
-          )}
-        /> */}
+       
 
-        <Table.Column
-        width={150}
-        dataIndex="merchant.name"
-        key="merchant"
-        title={t("shopname")}
-        render={(_, record: any) => {
-          return (
-            <AvatarField
-              avatarImageProps={{
-                className: "mr-5",
-              }}
-              title={record?.merchant?.name}
-              linkUrl={undefined}
-              linkSrc={undefined}
-              imagesrc={record?.merchant?.logo?.id}
-            />
-          );
-        }}
-      />
 
         <Table.Column
           width={130}

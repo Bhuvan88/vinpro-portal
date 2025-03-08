@@ -104,6 +104,50 @@ const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
             children={<Input />}
             icon={"global"}
           />
+           <FormIconInput
+                    label="Description"
+                    name={"description"}
+                    rules={[{ required: false, message: t("enteritemdescrption") }]}
+                    children={<TextArea />}
+                    icon={"DollarOutlined"}
+                  />
+
+          <div className="icon-input-field">
+                    <CustomIcon
+                      type={"PictureOutlined"}
+                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                    />
+                    <Form.Item label={t("image")}>
+                      <Form.Item
+                        name="image"
+                        valuePropName="fileList"
+                        getValueProps={(data) =>
+                          getValueProps({
+                            data,
+                            imageUrl: apiUrl,
+                          })
+                        }
+                        noStyle
+                        rules={[
+                          {
+                            required:true,message:"Image is required"
+                          },
+                        ]}
+                      >
+                        <Upload.Dragger
+                          name="file"
+                          listType="picture"
+                          multiple={false}
+                          beforeUpload={() => false}
+                          {...getUploadProps("image")}
+                        >
+                          <p className="ant-upload-text">
+                          {t("drag&dropafileinthisarea")}
+                          </p>
+                        </Upload.Dragger>
+                      </Form.Item>
+                    </Form.Item>
+                  </div>
         
         </Form>
       </Create>

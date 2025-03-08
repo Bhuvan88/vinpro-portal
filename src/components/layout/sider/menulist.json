@@ -47,10 +47,10 @@
 		]
 	},
 	{
-		"icon": "SettingOutlined",
-		"title": "Settings",
+		"icon": "GlobalOutlined",
+		"title": "Countries",
 		"module": "administration",
-		"resource": "cuisine",
+		"resource": "countries",
 		"link": "/countries",
 		"roles": [ "Administrator" ],
 		"sublink": [
@@ -63,8 +63,27 @@
 				"roles": [ "Administrator" ]
 			}
 			
+
+			
 			
 		]
+	},
+	{
+		"icon": "PictureOutlined",
+		"title": "Banner",
+		"module": "administration",
+		"resource": "banners",
+		"link": "/banners",
+		"roles": [ "Administrator" ]
+		
+	},
+	{
+		"icon": "TeamOutlined",
+		"title": "Team Members",
+		"module": "administration",
+		"resource": "team_members",
+		"link": "/team",
+		"roles": [ "Administrator" ]
 	}
 	
 ]

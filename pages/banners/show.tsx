@@ -16,7 +16,7 @@ const BannerShow: React.FC<any> = ({ id }) => {
     resource: "banners",
     id: id,
     metaData: {
-      fields: ["image.*", "city.city_id.* ", "merchant.name","isactive","link","date_created","date_updated"],
+      fields: ["image.*","client_name","isactive","link","date_created","date_updated"],
     },
   });
 
@@ -26,7 +26,7 @@ const BannerShow: React.FC<any> = ({ id }) => {
   
   return (
     <Show
-      title={t("banner")}
+      title="Banner"
       headerProps={{
         extra: false,
        // subTitle: "View",
@@ -38,19 +38,15 @@ const BannerShow: React.FC<any> = ({ id }) => {
         label={t("bannerlink")}
         textValue={record?.link}
       />
-      <TextField
-        icon="GlobalOutlined"
-        label={t("city")}
-        textValue={record?.city?.map((item: any) => item?.city_id?.name).join(", ")}
-      />
+      
       <TextField
         icon="ShopOutlined"
-        label={t("shopname")}
-        textValue={record?.merchant?.name}
+        label="client_name"
+        textValue={record?.client_name}
       />
       <BooleanField
         textValue={record?.isactive}
-        label={t("isactive")}
+        label="Is Active"
         icon={"CheckCircleOutlined"}
       />
       {/* <BooleanField
@@ -60,7 +56,7 @@ const BannerShow: React.FC<any> = ({ id }) => {
       /> */}
       <ImageTextField
         icon="PictureOutlined"
-        label={t("image")}
+        label="Image"
         imageValue={record?.image?.id}
         size={70}
       />
