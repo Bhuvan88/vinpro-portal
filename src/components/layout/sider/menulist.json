@@ -84,6 +84,14 @@
 		"resource": "team_members",
 		"link": "/team",
 		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "PoundOutlined",
+		"title": "Price List",
+		"module": "administration",
+		"resource": "price_list",
+		"link": "/price",
+		"roles": [ "Administrator" ]
 	}
 	
 ]
