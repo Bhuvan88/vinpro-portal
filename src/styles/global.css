@@ -364,7 +364,7 @@ body {
 	margin-top: 50px !important;
 }
 
-/*Margin Padding Styles*/
+/*Margin Padding Styles  00d889*/
 
 /*Menu*/
 .antMainMenu {
@@ -372,8 +372,9 @@ body {
     height: calc(100vh - 52px) !important;
     overflow-y: auto !important;
     padding: 6px 8px !important;
-    background-color: #00d889 !important;
+    background-color: #0f2b71 !important;
     border-right: #fff !important;
+	border-top: 1.5px solid #00d889;
 }
 .antMainMenuButton {
     display: flex !important;
@@ -383,18 +384,25 @@ body {
     margin-bottom: 8px;
    /* background-color: #f1f1f1 !important; */
 	color:#fff !important;
+	font-size: 15px;
 }
 
 .antMainMenuButtonSelected {
-   /* font-weight: bold !important;
-    background-color: #fff !important; */
+   /* font-weight: bold !important;*/
+    background-color: #fff !important; 
     color: #0f2b71 !important;
 	width: 100%;
+	border-radius: 0px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 .antMainMenuButton:hover {
 	width: 100%;
-    /*background-color: #fff !important; */
+    background-color: #fff !important; 
     color: #0f2b71 !important;
+	border-radius: 0px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 .antMainMenuList {
 	display: flex !important;

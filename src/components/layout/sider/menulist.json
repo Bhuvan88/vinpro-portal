@@ -28,24 +28,7 @@
 		"roles": [ "Administrator" ]
 		
 	},
-	{
-		"icon": "UserOutlined",
-		"title": "My Profile",
-		"module": "administration",
-		"resource": "",
-		"link": "../profile",
-		"roles": [ "Administrator", "Owner" ],
-		"sublink": [
-			{
-				"icon": "UserOutlined",
-				"title": "profile",
-				"module": "administration",
-				"resource": "",
-				"link": "../profile",
-				"roles": [ "Administrator", "Owner" ]
-			}			
-		]
-	},
+	
 	{
 		"icon": "GlobalOutlined",
 		"title": "Countries",

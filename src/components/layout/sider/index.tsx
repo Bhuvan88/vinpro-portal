@@ -167,7 +167,7 @@ export const Sider: React.FC<SiderProps> = () => {
                             >
                                 <Tooltip
                                     overlay={null}
-                                    title={title} //{t(title)}
+                                    //title={title} //{t(title)}
                                     placement="right"
                                     key={link}
                                 >

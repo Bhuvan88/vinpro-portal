@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
 	);
 
 	const UserMenu = (
-		<Menu style={{color: "#00d889" }}>		  
+		<Menu>		  
 		  <Menu.Item
 			  key="1"
 			  icon={
@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
 			  <Link
 					href={"../profile"}
 					 to={''} >
-					<span style={{ color: "#00d889", alignItems: "center" }}>My Profile</span>
+					<span style={{ color: "#0f2b71", alignItems: "center" }}>My Profile</span>
 			  </Link>
 			</Menu.Item>
 
@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
 				}
        			 onClick={() => logout()}
      		 >       
-			<span style={{ color: "#00d889", alignItems: "center" }}>Logout</span>
+			<span style={{ color: "#0f2b71", alignItems: "center" }}>Logout</span>
 		</Menu.Item>
 		</Menu>
 	);
@@ -115,7 +115,8 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
 					alignItems: 'center',
 					padding: '0px 24px',
 					height: '48px',
-					backgroundColor: '#ffff'
+					backgroundColor: '#ffff',
+					borderBottom: "1.5px solid #0f2b71"
 				}}
 			>
 				<Head>
@@ -185,7 +186,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
 				)}
 					<a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
 						{identity && (
-							<Typography.Text className="ml-10 txt-capitalize" style={{ color: '#DC5700' }}>
+							<Typography.Text className="ml-10 txt-capitalize" style={{ color: '#0f2b71' }}>
 								{identity?.first_name} {identity?.last_name}
 							</Typography.Text>
 						)}
