@@ -388,9 +388,9 @@ body {
 }
 
 .antMainMenuButtonSelected {
-   /* font-weight: bold !important;*/
-    background-color: #fff !important; 
-    color: #0f2b71 !important;
+   /* font-weight: bold !important;
+    background-color: #fff !important; */
+    color: #00d889 !important;
 	width: 100%;
 	border-radius: 0px;
     border-top-right-radius: 15px;
@@ -398,11 +398,11 @@ body {
 }
 .antMainMenuButton:hover {
 	width: 100%;
-    background-color: #fff !important; 
-    color: #0f2b71 !important;
+    background-color: #091e54 !important; 
+    color: #00d889 !important;
 	border-radius: 0px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+   /* border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px; */
 }
 .antMainMenuList {
 	display: flex !important;
