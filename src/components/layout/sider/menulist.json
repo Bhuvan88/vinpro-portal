@@ -45,10 +45,6 @@
 				"link": "/countries",
 				"roles": [ "Administrator" ]
 			}
-			
-
-			
-			
 		]
 	},
 	{
@@ -74,6 +70,22 @@
 		"module": "administration",
 		"resource": "price_list",
 		"link": "/price",
+		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "CalculatorOutlined",
+		"title": "CTC Calulator",
+		"module": "administration",
+		"resource": "ctc",
+		"link": "/ctc",
+		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "CalculatorOutlined",
+		"title": "CTC Regime",
+		"module": "administration",
+		"resource": "regime",
+		"link": "/regime",
 		"roles": [ "Administrator" ]
 	}
 	

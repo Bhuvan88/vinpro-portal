@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate } from "@refinedev/core";
-import { Create, useDrawerForm } from "@refinedev/antd";
+import { Create, useDrawerForm, useSelect } from "@refinedev/antd";
 import {
   Form,
   Input,
   Drawer,
   InputNumber,
   Divider,
-  Typography,
+  Select,
   Card,
   Button,
   Space,
@@ -27,7 +27,7 @@ type CreateDrawerProps = {
   visible: boolean;
 };
 
-const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const RegimeCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const { TextArea } = Input;
   const t = useTranslate();
   const apiUrl = useApiUrl();
@@ -38,6 +38,35 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   ];
   const getUploadProps = useDirectusUpload(mediaConfigList, directusClient);
 
+  const { selectProps: countryProps } = useSelect({
+    resource: "countries",
+    optionLabel: "name",
+    optionValue: "id",
+    sorters: [
+      {
+        field: "name",
+        order: "asc",
+      },
+    ],
+
+    pagination: {
+      pageSize: -1,
+    },
+  });
+
+
+  const defaultMapper = (params: any) => {
+    mediaUploadMapper(params, mediaConfigList);
+    if (params?.image) {
+      params["image"] = params?.image;
+    } else {
+      params["image"] = null;
+    }
+    return {
+      ...params,
+    };
+  };
+
   // Create Drawer
   const { drawerProps, formProps, saveButtonProps, show, close } =
     useDrawerForm({
@@ -47,7 +76,7 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         callback("success");
       },
       action: "create",
-      resource: "price_list",
+      resource: "ctc_regime",
       redirect: false,
       successNotification: (data) => {
         return {
@@ -66,21 +95,13 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }
   }, [visible]);
 
-  const defaultMapper = (params: any) => {
-    mediaUploadMapper(params, mediaConfigList);
-
-    return {
-      ...params,
-    };
-  };
-
   return (
     <Drawer
       {...drawerProps}
       onClose={() => {
         callback("close");
       }}
-      width={400}
+      width={480}
     >
       <Create
         saveButtonProps={saveButtonProps}
@@ -95,69 +116,93 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           {...formProps}
           layout="vertical"
           onFinish={(values) => {
-            return (
-              formProps.onFinish && formProps.onFinish(defaultMapper(values))
-            );
+            formProps.onFinish && formProps.onFinish(defaultMapper(values));
           }}
           onValuesChange={(changedValues, allValues) => {
             setFormData(allValues);
           }}
         >
           <FormIconInput
-            label="Plan Title"
+            label="Regime Title"
             name={"title"}
-            rules={[{ required: true, message: "please enter the title" }]}
-            children={<Input />}
+            rules={[{ required: true, message: "please enter title" }]}
+            children={<Input placeholder="Enter regime title" />}
             icon={"global"}
           />
 
           <FormIconInput
-            label="Plan Price Title"
-            name={"pricetitle"}
-            rules={[{ required: false, message: "please enter the title" }]}
-            children={<Input />}
+            label="Country"
+            name={"country"}
+            rules={[{ required: true, message: "please select your country" }]}
+            children={<Select {...countryProps} />}
             icon={"global"}
           />
 
-          <FormIconInput
-            label="Plan Price"
-            name={"price"}
-            rules={[{ required: false, message: "please enter the title" }]}
-            children={
-              <InputNumber
-                style={{ width: "100%" }}
-                placeholder="Enter only price"
-              />
-            }
-            icon={"global"}
-          />
-          <Divider orientation="left">Plan Details</Divider>
-          <Form.List name="details">
+          <Divider orientation="left">Slab</Divider>
+          <Form.List name="slab">
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <div key={key}>
-                    {/* Wrapping last name input and minus button in a flex container */}
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                  <div key={key} style={{ marginBottom: 10, borderBottom:'1px solid #ccc' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <Form.Item
                         {...restField}
-                        name={name}
-                        rules={[{ required: true, message: "Missing lable" }]}
-                        style={{ flex: 1 }} // Makes input take full width
+                        name={[name, "slab"]}
+                        rules={[{ required: true, message: "Missing slab" }]}
+                        style={{width: "90%"}}
                       >
-                        <Input placeholder="Plan Details" />
+                        <Input placeholder="Enter slab name" />
                       </Form.Item>
-
                       {/* Minus Button aligned to the right */}
                       <MinusCircleOutlined
                         onClick={() => remove(name)}
                         style={{
+                          marginTop: -20,
                           marginLeft: 10,
                           fontSize: 16,
                           cursor: "pointer",
-                          marginTop: -25,
+                          color: "red",
                         }}
                       />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Form.Item
+                        {...restField}
+                        name={[name, "from"]}
+                        rules={[{ required: false, message: "Missing lable" }]}
+                      >
+                        <Input placeholder="Value From" />
+                      </Form.Item>
+
+                      <Form.Item
+                        {...restField}
+                        name={[name, "to"]}
+                        rules={[{ required: false, message: "Missing lable" }]}
+                      >
+                        <Input placeholder="Value to" />
+                      </Form.Item>
+
+                      {/* Wrapping last name input and minus button in a flex container */}
+
+                      <Form.Item
+                        {...restField}
+                        name={[name, "rate"]}
+                        rules={[{ required: true, message: "Missing lable" }]}
+                      >
+                        <InputNumber placeholder="Amount" />
+                      </Form.Item>
                     </div>
                   </div>
                 ))}
@@ -174,28 +219,10 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               </>
             )}
           </Form.List>
-
-          <FormIconInput
-            label="Button Text"
-            name={"buttontext"}
-            rules={[{ required: true, message: "Please enter the button title" }]}
-            children={<Input />}
-            icon={"global"}
-          />
-
-          <FormIconInput
-            label="Button Link"
-            name={"buttonlink"}
-            rules={[{ required: false, message: "please enter the title" }]}
-            children={
-              <Input />
-            }
-            icon={"global"}
-          />
         </Form>
       </Create>
     </Drawer>
   );
 };
 
-export default PriceCreate;
+export default RegimeCreate;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate } from "@refinedev/core";
-import { Edit, useForm } from "@refinedev/antd";
-import { Form, Input, Divider, InputNumber, Button } from "antd";
+import { Edit, useForm, useSelect } from "@refinedev/antd";
+import { Form, Input, Divider, InputNumber, Button, Select } from "antd";
 import { commonServerSideProps } from "src/commonServerSideProps";
 import FormIconInput from "@components/Inputs/FormIconInput";
 import {
@@ -20,7 +20,7 @@ type EditProps = {
   callback: (status: string) => void;
   id: string;
 };
-const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
+const RegimeEdit: React.FC<EditProps> = ({ callback, id }) => {
   const t = useTranslate();
   const apiUrl = useApiUrl();
   const { TextArea } = Input;
@@ -45,18 +45,9 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
     },
     id: id,
     action: "edit",
-    resource: "price_list",
+    resource: "ctc_regime",
     metaData: {
-      fields: [
-        "title",
-        "pricetitle",
-        "price",
-        "details",
-		  "buttontext",
-		  "buttonlink",
-        "date_created",
-        "date_updated",
-      ],
+      fields: ["*", "country.id", "country.name"],
     },
     redirect: false,
     warnWhenUnsavedChanges: true,
@@ -71,6 +62,23 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
 
   const { data, isLoading } = queryResult;
   const record = data?.data;
+  //console.log('record', record);
+
+  const { selectProps: countryProps } = useSelect({
+    resource: "countries",
+    optionLabel: "name",
+    optionValue: "id",
+    sorters: [
+      {
+        field: "name",
+        order: "asc",
+      },
+    ],
+
+    pagination: {
+      pageSize: -1,
+    },
+  });
 
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
@@ -86,11 +94,11 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
 
   useEffect(() => {
     if (record) {
-      console.log(JSON.parse(record.details)); // Parse record.details
+      //console.log(JSON.parse(record.details)); // Parse record.details
 
       form.setFieldsValue({
-        title: record.title,
-        details: JSON.parse(record.details), // Ensure details is an array
+        country: record.country,
+        slab: JSON.parse(record.slab),
       });
     }
   }, [record, form]); // Runs when `record`
@@ -123,58 +131,89 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
         }}
       >
         <FormIconInput
-          label="Plan Title"
+          label="Regime Title"
           name={"title"}
-          rules={[{ required: true, message: "please enter the title" }]}
-          children={<Input />}
+          rules={[{ required: true, message: "please enter title" }]}
+          children={<Input placeholder="Enter regime title" />}
           icon={"global"}
         />
 
         <FormIconInput
-          label="Plan Price Title"
-          name={"pricetitle"}
-          rules={[{ required: false, message: "please enter the title" }]}
-          children={<Input />}
+          label="Country"
+          name={"country"}
+          rules={[{ required: true, message: "please select your country" }]}
+          children={<Select {...countryProps} />}
           icon={"global"}
         />
 
-        <FormIconInput
-          label="Plan Price"
-          name={"price"}
-          rules={[{ required: false, message: "please enter the title" }]}
-          children={
-            <InputNumber
-              style={{ width: "100%" }}
-              placeholder="Enter only price"
-            />
-          }
-          icon={"global"}
-        />
-        <Divider orientation="left">Plan Details</Divider>
-        {/* Editable Form.List */}
-        <Form.List name="details">
+        <Divider orientation="left">Slab</Divider>
+        <Form.List name="slab">
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...restField }) => (
-                <div key={key} style={{ marginBottom: 8 }}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                <div
+                  key={key}
+                  style={{ marginBottom: 10, borderBottom: "1px solid #ccc" }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <Form.Item
                       {...restField}
-                      name={name}
-                      rules={[{ required: true, message: "Missing value" }]}
-                      style={{ flex: 1 }}
+                      name={[name, "slab"]}
+                      rules={[{ required: true, message: "Missing slab" }]}
+                      style={{ width: "90%" }}
                     >
-                      <Input placeholder="Value" />
+                      <Input placeholder="Enter slab name" />
                     </Form.Item>
+                    {/* Minus Button aligned to the right */}
                     <MinusCircleOutlined
                       onClick={() => remove(name)}
                       style={{
+                        marginTop: -20,
                         marginLeft: 10,
                         fontSize: 16,
-                        marginTop: -25,
                         cursor: "pointer",
+                        color: "red",
                       }}
                     />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={[name, "from"]}
+                      rules={[{ required: false, message: "Missing lable" }]}
+                    >
+                      <Input placeholder="Value From" />
+                    </Form.Item>
+
+                    <Form.Item
+                      {...restField}
+                      name={[name, "to"]}
+                      rules={[{ required: false, message: "Missing lable" }]}
+                    >
+                      <Input placeholder="Value to" />
+                    </Form.Item>
+
+                    {/* Wrapping last name input and minus button in a flex container */}
+
+                    <Form.Item
+                      {...restField}
+                      name={[name, "rate"]}
+                      rules={[{ required: true, message: "Missing lable" }]}
+                    >
+                      <InputNumber placeholder="Amount" />
+                    </Form.Item>
                   </div>
                 </div>
               ))}
@@ -191,27 +230,9 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
             </>
           )}
         </Form.List>
-
-		  <FormIconInput
-            label="Button Text"
-            name={"buttontext"}
-            rules={[{ required: true, message: "Please enter the button title" }]}
-            children={<Input />}
-            icon={"global"}
-          />
-
-          <FormIconInput
-            label="Button Link"
-            name={"buttonlink"}
-            rules={[{ required: false, message: "please enter the title" }]}
-            children={
-              <Input />
-            }
-            icon={"global"}
-          />
       </Form>
     </Edit>
   );
 };
 
-export default CuisineEdit;
+export default RegimeEdit;

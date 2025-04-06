@@ -4,7 +4,7 @@ import {
   useExport,
   useShow,
   CrudFilters,
-  useApiUrl
+  useApiUrl,
 } from "@refinedev/core";
 import {
   DateField,
@@ -13,24 +13,17 @@ import {
   useTable,
   TextField,
   getDefaultSortOrder,
-  ImageField
+  ImageField,
 } from "@refinedev/antd";
-import {
-  Table,
-  Space,
-  Typography,
-  Input,
-  Form,
-  Button,
-} from "antd";
+import { Table, Space, Typography, Input, Form, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 
 import { commonServerSideProps } from "src/commonServerSideProps";
 import { useTeam } from "src/teamProvider";
-import CuisineCreate from "./create";
-import CuisineEdit from "./edit";
-import CuisineShow from "./show";
+import RegimeCreate from "./create";
+import RegimeEdit from "./edit";
+import RegimeShow from "./show";
 import CustomDrawer from "@components/datacomponents/CustomDrawer";
 import AvatarField from "@components/datacomponents/AvatarField";
 import NextRouter from "@refinedev/nextjs-router";
@@ -38,9 +31,9 @@ import dayjs from "dayjs";
 const { Link } = NextRouter;
 export const getServerSideProps = commonServerSideProps;
 
-const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
+const RegimeList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const t = useTranslate();
-   const apiUrl = useApiUrl();
+  const apiUrl = useApiUrl();
   const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
   const [showCreateDrawer, setShowCreateDrawer] = useState(false);
   const [showEditDrawer, setShowEditDrawer] = useState(false);
@@ -49,23 +42,23 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const [items, setItems] = useState<any>([]);
 
   useEffect(() => {
-    setSelectedMenu("/price", "/price");
-    setHeaderTitle("PriceList");
+    setSelectedMenu("/regime", "/regime");
+    setHeaderTitle("Regime");
   }, []);
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({
-      resource: "price_list",
+      resource: "ctc_regime",
       syncWithLocation: true,
-      pagination: {             
-               pageSize:20,
-               mode:'server'
-           },
+      pagination: {
+        pageSize: 20,
+        mode: "server",
+      },
       queryOptions: {
         initialData,
       },
       metaData: {
-        fields: ["id","title","details","date_created","details"]
+        fields: ["*", "country.id", "country.name"],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -79,29 +72,24 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
         return filters;
       },
-  //     sorters: {              
-  //       initial: [
-  //         {
-  //           field: "date_created",
-  //           order: "desc",
-  //         },
-  //         {
-  //           field: "name",
-  //           order: "asc",
-  //         },
-  //       ],
-  //  },
+      sorters: {
+        initial: [
+          {
+            field: "date_created",
+            order: "desc",
+          },
+        ],
+      },
     });
 
-    const record = tableQueryResult?.data?.data;
-    useEffect(() => {
-      if (record) {
-        setItems(record);
-      } else {
-        setItems([]);
-      }
-    }, [record]);
-
+  const record = tableQueryResult?.data?.data;
+  useEffect(() => {
+    if (record) {
+      setItems(record);
+    } else {
+      setItems([]);
+    }
+  }, [record]);
 
   const createCallback = (status) => {
     if (status === "success") {
@@ -129,14 +117,12 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
     }
   };
 
-
-
   return (
     <>
       <div className="stickyheader">
         <div className="flex-row" style={{ alignItems: "center" }}>
           <Typography.Title level={5} className="headTitle">
-            Price List
+            Reigme List
           </Typography.Title>
           <Form
             layout="vertical"
@@ -146,34 +132,28 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             }}
           >
             <Space>
-            <Form.Item name="search" className="card-search mt-20 ml-10">
-              <Input
-                 allowClear
-                 style={{width:180}}
-                className="search-input"
-                placeholder="Search"
-                prefix={<CustomIcon type="SearchOutlined" />}
-              />
-            </Form.Item>
+              <Form.Item name="search" className="card-search mt-20 ml-10">
+                <Input
+                  allowClear
+                  style={{ width: 180 }}
+                  className="search-input"
+                  placeholder="Search"
+                  prefix={<CustomIcon type="SearchOutlined" />}
+                />
+              </Form.Item>
             </Space>
           </Form>
-
-              
         </div>
-
-        
-         
 
         <div style={{ marginRight: 30 }}>
           <Space>
-          <CreateButton
-            onClick={() => setShowCreateDrawer(true)}
-            type="primary"
-            className="mr-5"
-          >
-            Add
-          </CreateButton>
-         
+            <CreateButton
+              onClick={() => setShowCreateDrawer(true)}
+              type="primary"
+              className="mr-5"
+            >
+              Add
+            </CreateButton>
           </Space>
         </div>
       </div>
@@ -189,12 +169,13 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) =>
-              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t("items")}`,
+              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t(
+                "items"
+              )}`,
           },
         }}
       >
-
-         <Table.Column
+        <Table.Column
           width={50}
           dataIndex="sno"
           key="sno"
@@ -202,27 +183,33 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           render={(text, object, index) => index + 1}
         />
 
-     
-
         <Table.Column
           width={150}
-          dataIndex="title"
+          dataIndex={"title"}
           key="title"
-          title="title"
-          render={(value) => <TextField value={value} />}
-          //defaultSortOrder={getDefaultSortOrder("name", sorters)}
+          title="Regime Title"
+          render={(value) => value && <TextField value={value} />}
+          //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
           //sorter
         />
-        
-       
-              
+        <Table.Column
+          width={150}
+          dataIndex={["country", "name"]}
+          key="country"
+          title="Country"
+          render={(value) => <TextField value={value} />}
+          //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
+          //sorter
+        />
 
         <Table.Column
           width={130}
           dataIndex="date_created"
           key="date_created"
           title="Date Created"
-          render={(value) => value && <DateField value={value} format="MMM DD, YYYY HH:mm" />}
+          render={(value) =>
+            value && <DateField value={value} format="MMM DD, YYYY HH:mm" />
+          }
           //defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
           //sorter
         />
@@ -248,23 +235,23 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       </Table>
 
       {showCreateDrawer && (
-        <CuisineCreate callback={createCallback} visible={showCreateDrawer} />
+        <RegimeCreate callback={createCallback} visible={showCreateDrawer} />
       )}
 
       {showEditDrawer && (
         <CustomDrawer
           callback={editCallback}
           visible={showEditDrawer}
-          resource={"price_list"}
-          permissionResource={"price_list"}
+          resource={"ctc_regime"}
+          permissionResource={"ctc_regime"}
           module={"administration"}
           id={editId}
-          viewProps={<CuisineShow id={editId} />}
-          editProps={<CuisineEdit id={editId} callback={editCallback} />}
+          viewProps={<RegimeShow id={editId} />}
+          editProps={<RegimeEdit id={editId} callback={editCallback} />}
         />
       )}
     </>
   );
 };
 
-export default CuisineList;
+export default RegimeList;

@@ -4,7 +4,7 @@ import {
   useExport,
   useShow,
   CrudFilters,
-  useApiUrl
+  useApiUrl,
 } from "@refinedev/core";
 import {
   DateField,
@@ -13,16 +13,9 @@ import {
   useTable,
   TextField,
   getDefaultSortOrder,
-  ImageField
+  ImageField,
 } from "@refinedev/antd";
-import {
-  Table,
-  Space,
-  Typography,
-  Input,
-  Form,
-  Button,
-} from "antd";
+import { Table, Space, Typography, Input, Form, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 
@@ -40,7 +33,7 @@ export const getServerSideProps = commonServerSideProps;
 
 const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const t = useTranslate();
-   const apiUrl = useApiUrl();
+  const apiUrl = useApiUrl();
   const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
   const [showCreateDrawer, setShowCreateDrawer] = useState(false);
   const [showEditDrawer, setShowEditDrawer] = useState(false);
@@ -57,15 +50,15 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
     useTable<any>({
       resource: "countries",
       syncWithLocation: true,
-      pagination: {             
-               pageSize:20,
-               mode:'server'
-           },
+      pagination: {
+        pageSize: 20,
+        mode: "server",
+      },
       queryOptions: {
         initialData,
       },
       metaData: {
-        fields: ["id","name","date_created","image","description"]
+        fields: ["id", "name", "date_created", "image", "description"],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -79,29 +72,28 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
         return filters;
       },
-  //     sorters: {              
-  //       initial: [
-  //         {
-  //           field: "date_created",
-  //           order: "desc",
-  //         },
-  //         {
-  //           field: "name",
-  //           order: "asc",
-  //         },
-  //       ],
-  //  },
+      //     sorters: {
+      //       initial: [
+      //         {
+      //           field: "date_created",
+      //           order: "desc",
+      //         },
+      //         {
+      //           field: "name",
+      //           order: "asc",
+      //         },
+      //       ],
+      //  },
     });
 
-    const record = tableQueryResult?.data?.data;
-    useEffect(() => {
-      if (record) {
-        setItems(record);
-      } else {
-        setItems([]);
-      }
-    }, [record]);
-
+  const record = tableQueryResult?.data?.data;
+  useEffect(() => {
+    if (record) {
+      setItems(record);
+    } else {
+      setItems([]);
+    }
+  }, [record]);
 
   const createCallback = (status) => {
     if (status === "success") {
@@ -133,13 +125,15 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
     resource: "cuisine",
     filters: filters,
     metaData: {
-      fields: ["name","image.*","date_created"],
+      fields: ["name", "image.*", "date_created"],
     },
     mapData: (item) => {
       return {
         Name: item.name,
-        Image:item.image,
-        Date_Created:dayjs(item?.date_created, 'YYYY-MM-DD HH:mm').format('DD-MM-YYYY HH:mm'),       
+        Image: item.image,
+        Date_Created: dayjs(item?.date_created, "YYYY-MM-DD HH:mm").format(
+          "DD-MM-YYYY HH:mm"
+        ),
       };
     },
   });
@@ -159,34 +153,28 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             }}
           >
             <Space>
-            <Form.Item name="search" className="card-search mt-20 ml-10">
-              <Input
-                 allowClear
-                 style={{width:180}}
-                className="search-input"
-                placeholder="Search"
-                prefix={<CustomIcon type="SearchOutlined" />}
-              />
-            </Form.Item>
+              <Form.Item name="search" className="card-search mt-20 ml-10">
+                <Input
+                  allowClear
+                  style={{ width: 180 }}
+                  className="search-input"
+                  placeholder="Search"
+                  prefix={<CustomIcon type="SearchOutlined" />}
+                />
+              </Form.Item>
             </Space>
           </Form>
-
-              
         </div>
-
-        
-         
 
         <div style={{ marginRight: 30 }}>
           <Space>
-          <CreateButton
-            onClick={() => setShowCreateDrawer(true)}
-            type="primary"
-            className="mr-5"
-          >
-            Add
-          </CreateButton>
-         
+            <CreateButton
+              onClick={() => setShowCreateDrawer(true)}
+              type="primary"
+              className="mr-5"
+            >
+              Add
+            </CreateButton>
           </Space>
         </div>
       </div>
@@ -202,20 +190,19 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) =>
-              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t("items")}`,
+              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t(
+                "items"
+              )}`,
           },
         }}
       >
-
-         <Table.Column
+        <Table.Column
           width={50}
           dataIndex="sno"
           key="sno"
           title={t("sno")}
           render={(text, object, index) => index + 1}
         />
-
-     
 
         <Table.Column
           width={150}
@@ -226,30 +213,30 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           //defaultSortOrder={getDefaultSortOrder("name", sorters)}
           //sorter
         />
-        
+
         <Table.Column
-                  width={100}
-                  dataIndex="image"
-                  key="image"
-                  title={t("image")}
-                  render={(value: any) => (
-                    <ImageField
-                      value={apiUrl + "assets/" + value}
-                      width={40}
-                      height={40}
-                      style={{ objectFit: "cover" }}
-                    />
-                  )}
-                  defaultSortOrder={getDefaultSortOrder("image", sorters)}
-                  //sorter
-                />
-                <Table.Column
-                          width={150}
-                          dataIndex="description"
-                          key="description"
-                          title="Description"
-                          render={(value) => <TextField value={value} />}               
-                        />
+          width={100}
+          dataIndex="image"
+          key="image"
+          title={t("image")}
+          render={(value: any) => (
+            <ImageField
+              value={apiUrl + "assets/" + value}
+              width={40}
+              height={40}
+              style={{ objectFit: "cover" }}
+            />
+          )}
+          defaultSortOrder={getDefaultSortOrder("image", sorters)}
+          //sorter
+        />
+        <Table.Column
+          width={150}
+          dataIndex="description"
+          key="description"
+          title="Description"
+          render={(value) => <TextField value={value} />}
+        />
 
         {/* <Table.Column
           width={150}
@@ -270,7 +257,9 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           dataIndex="date_created"
           key="date_created"
           title="Date Created"
-          render={(value) => value && <DateField value={value} format="MMM DD, YYYY HH:mm" />}
+          render={(value) =>
+            value && <DateField value={value} format="MMM DD, YYYY HH:mm" />
+          }
           //defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
           //sorter
         />
