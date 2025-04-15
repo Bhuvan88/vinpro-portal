@@ -145,6 +145,14 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
             icon={"global"}
           />
 
+         <FormIconInput
+            label="Basic pay"
+            name={"basic"}
+            rules={[{ required: false, message: "please enter basic pay" }]}
+            children={<Input placeholder="Enter basic pay % only" />}
+            icon={"global"}
+          />
+
           <Divider orientation="left">Earnings</Divider>
           <Form.List name="earnings">
             {(fields, { add, remove }) => (

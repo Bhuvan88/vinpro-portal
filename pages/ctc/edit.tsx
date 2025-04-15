@@ -101,18 +101,18 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
     };
   };
 
+
   useEffect(() => {
     if (record) {
-      //console.log(JSON.parse(record.details)); // Parse record.details
-
       form.setFieldsValue({
-        country: record.country,
-		  regime: record.regime,
+        country: record.country?.id, // Use ID instead of object
+        regime: record.regime?.id,
         earnings: JSON.parse(record.earnings),
-		  deductions: JSON.parse(record.deductions), // Ensure details is an array
+        deductions: JSON.parse(record.deductions),
       });
     }
-  }, [record, form]); // Runs when `record`
+  }, [record, form]);
+  
 
   return (
     <Edit
@@ -140,6 +140,7 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
         onValuesChange={(changedValues, allValues) => {
           setFormData(allValues);
         }}
+       
 		  
       >
         <FormIconInput
@@ -156,6 +157,13 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
           children={<Select {...regimeProps} />}
           icon={"global"}
         />
+          <FormIconInput
+            label="Basic pay"
+            name={"basic"}
+            rules={[{ required: false, message: "please enter basic pay" }]}
+            children={<Input placeholder="Enter basic pay % only" />}
+            icon={"global"}
+          />
 
         <Divider orientation="left">Earnings</Divider>
         <Form.List name="earnings">
