@@ -102,7 +102,6 @@ const EditExtra: React.FC<CreateDrawerProps> = ({ callback, visible, editData}) 
 
   const extrasalloptions = [...(extrasProps?.options || []), {label:editData?.extrasname,value:editData?.extrasid}];
 
-    
   return (
     <Drawer
       {...drawerProps}

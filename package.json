@@ -1,14 +1,14 @@
 {
-  "name": "hemkortadminapp",
+  "name": "vinproadmin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS=--max_old_space_size=4096 next dev",
     "build": "NODE_ENV=production next build",
-    "start": "next start",
+    "start": "NODE_ENV=production next start -p 3007",
     "development": "NODE_ENV=development next dev -p 3007",
     "staging": "NODE_ENV=test next build && next start -p 3007",
-    "production": "next start -p 3007",
+    "production": "NODE_ENV=production next start -p 3007",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {

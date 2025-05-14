@@ -28,7 +28,7 @@ import { useTeam } from "src/teamProvider";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { commonServerSideProps } from "src/commonServerSideProps";
 import { useRouter } from "next/router";
-import CreateExtra from "pages/extras/createExtra";
+//import CreateExtra from "pages/extras/createExtra";
 
 export const getServerSideProps = commonServerSideProps;
 
@@ -235,7 +235,7 @@ const CreateCategory: React.FC<CreateDrawerProps> = ({ callback, visible, catego
           />
         </Form>
 
-        {showExtraDrawer && (<CreateExtra callback={createCallback} visible={showExtraDrawer} />)}
+        {/* showExtraDrawer && (<CreateExtra callback={createCallback} visible={showExtraDrawer} />) */}
 
       </Create>
     </Drawer>

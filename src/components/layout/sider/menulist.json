@@ -26,6 +26,14 @@
 		"resource": "contactus",
 		"link": "/contactus",
 		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "DollarOutlined",
+		"title": "Currency",
+		"module": "administration",
+		"resource": "currency",
+		"link": "/currency",
+		"roles": [ "Administrator" ]
 		
 	},
 	
@@ -86,6 +94,14 @@
 		"module": "administration",
 		"resource": "regime",
 		"link": "/regime",
+		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "FileTextOutlined",
+		"title": "EOR Notes",
+		"module": "administration",
+		"resource": "eor_notes",
+		"link": "/notes",
 		"roles": [ "Administrator" ]
 	}
 	

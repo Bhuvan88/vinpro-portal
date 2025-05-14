@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate } from "@refinedev/core";
-import {
-  Create,
-  useDrawerForm,
-} from "@refinedev/antd";
-import {
-  Form,
-  Input,
-  Drawer,
-  Upload,
-} from "antd";
+import { Create, useDrawerForm, useSelect } from "@refinedev/antd";
+import { Form, Input, Drawer, Upload, Select } from "antd";
 import FormIconInput from "@components/Inputs/FormIconInput";
 import {
   getValueProps,
@@ -23,9 +15,9 @@ import { CustomIcon } from "@components/datacomponents/CustomIcon";
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
-}; 
+};
 
-const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const CountryCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const { TextArea } = Input;
   const t = useTranslate();
   const apiUrl = useApiUrl();
@@ -49,7 +41,7 @@ const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       redirect: false,
       successNotification: (data) => {
         return {
-          message:"Successfully Created",
+          message: "Successfully Created",
           description: t("successfull"),
           type: "success",
         };
@@ -64,7 +56,21 @@ const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }
   }, [visible]);
 
-
+    const { selectProps: currencyProps } = useSelect({
+      resource: "currency",
+      optionLabel: "name",
+      optionValue: "id",
+      sorters: [
+        {
+          field: "name",
+          order: "asc",
+        },
+      ],
+  
+      pagination: {
+        pageSize: -1,
+      },
+    });
 
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
@@ -82,8 +88,14 @@ const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       }}
       width={400}
     >
-      <Create saveButtonProps={saveButtonProps} goBack    
-        headerProps={{ extra: false, title: "Create", className: "drawer-body" }} 
+      <Create
+        saveButtonProps={saveButtonProps}
+        goBack
+        headerProps={{
+          extra: false,
+          title: "Create",
+          className: "drawer-body",
+        }}
       >
         <Form
           {...formProps}
@@ -100,59 +112,75 @@ const CuisineCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           <FormIconInput
             label="Name"
             name={"name"}
-            rules={[{ required: true, message: t("entercuisinename") }]}
+            rules={[{ required: true, message: "Enter Country Name" }]}
             children={<Input />}
             icon={"global"}
           />
-           <FormIconInput
-                    label="Description"
-                    name={"description"}
-                    rules={[{ required: false, message: t("enteritemdescrption") }]}
-                    children={<TextArea />}
-                    icon={"DollarOutlined"}
-                  />
+
+        <FormIconInput
+            label={"Currency"}
+            name={"name"}
+            rules={[
+              {
+                required: true,
+                whitespace: true,
+                message: "Enter Currency",
+              },
+            ]}
+            children={<Select mode="multiple" {...currencyProps}/>}
+            icon={"DiffOutlined"}
+          />
+
+
+          <FormIconInput
+            label="Description"
+            name={"description"}
+            rules={[{ required: false, message: "Enter country description" }]}
+            children={<TextArea />}
+            icon={"DollarOutlined"}
+          />
 
           <div className="icon-input-field">
-                    <CustomIcon
-                      type={"PictureOutlined"}
-                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                    />
-                    <Form.Item label={t("image")}>
-                      <Form.Item
-                        name="image"
-                        valuePropName="fileList"
-                        getValueProps={(data) =>
-                          getValueProps({
-                            data,
-                            imageUrl: apiUrl,
-                          })
-                        }
-                        noStyle
-                        rules={[
-                          {
-                            required:true,message:"Image is required"
-                          },
-                        ]}
-                      >
-                        <Upload.Dragger
-                          name="file"
-                          listType="picture"
-                          multiple={false}
-                          beforeUpload={() => false}
-                          {...getUploadProps("image")}
-                        >
-                          <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                          </p>
-                        </Upload.Dragger>
-                      </Form.Item>
-                    </Form.Item>
-                  </div>
-        
+            <CustomIcon
+              type={"PictureOutlined"}
+              styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+            />
+            <Form.Item label={t("image")}>
+              <Form.Item
+                name="image"
+                valuePropName="fileList"
+                getValueProps={(data) =>
+                  getValueProps({
+                    data,
+                    imageUrl: apiUrl,
+                  })
+                }
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "Image is required",
+                  },
+                ]}
+              >
+                <Upload.Dragger
+                  name="file"
+                  listType="picture"
+                  multiple={false}
+                  beforeUpload={() => false}
+                  {...getUploadProps("image")}
+                >
+                  <p className="ant-upload-text">
+                    {t("drag&dropafileinthisarea")}
+                  </p>
+                </Upload.Dragger>
+              </Form.Item>
+            </Form.Item>
+          </div>
         </Form>
       </Create>
     </Drawer>
   );
 };
 
-export default CuisineCreate;
+export default CountryCreate;

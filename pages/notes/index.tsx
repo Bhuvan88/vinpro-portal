@@ -15,7 +15,7 @@ import {
   getDefaultSortOrder,
   ImageField,
 } from "@refinedev/antd";
-import { Table, Space, Typography, Input, Form, Button } from "antd";
+import { Table, Space, Typography, Input, Form, Button,Tag, Badge } from "antd";
 import React, { useEffect, useState } from "react";
 import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 
@@ -31,7 +31,7 @@ import dayjs from "dayjs";
 const { Link } = NextRouter;
 export const getServerSideProps = commonServerSideProps;
 
-const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
+const NotesCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const t = useTranslate();
   const apiUrl = useApiUrl();
   const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
@@ -42,13 +42,13 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const [items, setItems] = useState<any>([]);
 
   useEffect(() => {
-    setSelectedMenu("/ctc", "/ctc");
-    setHeaderTitle("CTClist");
+    setSelectedMenu("/notes", "/notes");
+    setHeaderTitle("EOR Notes");
   }, []);
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({
-      resource: "ctc",
+      resource: "eor_notes",
       syncWithLocation: true,
       pagination: {
         pageSize: 20,
@@ -58,7 +58,7 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         initialData,
       },
       metaData: {
-        fields: ["*", "country.id", "country.name", "regime.id", "regime.title"],
+        fields: ["*", "country.name"],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -75,8 +75,8 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       sorters: {
         initial: [
           {
-            field: "date_created",
-            order: "desc",
+            field: "sort",
+            order: "asc",
           },
         ],
        },
@@ -122,7 +122,7 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       <div className="stickyheader">
         <div className="flex-row" style={{ alignItems: "center" }}>
           <Typography.Title level={5} className="headTitle">
-            CTC List
+            Notes 
           </Typography.Title>
           <Form
             layout="vertical"
@@ -176,30 +176,18 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         }}
       >
         <Table.Column
-          width={50}
+          width={90}
           dataIndex="sno"
           key="sno"
           title={t("sno")}
           render={(text, object, index) => index + 1}
         />
 
-          <Table.Column
-            width={150}
-            dataIndex={["country", "name"]}
-            key="country"
-            title="Country"
-            render={(value) => (
-              <TextField  value={value} />
-            )}
-            //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
-            //sorter
-          />
          
           <Table.Column
-            width={150}
-            dataIndex={["regime", "title"]}
-            key="regime"
-            title="Regime"
+            dataIndex={"notes"}
+            key="notes"
+            title="EOR Notes"
             render={(value) => (
               <TextField value={value} />
             )}
@@ -207,29 +195,27 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             //sorter
           />
 
-          <Table.Column
-            width={150}
-            dataIndex={"managementfee"}
-            key="managementfee"
-            title="Management fee"
-            render={(value) => (
-              value && <TextField value={'USD '+value} />
-            )}
-            //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
-            //sorter
-          />
+        <Table.Column
+          width={100}
+          dataIndex={["country", "name"]}
+          key="sort"
+          title={"Country"}
+          render={(value) => (
+            <Tag style={{fontSize:14, padding:'4px 8px'}} >{value}</Tag>
+          )}
+        />
+          
 
         <Table.Column
-          width={130}
-          dataIndex="date_created"
-          key="date_created"
-          title="Date Created"
-          render={(value) =>
-            value && <DateField value={value} format="MMM DD, YYYY HH:mm" />
-          }
-          //defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
-          //sorter
+          width={90}
+          dataIndex="sort"
+          key="sort"
+          title={"Order"}
+          render={(value) => (
+            <Badge count={value} color="#1492fa"/>
+          )}
         />
+       
 
         <Table.Column<any>
           width={100}
@@ -259,11 +245,11 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         <CustomDrawer
           callback={editCallback}
           visible={showEditDrawer}
-          resource={"ctc"}
-          permissionResource={"ctc"}
+          resource={"eor_notes"}
+          permissionResource={"eor_notes"}
           module={"administration"}
           id={editId}
-          viewProps={<CtcShow id={editId} />}
+          viewProps={false}
           editProps={<CtcEdit id={editId} callback={editCallback} />}
         />
       )}
@@ -271,4 +257,4 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   );
 };
 
-export default CtcList;
+export default NotesCreate;

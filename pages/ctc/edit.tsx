@@ -64,30 +64,30 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
   const record = data?.data;
   //console.log('record', record);
 
-	const { selectProps: countryProps } = useSelect({
-		resource: "countries",
-		optionLabel: "name",
-		optionValue: "id",
-		sorters: [
-		{
-			field: "name",
-			order: "asc",
-		},
-	],
+  const { selectProps: countryProps } = useSelect({
+    resource: "countries",
+    optionLabel: "name",
+    optionValue: "id",
+    sorters: [
+      {
+        field: "name",
+        order: "asc",
+      },
+    ],
 
-	pagination: {
-		pageSize: -1,
-		},
-	});
+    pagination: {
+      pageSize: -1,
+    },
+  });
 
-	const { selectProps: regimeProps } = useSelect({
-		resource: "ctc_regime",
-		optionLabel: "title",
-		optionValue: "id",
-		pagination: {
-		pageSize: -1,
-		},
-	});
+  const { selectProps: regimeProps } = useSelect({
+    resource: "ctc_regime",
+    optionLabel: "title",
+    optionValue: "id",
+    pagination: {
+      pageSize: -1,
+    },
+  });
 
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
@@ -101,7 +101,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
     };
   };
 
-
   useEffect(() => {
     if (record) {
       form.setFieldsValue({
@@ -112,7 +111,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
       });
     }
   }, [record, form]);
-  
 
   return (
     <Edit
@@ -140,8 +138,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
         onValuesChange={(changedValues, allValues) => {
           setFormData(allValues);
         }}
-       
-		  
       >
         <FormIconInput
           label="Country"
@@ -157,13 +153,15 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
           children={<Select {...regimeProps} />}
           icon={"global"}
         />
-          <FormIconInput
-            label="Basic pay"
-            name={"basic"}
-            rules={[{ required: false, message: "please enter basic pay" }]}
-            children={<Input placeholder="Enter basic pay % only" />}
-            icon={"global"}
-          />
+        
+        {/*
+        <FormIconInput
+          label="Basic pay"
+          name={"basic"}
+          rules={[{ required: false, message: "please enter basic pay" }]}
+          children={<Input placeholder="Enter basic pay % only" />}
+          icon={"global"}
+        />
 
         <Divider orientation="left">Earnings</Divider>
         <Form.List name="earnings">
@@ -187,7 +185,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
                       <Input placeholder="Enter ctc name" />
                     </Form.Item>
 
-                    {/* Wrapping last name input and minus button in a flex container */}
                     <div
                       style={{
                         display: "flex",
@@ -204,7 +201,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
                         <InputNumber placeholder="% only" />
                       </Form.Item>
 
-                      {/* Minus Button aligned to the right */}
                       <MinusCircleOutlined
                         onClick={() => remove(name)}
                         style={{
@@ -255,7 +251,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
                       <Input placeholder="Enter ctc name" />
                     </Form.Item>
 
-                    {/* Wrapping last name input and minus button in a flex container */}
                     <div
                       style={{
                         display: "flex",
@@ -272,7 +267,6 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
                         <InputNumber placeholder="% only" />
                       </Form.Item>
 
-                      {/* Minus Button aligned to the right */}
                       <MinusCircleOutlined
                         onClick={() => remove(name)}
                         style={{
@@ -301,23 +295,27 @@ const CtcEdit: React.FC<EditProps> = ({ callback, id }) => {
           )}
         </Form.List>
 
-		  <FormIconInput
-            label="Professional Tax"
-            name={"professionaltax"}
-            rules={[{ required: false, message: "please select your country" }]}
-            children={<Input placeholder="Enter tax amount per/Month" />}
-            icon={"global"}
-          />
-          
-			<FormIconInput
-            label="Management Fee"
-            name={"managementfee"}
-            rules={[{ required: false, message: "please select your regime" }]}
-            children={<InputNumber style={{width:'100%'}} placeholder="Enter fee % only" />}
-            icon={"global"}
-				
-         />
+        <FormIconInput
+          label="Professional Tax"
+          name={"professionaltax"}
+          rules={[{ required: false, message: "please select your country" }]}
+          children={<Input placeholder="Enter tax amount per/Month" />}
+          icon={"global"}
+        />
+        */}
 
+        <FormIconInput
+          label="Management Fee @USD"
+          name={"managementfee"}
+          rules={[{ required: false, message: "please select your regime" }]}
+          children={
+            <InputNumber
+              style={{ width: "100%" }}
+              placeholder="Enter fee"
+            />
+          }
+          icon={"global"}
+        />
       </Form>
     </Edit>
   );

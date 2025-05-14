@@ -144,6 +144,7 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
             children={<Select {...regimeProps} />}
             icon={"global"}
           />
+          {/*
 
          <FormIconInput
             label="Basic pay"
@@ -175,7 +176,6 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                         <Input placeholder="Enter ctc name" />
                       </Form.Item>
 
-                      {/* Wrapping last name input and minus button in a flex container */}
                       <div
                         style={{
                           display: "flex",
@@ -192,7 +192,6 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                           <InputNumber placeholder="% only" />
                         </Form.Item>
 
-                        {/* Minus Button aligned to the right */}
                         <MinusCircleOutlined
                           onClick={() => remove(name)}
                           style={{
@@ -243,7 +242,6 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                         <Input placeholder="Enter ctc name" />
                       </Form.Item>
 
-                      {/* Wrapping last name input and minus button in a flex container */}
                       <div
                         style={{
                           display: "flex",
@@ -260,7 +258,6 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                           <InputNumber placeholder="% only" />
                         </Form.Item>
 
-                        {/* Minus Button aligned to the right */}
                         <MinusCircleOutlined
                           onClick={() => remove(name)}
                           style={{
@@ -296,14 +293,16 @@ const CtcCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
             children={<Input placeholder="Enter tax amount per/Month" />}
             icon={"global"}
           />
+          */}
+
           <FormIconInput
-            label="Management Fee"
+            label="Management Fee @USD"
             name={"managementfee"}
             rules={[{ required: false, message: "please select your regime" }]}
             children={
               <InputNumber
                 style={{ width: "100%" }}
-                placeholder="Enter fee % only"
+                placeholder="Enter fee "
               />
             }
             icon={"global"}

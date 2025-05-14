@@ -70,6 +70,13 @@ const CTCShow: React.FC<any> = ({ id }) => {
       />
       </div>
 
+      <TextField
+        icon=""
+        label="Management Fee"
+        textValue={record?.managementfee}
+      />
+      
+{/* Details in Table Format 
       <div
         style={{
           display: "flex",
@@ -89,7 +96,7 @@ const CTCShow: React.FC<any> = ({ id }) => {
       </div>
 
   
-      {/* Details in Table Format */}
+      
       <div className="view-info-card">
         <Divider orientation="left">Earnings</Divider>
         <Table 
@@ -109,6 +116,7 @@ const CTCShow: React.FC<any> = ({ id }) => {
           bordered
         />
       </div>
+      */}
 
       {/* Date Created */}
       <div className="view-info-card">

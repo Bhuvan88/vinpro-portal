@@ -22,7 +22,7 @@ import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 import { commonServerSideProps } from "src/commonServerSideProps";
 import { useTeam } from "src/teamProvider";
 import CuisineCreate from "./create";
-import CuisineEdit from "./edit";
+import CountryEdit from "./edit";
 import CuisineShow from "./show";
 import CustomDrawer from "@components/datacomponents/CustomDrawer";
 import AvatarField from "@components/datacomponents/AvatarField";
@@ -297,7 +297,8 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           module={"administration"}
           id={editId}
           viewProps={<CuisineShow id={editId} />}
-          editProps={<CuisineEdit id={editId} callback={editCallback} />}
+          editProps={false}
+          //editProps={<CountryEdit id={editId} callback={editCallback} />}
         />
       )}
     </>

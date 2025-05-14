@@ -97,7 +97,7 @@ const RegimeEdit: React.FC<EditProps> = ({ callback, id }) => {
       //console.log(JSON.parse(record.details)); // Parse record.details
 
       form.setFieldsValue({
-        country: record.country,
+        country: record.country?.id,
         slab: JSON.parse(record.slab),
       });
     }

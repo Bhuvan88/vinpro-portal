@@ -31,7 +31,7 @@ import dayjs from "dayjs";
 const { Link } = NextRouter;
 export const getServerSideProps = commonServerSideProps;
 
-const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
+const CurrencyCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const t = useTranslate();
   const apiUrl = useApiUrl();
   const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
@@ -42,13 +42,13 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const [items, setItems] = useState<any>([]);
 
   useEffect(() => {
-    setSelectedMenu("/ctc", "/ctc");
-    setHeaderTitle("CTClist");
+    setSelectedMenu("/currency", "/currency");
+    setHeaderTitle("Currencylist");
   }, []);
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({
-      resource: "ctc",
+      resource: "currency",
       syncWithLocation: true,
       pagination: {
         pageSize: 20,
@@ -58,7 +58,7 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         initialData,
       },
       metaData: {
-        fields: ["*", "country.id", "country.name", "regime.id", "regime.title"],
+        fields: ["*"],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
@@ -122,7 +122,7 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       <div className="stickyheader">
         <div className="flex-row" style={{ alignItems: "center" }}>
           <Typography.Title level={5} className="headTitle">
-            CTC List
+            Currency List
           </Typography.Title>
           <Form
             layout="vertical"
@@ -183,23 +183,12 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           render={(text, object, index) => index + 1}
         />
 
-          <Table.Column
-            width={150}
-            dataIndex={["country", "name"]}
-            key="country"
-            title="Country"
-            render={(value) => (
-              <TextField  value={value} />
-            )}
-            //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
-            //sorter
-          />
          
           <Table.Column
             width={150}
-            dataIndex={["regime", "title"]}
-            key="regime"
-            title="Regime"
+            dataIndex={"name"}
+            key="name"
+            title="Currency Name"
             render={(value) => (
               <TextField value={value} />
             )}
@@ -209,14 +198,12 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
           <Table.Column
             width={150}
-            dataIndex={"managementfee"}
-            key="managementfee"
-            title="Management fee"
+            dataIndex={"rate"}
+            key="rate"
+            title="Exchange Rate"
             render={(value) => (
-              value && <TextField value={'USD '+value} />
+              value && <TextField value={value} />
             )}
-            //defaultSortOrder={getDefaultSortOrder("itemname", sorter)}
-            //sorter
           />
 
         <Table.Column
@@ -259,8 +246,8 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         <CustomDrawer
           callback={editCallback}
           visible={showEditDrawer}
-          resource={"ctc"}
-          permissionResource={"ctc"}
+          resource={"currency"}
+          permissionResource={"currency"}
           module={"administration"}
           id={editId}
           viewProps={<CtcShow id={editId} />}
@@ -271,4 +258,4 @@ const CtcList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   );
 };
 
-export default CtcList;
+export default CurrencyCreate;

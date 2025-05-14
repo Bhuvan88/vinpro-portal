@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate } from "@refinedev/core";
-import {
-  Edit,
-  useForm,
-} from "@refinedev/antd";
-import {
-  Form,
-  Input,
-  Upload,
-} from "antd";
+import { Edit, useForm, useSelect } from "@refinedev/antd";
+import { Form, Input, Upload, Select, Descriptions } from "antd";
 import { commonServerSideProps } from "src/commonServerSideProps";
 import FormIconInput from "@components/Inputs/FormIconInput";
 import {
@@ -25,8 +18,9 @@ export const getServerSideProps = commonServerSideProps;
 type EditProps = {
   callback: (status: string) => void;
   id: string;
+  editData: any;
 };
-const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
+const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
   const t = useTranslate();
   const apiUrl = useApiUrl();
   const { TextArea } = Input;
@@ -35,11 +29,11 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
   ];
   const getUploadProps = useDirectusUpload(mediaConfigList, directusClient);
   const [formdata, setFormData] = useState<any>({});
- 
+
   // Edit Drawer
   const {
     formProps,
-    saveButtonProps,  
+    saveButtonProps,
     queryResult,
     id: editId,
     setId,
@@ -49,13 +43,14 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
     onMutationSuccess: (data) => {
       callback("success");
     },
-    id:id,
+    id: id,
     action: "edit",
     resource: "countries",
     metaData: {
-      fields: ["name","image.*","description"]
+      fields: ["name", "image.*", "description", "currency.id", "currency.name"],
     },
     redirect: false,
+    //queryOptions: editData?.id,
     warnWhenUnsavedChanges: true,
     successNotification: (data) => {
       return {
@@ -68,39 +63,54 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
 
   const { data, isLoading } = queryResult;
   const record = data?.data;
+  //console.log('record>>', record);
 
-  const defaultMapper = (params: any) => { 
-    mediaUploadMapper(params, mediaConfigList);   
+  const defaultMapper = (params: any) => {
+    mediaUploadMapper(params, mediaConfigList);
     if (params?.image) {
       params["image"] = params?.image;
-      } else {
+    } else {
       params["image"] = null;
-      }
+    }
     return {
       ...params,
     };
   };
 
- 
+  const { selectProps: currencyProps } = useSelect({
+        resource: "currency",
+        optionLabel: "name",
+        optionValue: "id",
+        sorters: [
+          {
+            field: "name",
+            order: "asc",
+          },
+        ],
+    
+        pagination: {
+          pageSize: -1,
+        },
+      });
+
+    /*  useEffect (()=>{
+        if(editData?.id){
+          setId(editData?.id)
+        }
+      },[editData])*/
+
+      const extrasalloptions = [...(currencyProps?.options || []), {label:editData?.name,value:editData?.id}];
 
   return (
     <Edit
       saveButtonProps={saveButtonProps}
-      // actionButtons={
-			// 	<Form {...formProps}>
-			// 		<Form.Item className="drawer-flex-footer">
-			// 			<Button type="primary" htmlType="submit" icon={<FileDoneOutlined/>} >
-			// 				Save
-			// 			</Button>					
-			// 		</Form.Item>
-			// 	</Form>}
       headerProps={{ extra: false, title: false, className: "drawer-body" }}
       isLoading={isLoading}
     >
       <Form
         {...formProps}
         layout="vertical"
-        form={form}
+        //form={form}
         onFinish={(values) => {
           return (
             formProps.onFinish && formProps.onFinish(defaultMapper(values))
@@ -109,65 +119,79 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
         onValuesChange={(changedValues, allValues) => {
           setFormData(allValues);
         }}
+        /* initialValues={{
+          name: record?.name,
+          description : record?.description,
+          currency: record?.currency,
+          image: record?.image
+        }} */
       >
         <FormIconInput
-           label="Name"
+          label="Name"
           name={"name"}
           rules={[{ required: true, message: "Please enter name" }]}
           children={<Input />}
           icon={"UserOutlined"}
         />
 
-<FormIconInput
-                    label="Description"
-                    name={"description"}
-                    rules={[{ required: false, message: t("enteritemdescrption") }]}
-                    children={<TextArea />}
-                    icon={"DollarOutlined"}
-                  />
+        <FormIconInput
+          label={"Currency"}
+          name={"currency"}
+          children={<Select mode="multiple" allowClear {...currencyProps} options={extrasalloptions}/>}
+          icon={"DiffOutlined"}
+          /* formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
+                            normalize: (value, prevValue, allValues) =>{return value.id}
+          }} */
+        />
+        
+        
+        <FormIconInput
+          label="Description"
+          name={"description"}
+          children={<TextArea />}
+          icon={"DollarOutlined"}
+        />
 
-           <div className="icon-input-field">
-                            <CustomIcon
-                              type={"PictureOutlined"}
-                              styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                            />
-                            <Form.Item label={t("image")}>
-                              <Form.Item
-                                name="image"
-                                valuePropName="fileList"
-                                getValueProps={(data) =>
-                                  getValueProps({
-                                    data,
-                                    imageUrl: apiUrl,
-                                  })
-                                }
-                                noStyle
-                                rules={[
-                                  {
-                                    required:true,message:"Image is required"
-                                  },
-                                ]}
-                              >
-                                <Upload.Dragger
-                                  name="file"
-                                  listType="picture"
-                                  multiple={false}
-                                  beforeUpload={() => false}
-                                  {...getUploadProps("image")}
-                                >
-                                  <p className="ant-upload-text">
-                                  {t("drag&dropafileinthisarea")}
-                                  </p>
-                                </Upload.Dragger>
-                              </Form.Item>
-                            </Form.Item>
-                          </div>
-
-     
-
+        <div className="icon-input-field">
+          <CustomIcon
+            type={"PictureOutlined"}
+            styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+          />
+          <Form.Item label={t("image")}>
+            <Form.Item
+              name="image"
+              valuePropName="fileList"
+              getValueProps={(data) =>
+                getValueProps({
+                  data,
+                  imageUrl: apiUrl,
+                })
+              }
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: "Image is required",
+                },
+              ]}
+            >
+              <Upload.Dragger
+                name="file"
+                listType="picture"
+                multiple={false}
+                beforeUpload={() => false}
+                {...getUploadProps("image")}
+              >
+                <p className="ant-upload-text">
+                  {t("drag&dropafileinthisarea")}
+                </p>
+              </Upload.Dragger>
+            </Form.Item>
+          </Form.Item>
+        </div>
       </Form>
     </Edit>
   );
 };
 
-export default CuisineEdit;
+export default CountryEdit;
