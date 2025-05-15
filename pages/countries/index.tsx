@@ -297,8 +297,8 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           module={"administration"}
           id={editId}
           viewProps={<CuisineShow id={editId} />}
-          editProps={false}
-          //editProps={<CountryEdit id={editId} callback={editCallback} />}
+          // editProps={false}
+          editProps={<CountryEdit id={editId} callback={editCallback} />}
         />
       )}
     </>

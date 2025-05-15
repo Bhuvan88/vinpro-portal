@@ -47,7 +47,7 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
     action: "edit",
     resource: "countries",
     metaData: {
-      fields: ["name", "image.*", "description", "currency.id", "currency.name"],
+      fields: ["name", "image.*", "description", "currency.id", "currency.name","currencynew.*"]
     },
     redirect: false,
     //queryOptions: editData?.id,
@@ -63,10 +63,41 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
 
   const { data, isLoading } = queryResult;
   const record = data?.data;
-  //console.log('record>>', record);
+  console.log('record>>', record);
 
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
+    if(params["currencynew"] && params["currencynew"].length > 0){
+      let currencynew = [];
+      params["currencynew"].map((item: any) => {
+        currencynew.push({countries_id: record?.id, currency_id:{id:item}})
+        // recommended_category.push({fooditems_id:fooditemId, category_id:{id:item}})
+        // recommended_category.push({fooditems_id:fooditemId, category_id:{id:item}})
+      });
+      if(record.currencynew.length>0){
+        let currencynew_delete_id = [];
+        record.currencynew.map((item: any) => {
+          currencynew_delete_id.push(item?.id)
+        });
+        params["currencynew"] = {create: currencynew, delete: currencynew_delete_id}
+          //params["currencynew"] = {update: currencynew}
+      }else{
+          params["currencynew"] = {create: currencynew}
+      }
+
+
+      // if(record?.recommended_category.length > 0){
+      //   let recommended_delete_id = [];
+      //   record?.recommended_category.map((item: any) => {
+      //     recommended_delete_id.push(item?.id)
+      //   });
+      //   params["recommended_category"] = {create: recommended_category, delete: recommended_delete_id}
+      //     //params["recommended_category"] = {update: recommended_category}
+      // }else{
+      //     params["recommended_category"] = {create: recommended_category}
+      // }
+      //params["currencynew"] = currencynew;
+      }
     if (params?.image) {
       params["image"] = params?.image;
     } else {
@@ -119,13 +150,20 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
         onValuesChange={(changedValues, allValues) => {
           setFormData(allValues);
         }}
-        /* initialValues={{
+         initialValues={{
           name: record?.name,
           description : record?.description,
-          currency: record?.currency,
-          image: record?.image
-        }} */
+          // currency: record?.currency,
+          image: record?.image,
+          currencynew: record?.currencynew?.map((Item:any) =>Item.currency_id),
+
+        }} 
       >
+
+{/* {currencynew: {create: [{countries_id: "8", currency_id: {id: 4}}], update: [], delete: []}}
+currencynew
+: 
+{create: [{countries_id: "8", currency_id: {id: 4}}], update: [], delete: []} */}
         <FormIconInput
           label="Name"
           name={"name"}
@@ -136,7 +174,7 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
 
         <FormIconInput
           label={"Currency"}
-          name={"currency"}
+          name={"currencynew"}
           children={<Select mode="multiple" allowClear {...currencyProps} options={extrasalloptions}/>}
           icon={"DiffOutlined"}
           /* formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
