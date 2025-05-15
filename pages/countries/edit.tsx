@@ -47,7 +47,7 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
     action: "edit",
     resource: "countries",
     metaData: {
-      fields: ["name", "image.*", "description", "currency.id", "currency.name"],
+      fields: ["name", "image.*", "description", "currency.id", "currency.name","currencynew.*"]
     },
     redirect: false,
     //queryOptions: editData?.id,
@@ -136,12 +136,12 @@ const CountryEdit: React.FC<EditProps> = ({ callback, id, editData }) => {
 
         <FormIconInput
           label={"Currency"}
-          name={"currency"}
+          name={"currencynew"}
           children={<Select mode="multiple" allowClear {...currencyProps} options={extrasalloptions}/>}
           icon={"DiffOutlined"}
-          /* formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
+           formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
                             normalize: (value, prevValue, allValues) =>{return value.id}
-          }} */
+          }}
         />
         
         
