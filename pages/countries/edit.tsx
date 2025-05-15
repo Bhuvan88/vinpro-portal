@@ -177,9 +177,9 @@ currencynew
           name={"currencynew"}
           children={<Select mode="multiple" allowClear {...currencyProps} options={extrasalloptions}/>}
           icon={"DiffOutlined"}
-          /* formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
+           formItemProps={{ getValueProps:(value)=> ({value:value?.map((Item:any) =>Item.id)}),
                             normalize: (value, prevValue, allValues) =>{return value.id}
-          }} */
+          }}
         />
         
         

@@ -131,17 +131,18 @@ const DriverCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 label="Designation"
                 name={"designation"}
                 rules={[{ required: true, message:"Designation is required" }]}
-                children={
-                  <Select                    
-                       allowClear
-                       placeholder="Select Designation"
-                      options={[
-                      { label:"Manager",value:"Manager"},
-                      { label:"HR",value:"HR"},
-                      { label:"TeamLead",value:"Team Lead"},
-                      ]}
-                    />
-                }
+                 children={<Input />}
+                // children={
+                //   <Select                    
+                //        allowClear
+                //        placeholder="Select Designation"
+                //       options={[
+                //       { label:"Manager",value:"Manager"},
+                //       { label:"HR",value:"HR"},
+                //       { label:"TeamLead",value:"Team Lead"},
+                //       ]}
+                //     />
+                // }
                 icon={"UserSwitchOutlined"}
             />
           <FormIconInput
@@ -172,7 +173,7 @@ const DriverCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                  label={t("email")}
                 name={"email"}
                 rules={[
-                  { required: true, message:  t("emailidisrequired") },
+                  // { required: true, message:  t("emailidisrequired") },
                   {
                     type: "email",
                     message: t("invalidemailaddress"),
