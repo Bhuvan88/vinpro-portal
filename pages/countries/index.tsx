@@ -39,6 +39,7 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const [showEditDrawer, setShowEditDrawer] = useState(false);
   const [gridview, setGridview] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [editRecord, setEditRecord] = useState<any>(null);
   const [items, setItems] = useState<any>([]);
 
   useEffect(() => {
@@ -275,6 +276,7 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
                 onClick={(): void => {
                   setEditId(record.id);
                   setShowEditDrawer(true);
+                  setEditRecord(record);
                 }}
               >
                 <CustomIcon type="FormOutlined" />
@@ -297,8 +299,14 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           module={"administration"}
           id={editId}
           viewProps={<CuisineShow id={editId} />}
+          editProps={<CountryEdit
+                        id={editId}
+                        callback={editCallback}
+                        editData={editRecord} // ✅ Now passing the required prop
+                      />}
+  
           // editProps={false}
-          editProps={<CountryEdit id={editId} callback={editCallback} />}
+          // editProps={<CountryEdit id={editId} callback={editCallback} />}
         />
       )}
     </>
