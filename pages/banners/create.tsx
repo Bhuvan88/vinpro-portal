@@ -145,7 +145,7 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           <FormIconInput
             label="Banner Link"
             name={"link"}
-            rules={[{ required: true, message: t("enterlink") }]}
+            rules={[{ required: false, message: t("enterlink") }]}
             children={<Input />}
             icon={"LinkOutlined"}
           />
