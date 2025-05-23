@@ -79,6 +79,14 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
         return filters;
       },
+       sorters: {              
+                initial: [
+                  {
+                    field: "date_created",
+                    order: "desc",
+                  },
+                ],
+           },
   //     sorters: {              
   //       initial: [
   //         {

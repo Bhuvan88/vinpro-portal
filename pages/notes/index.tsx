@@ -14,8 +14,9 @@ import {
   TextField,
   getDefaultSortOrder,
   ImageField,
+  useSelect
 } from "@refinedev/antd";
-import { Table, Space, Typography, Input, Form, Button,Tag, Badge } from "antd";
+import { Table, Space, Typography, Input, Form, Button,Tag, Badge ,Select} from "antd";
 import React, { useEffect, useState } from "react";
 import { CustomIcon } from "src/components/datacomponents/CustomIcon";
 
@@ -46,6 +47,29 @@ const NotesCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
     setHeaderTitle("EOR Notes");
   }, []);
 
+  const { selectProps: CountryProps } = useSelect({
+      resource: "countries",
+      optionLabel: "name",
+      optionValue: "id",
+      sorters: [
+        {
+          field: "name",
+          order: "asc",
+        },
+      ],
+      filters: [
+        {
+            field: "name",
+            operator:  "ne",
+            value:"Namakkal"
+        },
+      ],
+      pagination:{
+        pageSize:-1
+      }
+    });
+
+
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({
       resource: "eor_notes",
@@ -62,12 +86,18 @@ const NotesCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
-        const { search } = params;
+        const { search, country } = params;
 
         filters.push({
           field: "search",
           operator: "contains",
           value: search,
+        });
+
+        filters.push({
+          field: "country",
+          operator: "eq",
+          value: country,
         });
 
         return filters;
@@ -131,6 +161,7 @@ const NotesCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
               searchFormProps.form?.submit();
             }}
           >
+            <div className="flex-row" style={{ alignItems: "center" }}>
             <Space>
               <Form.Item name="search" className="card-search mt-20 ml-10">
                 <Input
@@ -142,6 +173,10 @@ const NotesCreate: React.FC<IResourceComponentsProps> = ({ initialData }) => {
                 />
               </Form.Item>
             </Space>
+             <Form.Item name="country" className="card-search mt-20 ml-10">
+              <Select style={{ width: 180 }}  allowClear placeholder={t("selectcountry")} {...CountryProps} />
+            </Form.Item> 
+            </div>
           </Form>
         </div>
 
