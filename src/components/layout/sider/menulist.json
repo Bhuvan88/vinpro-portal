@@ -74,7 +74,7 @@
 	},
 	{
 		"icon": "PoundOutlined",
-		"title": "Price List",
+		"title": "Pricing Plan",
 		"module": "administration",
 		"resource": "price_list",
 		"link": "/price",

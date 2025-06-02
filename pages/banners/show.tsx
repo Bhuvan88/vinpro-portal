@@ -35,13 +35,13 @@ const BannerShow: React.FC<any> = ({ id }) => {
     >
       <TextField
         icon="LinkOutlined"
-        label={t("bannerlink")}
+        label="Banner Link"
         textValue={record?.link}
       />
       
       <TextField
         icon="ShopOutlined"
-        label="client_name"
+        label="Client Name"
         textValue={record?.client_name}
       />
       <BooleanField
@@ -65,13 +65,13 @@ const BannerShow: React.FC<any> = ({ id }) => {
 					<TextField icon={undefined} label={t("label.updatedby")} textValue={record?.user_updated && record?.user_updated.first_name + ' ' +record?.user_updated.last_name } />*/}
         <DateTextField
           icon={undefined}
-          label={t("datecreated")}
+          label="Date Created"
           format={"MMM DD, YYYY HH:mm"}
           textValue={record?.date_created}
         />
         <DateTextField
           icon={undefined}
-          label={t("dateupdated")}
+          label="Date Updated"
           format={"MMM DD, YYYY HH:mm"}
           textValue={record?.date_updated}
         />

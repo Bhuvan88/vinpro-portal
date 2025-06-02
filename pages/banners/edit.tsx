@@ -139,7 +139,7 @@ const BannerEdit: React.FC<EditProps> = ({ callback, id }) => {
         }
       >
         <FormIconInput
-          label={t("bannerlink")}
+          label="Banner Link"
           name={"link"}
           rules={[{ required: false, message: t("enterlink") }]}
           children={<Input allowClear/>}

@@ -32,13 +32,13 @@ const t = useTranslate();
 
     <TextField
         icon="UserOutlined"
-        label={t("firstname")}
+        label="First Name"
         textValue={record?.first_name}
       />
 
       <TextField
         icon="UserOutlined"
-        label={t("lastname")}
+        label="Last Name"
         textValue={record?.last_name}
       />
 
@@ -73,7 +73,7 @@ const t = useTranslate();
 
     <DateTextField
         icon={"CalendarOutlined"}
-        label={t("datecreated")}
+        label="Date Created"
         format={"MMM DD, YYYY HH:mm"}
         textValue={record?.date_created}
       />

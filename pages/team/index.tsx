@@ -232,7 +232,7 @@ import DriverPassword from "./editpassword";
           width={150}
           dataIndex="first_name"
           key="firstname"
-          title={t("firstname")}
+          title="First Name"
           render={(value) => <TextField value={value} />}               
         />
 
@@ -240,7 +240,7 @@ import DriverPassword from "./editpassword";
           width={150}
           dataIndex="last_name"
           key="lastname"
-          title={t("lastname")}
+          title="Last Name"
           render={(value) => <TextField value={value} />}               
         />
         
@@ -256,14 +256,14 @@ import DriverPassword from "./editpassword";
             width={200}
             dataIndex="email"
             key="email"
-            title={t("email")}
+            title="Email"
             render={(value) => <TextField value={value} />}               
          />
          <Table.Column
             width={100}
             dataIndex="status"
             key="status"
-            title={t("status")}
+            title="Status"
             render={(value) => <TextField value={t(value)} style={{textTransform:"capitalize"}}/>}               
          />
          

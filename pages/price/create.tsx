@@ -104,7 +104,7 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           }}
         >
           <FormIconInput
-            label="Plan Title"
+            label="Name"
             name={"title"}
             rules={[{ required: true, message: "please enter the title" }]}
             children={<Input />}
@@ -112,7 +112,7 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           />
 
           <FormIconInput
-            label="Plan Price Title"
+            label="Title"
             name={"pricetitle"}
             rules={[{ required: false, message: "please enter the title" }]}
             children={<Input />}
@@ -120,7 +120,7 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           />
 
           <FormIconInput
-            label="Plan Price"
+            label="Price"
             name={"price"}
             rules={[{ required: false, message: "please enter the title" }]}
             children={
@@ -131,7 +131,7 @@ const PriceCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
             }
             icon={"global"}
           />
-          <Divider orientation="left">Plan Details</Divider>
+          <Divider orientation="left">Description</Divider>
           <Form.List name="details">
             {(fields, { add, remove }) => (
               <>

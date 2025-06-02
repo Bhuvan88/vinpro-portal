@@ -154,7 +154,7 @@ const DriverEdit: React.FC<EditProps> = ({ callback, id }) => {
                 icon={"UserSwitchOutlined"}
             />
       <FormIconInput
-           label={t("firstname")}
+           label="First Name"
             name={"first_name"}
             rules={[{ required: true, message: t("firstnameisrequired") }]}
             children={<Input />}
@@ -162,7 +162,7 @@ const DriverEdit: React.FC<EditProps> = ({ callback, id }) => {
           />
 
             <FormIconInput
-            label={t("lastname")}
+            label="Last Name"
             name={"last_name"}
             rules={[{ required: true, message: t("lastnameisrequired") }]}
             children={<Input />}
@@ -172,17 +172,17 @@ const DriverEdit: React.FC<EditProps> = ({ callback, id }) => {
        
        
          <FormIconInput
-                 label={t("email")}
-                name={"email"}
-                rules={[
+                 label="Email"
+                  name={"email"}
+                  rules={[
                   // { required: true, message:  t("emailidisrequired") },
                   {
-                    type: "email",
-                    message: t("invalidemailaddress"),
+                  type: "email",
+                  message: t("invalidemailaddress"),
                   },
-                ]}
-                children={<Input />}
-                icon={"MailOutlined"}
+                  ]}
+                  children={<Input />}
+                  icon={"MailOutlined"}
             />
              <FormIconInput
                     label="Description"
@@ -193,7 +193,7 @@ const DriverEdit: React.FC<EditProps> = ({ callback, id }) => {
                   />
             
             <FormIconInput
-                label={t("status")}
+                label="Status"
                 name={"status"}
                 //rules={[{ required: true, message: t("statusisrequired") }]}
                 children={

@@ -33,18 +33,18 @@ const t = useTranslate();
 
     <TextField
         icon="UserOutlined"
-        label={t("firstname")}
+        label="First Name"
         textValue={record?.first_name}
       />
 
     <TextField
         icon="UserOutlined"
-        label={t("lastname")}
+        label="Last Name"
         textValue={record?.last_name}
       />
       <TextField
         icon="UserOutlined"
-        label={"Designation"}
+        label="Designation"
         textValue={record?.designation}
       />
 
@@ -58,7 +58,7 @@ const t = useTranslate();
       
       <TextField
         icon="MailOutlined"
-        label={t("email")}
+        label="Email"
         textValue={record?.email}
       />
 
@@ -76,13 +76,13 @@ const t = useTranslate();
 
     <DateTextField
         icon={"CalendarOutlined"}
-        label={t("datecreated")}
+        label="Date Created"
         format={"MMM DD, YYYY HH:mm"}
         textValue={record?.date_created}
       />
       <DateTextField
         icon={"CalendarOutlined"}
-        label={t("dateupdated")}
+        label="Date Updated"
         format={"MMM DD, YYYY HH:mm"}
         textValue={record?.date_updated}
       />

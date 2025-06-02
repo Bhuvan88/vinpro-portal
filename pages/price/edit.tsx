@@ -123,7 +123,7 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
         }}
       >
         <FormIconInput
-          label="Plan Title"
+          label="Name"
           name={"title"}
           rules={[{ required: true, message: "please enter the title" }]}
           children={<Input />}
@@ -131,7 +131,7 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
         />
 
         <FormIconInput
-          label="Plan Price Title"
+          label="Title"
           name={"pricetitle"}
           rules={[{ required: false, message: "please enter the title" }]}
           children={<Input />}
@@ -139,7 +139,7 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
         />
 
         <FormIconInput
-          label="Plan Price"
+          label="Price"
           name={"price"}
           rules={[{ required: false, message: "please enter the title" }]}
           children={
@@ -150,7 +150,7 @@ const CuisineEdit: React.FC<EditProps> = ({ callback, id }) => {
           }
           icon={"global"}
         />
-        <Divider orientation="left">Plan Details</Divider>
+        <Divider orientation="left">Description</Divider>
         {/* Editable Form.List */}
         <Form.List name="details">
           {(fields, { add, remove }) => (

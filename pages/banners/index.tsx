@@ -325,7 +325,7 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           width={130}
           dataIndex="date_created"
           key="date_created"
-          title={t("datecreated")}
+          title="Date Created"
           render={(value) => value && <DateField value={value} format="MMM DD, YYYY HH:mm"/>}
           //defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
           sorter

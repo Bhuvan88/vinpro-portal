@@ -50,7 +50,7 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
 
   useEffect(() => {
     setSelectedMenu("/price", "/price");
-    setHeaderTitle("PriceList");
+    setHeaderTitle("Price Plan");
   }, []);
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
@@ -216,7 +216,7 @@ const CuisineList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           width={150}
           dataIndex="title"
           key="title"
-          title="title"
+          title="Name"
           render={(value) => <TextField value={value} />}
           //defaultSortOrder={getDefaultSortOrder("name", sorters)}
           //sorter

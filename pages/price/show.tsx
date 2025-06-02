@@ -53,23 +53,23 @@ const CuisineShow: React.FC<any> = ({ id }) => {
       {/* Title */}
       <TextField
         icon="UserOutlined"
-        label="Plan Title"
+        label="Name"
         textValue={record?.title}
       />
       <TextField
         icon="DollarOutlined"
-        label="Plan Price Title"
+        label="Title"
         textValue={record?.pricetitle}
       />
       <TextField
         icon="DollarOutlined"
-        label="Plan Price"
+        label="Price"
         textValue={record?.price}
       />
 
       {/* Details in Table Format */}
       <div className="view-info-card">
-        <Divider orientation="left">Plan Details</Divider>
+        <Divider orientation="left">Description</Divider>
         <List
           size="large"
           bordered
