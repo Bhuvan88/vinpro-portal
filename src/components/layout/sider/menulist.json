@@ -56,6 +56,24 @@
 		]
 	},
 	{
+		"icon": "SettingOutlined",
+		"title": "Website Settings",
+		"module": "administration",
+		"resource": "webcontent",
+		"link": "/website-settings",
+		"roles": [ "Administrator" ],
+		"sublink": [
+			{
+				"icon": "SettingOutlined",
+				"title": "Country",	
+				"module": "administration",
+				"resource": "webcontent",
+				"link": "/website-settings",
+				"roles": [ "Administrator" ]
+			}
+		]
+	},
+	{
 		"icon": "PictureOutlined",
 		"title": "Banner",
 		"module": "administration",
