@@ -199,7 +199,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               formProps.onFinish && formProps.onFinish(defaultMapper(values));
             }}
             layout="vertical"
-            style={{ maxWidth: 800 }}
             onValuesChange={(changedValues, allValues) => {
               setFormData(allValues);
             }}
