@@ -29,7 +29,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
   const router = useRouter();
-  const sectionTitle = "Home page Section 4";
+  const sectionTitle = router.query.section_title || "AboutSection4";
   const typeTitle = router.query.type || "webcontent";
 
   const mediaConfigList: MediaConfig[] = [
@@ -179,7 +179,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        title={sectionTitle}
+        title={"About Section 4"}
         style={{
           marginBottom: 24,
           borderRadius: 8,
@@ -190,14 +190,14 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
          <Card
                 >
                   <img
-                    src="./images/home/section4.png"
+                    src="./images/about/section4.png"
                     alt="Image 2"
                     style={{ width: "50%", height: "auto" }}
                   />
                 </Card>
         
         <Create
-          title="Save"
+          title="Section 4"
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
           headerProps={{
@@ -235,43 +235,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   children={<Input />}
                 />
 
-                <FormIconInput
-                  label="Subtitle"
-                  name="subtitle"
-                  icon="FileTextOutlined"
-                >
-                  <Input placeholder="Enter subtitle" />
-                </FormIconInput>
-
-                <FormIconInput
-                  label="Description"
-                  name="description"
-                  icon="EditOutlined"
-                >
-                  <Editor
-                    id={sectionTitle}
-                    apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
-                    init={{
-                      height: 300,
-                      menubar: false,
-                      plugins: [
-                        "advlist autolink lists link image charmap preview anchor",
-                        "searchreplace visualblocks code fullscreen",
-                        "insertdatetime media table paste help wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | formatselect | bold italic backcolor | " +
-                        "alignleft aligncenter alignright alignjustify | " +
-                        "bullist numlist outdent indent | removeformat | help",
-                    }}
-                    value={formProps.form?.getFieldValue("description") || ""}
-                    onEditorChange={(content, editor) => {
-                      console.log("Editor content:", content);
-                      formProps.form?.setFieldsValue({ description: content });
-                    }}
-                  />
-                </FormIconInput>
-
               
               </Col>
 
@@ -308,55 +271,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               </Col>
  
             </Row>
-             <Divider orientation="left">List</Divider>
-              <Col span={24}>
-                
-                     <Form.List name="list_details">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key}>
-                    {/* Wrapping last name input and minus button in a flex container */}
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <Form.Item
-                        {...restField}
-                        name={name}
-                        rules={[{ required: true, message: "Missing lable" }]}
-                        style={{ flex: 1 }} // Makes input take full width
-                      >
-                        <Input placeholder="list item" />
-                      </Form.Item>
-
-                      {/* Minus Button aligned to the right */}
-                      <MinusCircleOutlined
-                        onClick={() => remove(name)}
-                        style={{
-                          marginLeft: 10,
-                          fontSize: 16,
-                          cursor: "pointer",
-                          marginTop: -25,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    Add field
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
-
-                
- 
-              </Col>
+            
           </Form>
         </Create>
       </Card>

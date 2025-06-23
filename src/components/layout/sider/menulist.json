@@ -8,16 +8,9 @@
 		"link": "/customerlist",
 		"roles": [ "Administrator" ],
 		"sublink": [
-			{
-				"icon": "TeamOutlined",
-				"title": "Customers",
-				"module": "administration",
-				"resource": "customerlist",
-				"link": "/customerlist",
-				"roles": [ "Administrator"]
-			}
 			
 		]
+		
 	},
 	{
 		"icon": "UserOutlined",

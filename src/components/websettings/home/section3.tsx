@@ -72,7 +72,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           setExistingRecordId(record.id);
           setImage1Id(record.image1 || null); // Set Image1 ID if available
           setImage2Id(record.image2 || null); // Set Image2 ID if available
-         
         } else {
           setExistingRecordId(null);
         }
@@ -143,8 +142,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }),
   });
 
- 
-
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
     if (params.description && typeof params.description !== "string") {
@@ -182,8 +179,16 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           borderRadius: 8,
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
-        bodyStyle={{ padding: 24 }}
+      
       >
+        <Card>
+          <img
+            src="./images/home/section3.png"
+            alt="Image 2"
+            style={{ width: "50%", height: "auto" }}
+          />
+        </Card>
+
         <Create
           title="Save"
           saveButtonProps={saveButtonProps}

@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate, useCustom } from "@refinedev/core";
 import { Create, useDrawerForm, useSelect, useForm } from "@refinedev/antd";
-import { Form, Input, Upload, Typography, Row, Col, Card,Divider,Button } from "antd";
+import {
+  Form,
+  Input,
+  Upload,
+  Typography,
+  Row,
+  Col,
+  Card,
+  Divider,
+  Button,
+} from "antd";
 import FormIconInput from "@components/Inputs/FormIconInput";
 import {
   getValueProps,
@@ -29,7 +39,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
   const router = useRouter();
-  const sectionTitle = "Home page Section 4";
+  const sectionTitle = router.query.section_title || "AboutSection3";
   const typeTitle = router.query.type || "webcontent";
 
   const mediaConfigList: MediaConfig[] = [
@@ -73,7 +83,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           setExistingRecordId(record.id);
           setImage1Id(record.image1 || null); // Set Image1 ID if available
           setImage2Id(record.image2 || null); // Set Image2 ID if available
-         
         } else {
           setExistingRecordId(null);
         }
@@ -144,10 +153,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }),
   });
 
-
-
- 
-
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
     if (params.description && typeof params.description !== "string") {
@@ -179,7 +184,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        title={sectionTitle}
+        title={"About Section 3"}
         style={{
           marginBottom: 24,
           borderRadius: 8,
@@ -187,15 +192,14 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         }}
         bodyStyle={{ padding: 24 }}
       >
-         <Card
-                >
-                  <img
-                    src="./images/home/section4.png"
-                    alt="Image 2"
-                    style={{ width: "50%", height: "auto" }}
-                  />
-                </Card>
-        
+        <Card>
+          <img
+            src="./images/home/section4.png"
+            alt="Image 2"
+            style={{ width: "50%", height: "auto" }}
+          />
+        </Card>
+
         <Create
           title="Save"
           saveButtonProps={saveButtonProps}
@@ -221,8 +225,9 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               subtitle: existingData?.data?.[0]?.subtitle || "",
               description: existingData?.data?.[0]?.description || "",
               image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-              list_details: existingData?.data[0]?.list_details ? JSON.parse(existingData.data[0].list_details) : [] // Initialize with existing data
-          
+              list_details: existingData?.data[0]?.list_details
+                ? JSON.parse(existingData.data[0].list_details)
+                : [], // Initialize with existing data
             }}
           >
             <Row gutter={24}>
@@ -271,8 +276,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                     }}
                   />
                 </FormIconInput>
-
-              
               </Col>
 
               <Col span={24}>
@@ -306,62 +309,57 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   </Form.Item>
                 </div>
               </Col>
- 
             </Row>
-             <Divider orientation="left">List</Divider>
-              <Col span={24}>
-                
-                     <Form.List name="list_details">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key}>
-                    {/* Wrapping last name input and minus button in a flex container */}
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <Form.Item
-                        {...restField}
-                        name={name}
-                        rules={[{ required: true, message: "Missing lable" }]}
-                        style={{ flex: 1 }} // Makes input take full width
+            <Divider orientation="left">List</Divider>
+            <Col span={24}>
+              <Form.List name="list_details">
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map(({ key, name, ...restField }) => (
+                      <div key={key}>
+                        {/* Wrapping last name input and minus button in a flex container */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <Form.Item
+                            {...restField}
+                            name={name}
+                            rules={[
+                              { required: true, message: "Missing lable" },
+                            ]}
+                            style={{ flex: 1 }} // Makes input take full width
+                          >
+                            <Input placeholder="list item" />
+                          </Form.Item>
+
+                          {/* Minus Button aligned to the right */}
+                          <MinusCircleOutlined
+                            onClick={() => remove(name)}
+                            style={{
+                              marginLeft: 10,
+                              fontSize: 16,
+                              cursor: "pointer",
+                              marginTop: -25,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                    <Form.Item>
+                      <Button
+                        type="dashed"
+                        onClick={() => add()}
+                        block
+                        icon={<PlusOutlined />}
                       >
-                        <Input placeholder="list item" />
-                      </Form.Item>
-
-                      {/* Minus Button aligned to the right */}
-                      <MinusCircleOutlined
-                        onClick={() => remove(name)}
-                        style={{
-                          marginLeft: 10,
-                          fontSize: 16,
-                          cursor: "pointer",
-                          marginTop: -25,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    Add field
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
-
-                
- 
-              </Col>
+                        Add field
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+            </Col>
           </Form>
         </Create>
       </Card>
-
-     
     </div>
   );
 };

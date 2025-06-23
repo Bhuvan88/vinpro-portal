@@ -184,8 +184,17 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         }}
         bodyStyle={{ padding: 24 }}
       >
+        <Card
+        >
+          <img
+            src="./images/home/section3.png"
+            alt="Image 2"
+            style={{ width: "50%", height: "auto" }}
+          />
+        </Card>
+
         <Create
-          title="Save"
+          title="Home"
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
         >

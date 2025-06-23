@@ -155,6 +155,7 @@ export const Sider: React.FC<SiderProps> = () => {
                         resource,
                         module,
                         roles,
+                        sublink
                     } = item;
                     const isSelected =
                         link === selectedMain;
@@ -184,7 +185,11 @@ export const Sider: React.FC<SiderProps> = () => {
                                                 ? "antMainMenuButton antMainMenuButtonSelected"
                                                 : "antMainMenuButton"
                                         }
-                                    >{title}</Button>
+                                    >{title}
+                                    </Button>
+
+   
+
                                    
                                 </Tooltip>
                            </CanAccess>
@@ -195,6 +200,8 @@ export const Sider: React.FC<SiderProps> = () => {
                 {/* <Menu.Item key="logout" icon={<LogoutOutlined />}>
                     {t("logout")}
                 </Menu.Item> */}
+
+                
                  <Button
                     type="text"
                     size="large"

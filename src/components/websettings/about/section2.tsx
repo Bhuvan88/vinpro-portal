@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApiUrl, useTranslate, useCustom } from "@refinedev/core";
 import { Create, useDrawerForm, useSelect, useForm } from "@refinedev/antd";
-import { Form, Input, Upload, Typography, Row, Col, Card,Divider,Button } from "antd";
+import { Form, Input, Upload, Typography, Row, Col, Card } from "antd";
 import FormIconInput from "@components/Inputs/FormIconInput";
 import {
   getValueProps,
@@ -13,7 +13,6 @@ import { directusClient } from "src/directusClient";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
@@ -29,7 +28,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
   const router = useRouter();
-  const sectionTitle = "Home page Section 4";
+  const sectionTitle = "AboutSection2";
   const typeTitle = router.query.type || "webcontent";
 
   const mediaConfigList: MediaConfig[] = [
@@ -144,8 +143,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }),
   });
 
-
-
  
 
   const defaultMapper = (params: any) => {
@@ -161,13 +158,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }
     if (Array.isArray(params.image1) && params.image1.length > 0) {
       params.image1 = params.image1[0]?.id || params.image1[0]; // fallback to ID if object
-    }
-
-    if (Array.isArray(params.image2) && params.image2.length > 0) {
-      params.image2 = params.image2[0]?.id || params.image2[0];
-    }
-    if (Array.isArray(params.image2) && params.image2.length === 0) {
-      params.image2 = null; // Set to null if no image is selected
     }
     if (Array.isArray(params.image1) && params.image1.length === 0) {
       params.image1 = null; // Set to null if no image is selected
@@ -190,7 +180,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
          <Card
                 >
                   <img
-                    src="./images/home/section4.png"
+                    src="./images/about/section2.png"
                     alt="Image 2"
                     style={{ width: "50%", height: "auto" }}
                   />
@@ -200,9 +190,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           title="Save"
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
-          headerProps={{
-            extra: false,
-          }}
         >
           <Form
             {...formProps}
@@ -216,13 +203,14 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               setFormData(allValues);
             }}
             initialValues={{
-              section_title: "Home page Section 4",
+              section_title: "AboutSection2",
               title: existingData?.data?.[0]?.title || "",
               subtitle: existingData?.data?.[0]?.subtitle || "",
               description: existingData?.data?.[0]?.description || "",
               image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-              list_details: existingData?.data[0]?.list_details ? JSON.parse(existingData.data[0].list_details) : [] // Initialize with existing data
-          
+              button_text: existingData?.data?.[0]?.button_text || "",
+              button_link: existingData?.data?.[0]?.button_link || "",
+              image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's an array for Upload component
             }}
           >
             <Row gutter={24}>
@@ -234,14 +222,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   icon="FileTextOutlined"
                   children={<Input />}
                 />
-
-                <FormIconInput
-                  label="Subtitle"
-                  name="subtitle"
-                  icon="FileTextOutlined"
-                >
-                  <Input placeholder="Enter subtitle" />
-                </FormIconInput>
 
                 <FormIconInput
                   label="Description"
@@ -272,96 +252,80 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   />
                 </FormIconInput>
 
-              
+               
               </Col>
 
-              <Col span={24}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
-
-                  <Form.Item label={t("Image 1")}>
-                    <Form.Item
-                      name="image1"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
-                    >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image1")}
-                      >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
-                    </Form.Item>
-                  </Form.Item>
-                </div>
-              </Col>
- 
+             <Row gutter={24}>
+                           <Col span={12}>
+                             <div className="icon-input-field">
+                               <CustomIcon
+                                 type="PictureOutlined"
+                                 styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                               />
+             
+                               <Form.Item label={t("Image 1")}>
+                                 <Form.Item
+                                   name="image1"
+                                   valuePropName="fileList"
+                                   getValueProps={(data) =>
+                                     getValueProps({ data, imageUrl: apiUrl })
+                                   }
+                                   noStyle
+                                 >
+                                   <Upload.Dragger
+                                     name="file"
+                                     listType="picture"
+                                     multiple={false}
+                                     beforeUpload={() => false}
+                                     {...getUploadProps("image1")}
+                                   >
+                                     <p className="ant-upload-text">
+                                       {t("drag&dropafileinthisarea")}
+                                     </p>
+                                   </Upload.Dragger>
+                                 </Form.Item>
+                               </Form.Item>
+                             </div>
+                           </Col>
+                           {Image1id && (
+                             <Col span={12}>
+                               <img
+                                 src={`${apiUrl}assets/${Image1id}`}
+                                 alt="Image 1"
+                                 style={{ width: "30%", height: "auto" }}
+                               />
+                             </Col>
+                           )}
+                         </Row>
+            
             </Row>
-             <Divider orientation="left">List</Divider>
-              <Col span={24}>
-                
-                     <Form.List name="list_details">
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key}>
-                    {/* Wrapping last name input and minus button in a flex container */}
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <Form.Item
-                        {...restField}
-                        name={name}
-                        rules={[{ required: true, message: "Missing lable" }]}
-                        style={{ flex: 1 }} // Makes input take full width
-                      >
-                        <Input placeholder="list item" />
-                      </Form.Item>
-
-                      {/* Minus Button aligned to the right */}
-                      <MinusCircleOutlined
-                        onClick={() => remove(name)}
-                        style={{
-                          marginLeft: 10,
-                          fontSize: 16,
-                          cursor: "pointer",
-                          marginTop: -25,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    Add field
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
-
-                
- 
-              </Col>
           </Form>
         </Create>
       </Card>
 
-     
+      {/* <Card
+    title="Home Page Section 02"
+    style={{ borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
+    bodyStyle={{ padding: 24 }}
+  >
+    <Row gutter={24}>
+      <Col span={12}>
+        <Form.Item label="Title" name="section2_title">
+          <Input placeholder="Enter title" />
+        </Form.Item>
+        <Form.Item label="Description" name="section2_description">
+          <Input.TextArea placeholder="Enter description" rows={4} />
+        </Form.Item>
+      </Col>
+      <Col span={12}>
+        <Form.Item label="Upload Image 01" name="section2_image">
+          <Upload.Dragger name="file" beforeUpload={() => false}>
+            <p className="ant-upload-text">Upload an image Jpg or Png</p>
+          </Upload.Dragger>
+        </Form.Item>
+      </Col>
+    </Row>
+  </Card> */}
     </div>
   );
 };
