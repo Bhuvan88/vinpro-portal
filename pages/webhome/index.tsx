@@ -4,6 +4,9 @@ import Section1 from "../../src/components/websettings/home/section";
 import Section2 from "../../src/components/websettings/home/section2";
 import Section3 from "../../src/components/websettings/home/section3";
 import Section4 from "../../src/components/websettings/home/section4";
+import { commonServerSideProps } from "src/commonServerSideProps";
+
+export const getServerSideProps = commonServerSideProps;
 
 const WebsettingsPage = () => {
   const router = useRouter();
