@@ -19,6 +19,24 @@ const WebsettingsPage = () => {
       <Col span={8}>
         <div
           className="card-container"
+          onClick={() => handleTabChange("/homeBanners")}
+          style={{ cursor: "pointer" }}
+        >
+          <Card style={{ alignItems: "center", width: "100%" }}>
+            <Typography.Title level={5} className="headTitle">
+              Home Banners
+            </Typography.Title>
+            <img
+              src="./images/homepage.png"
+              alt="Refine"
+              style={{ width: "100%", marginTop: 15 }}
+            />
+          </Card>
+        </div>
+      </Col>
+      <Col span={8}>
+        <div
+          className="card-container"
           onClick={() => handleTabChange("/webhome")}
           style={{ cursor: "pointer" }}
         >
