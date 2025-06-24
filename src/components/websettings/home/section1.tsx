@@ -39,7 +39,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
   const router = useRouter();
-  const sectionTitle = "HomeSection3";
+  const sectionTitle = "HomeSection1";
   const typeTitle = router.query.type || "webcontent";
 
   const mediaConfigList: MediaConfig[] = [
@@ -184,7 +184,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        title={"Home Page Section 3"}
+        title={"Home Page Section 1"}
         style={{
           marginBottom: 24,
           borderRadius: 8,
@@ -194,7 +194,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       >
         <Card>
           <img
-            src="./images/home/section4.png"
+            src="./images/home/section1.png"
             alt="Image 2"
             style={{ width: "80%", height: "auto" }}
           />
@@ -222,10 +222,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               title: existingData?.data?.[0]?.title || "",
               subtitle: existingData?.data?.[0]?.subtitle || "",
               description: existingData?.data?.[0]?.description || "",
-              image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-              list_details: existingData?.data[0]?.list_details
-                ? JSON.parse(existingData.data[0].list_details)
-                : [], // Initialize with existing data
+              
             }}
           >
             <Row gutter={24}>
@@ -238,13 +235,13 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   children={<Input />}
                 />
 
-                <FormIconInput
+                {/* <FormIconInput
                   label="Subtitle"
                   name="subtitle"
                   icon="FileTextOutlined"
                 >
                   <Input placeholder="Enter subtitle" />
-                </FormIconInput>
+                </FormIconInput> */}
 
                 <FormIconInput
                   label="Description"
@@ -276,85 +273,9 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 </FormIconInput>
               </Col>
 
-              <Col span={24}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
-
-                  <Form.Item label={t("Image 1")}>
-                    <Form.Item
-                      name="image1"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
-                    >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image1")}
-                      >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
-                    </Form.Item>
-                  </Form.Item>
-                </div>
-              </Col>
+             
             </Row>
-            <Divider orientation="left">List</Divider>
-            <Col span={24}>
-              <Form.List name="list_details">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key}>
-                        {/* Wrapping last name input and minus button in a flex container */}
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <Form.Item
-                            {...restField}
-                            name={name}
-                            rules={[
-                              { required: true, message: "Missing lable" },
-                            ]}
-                            style={{ flex: 1 }} // Makes input take full width
-                          >
-                            <Input placeholder="list item" />
-                          </Form.Item>
-
-                          {/* Minus Button aligned to the right */}
-                          <MinusCircleOutlined
-                            onClick={() => remove(name)}
-                            style={{
-                              marginLeft: 10,
-                              fontSize: 16,
-                              cursor: "pointer",
-                              marginTop: -25,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                    <Form.Item>
-                      <Button
-                        type="dashed"
-                        onClick={() => add()}
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add field
-                      </Button>
-                    </Form.Item>
-                  </>
-                )}
-              </Form.List>
-            </Col>
+            
           </Form>
         </Create>
       </Card>

@@ -28,7 +28,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
   const router = useRouter();
-  const sectionTitle = "Home page Section 2";
+  const sectionTitle = "HomeSection2";
   const typeTitle = router.query.type || "webcontent";
 
   const mediaConfigList: MediaConfig[] = [
@@ -176,7 +176,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        title={sectionTitle}
+        title={"Home page Section 2"}
         style={{
           marginBottom: 24,
           borderRadius: 8,
@@ -277,29 +277,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         </Create>
       </Card>
 
-      {/* <Card
-    title="Home Page Section 02"
-    style={{ borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-    bodyStyle={{ padding: 24 }}
-  >
-    <Row gutter={24}>
-      <Col span={12}>
-        <Form.Item label="Title" name="section2_title">
-          <Input placeholder="Enter title" />
-        </Form.Item>
-        <Form.Item label="Description" name="section2_description">
-          <Input.TextArea placeholder="Enter description" rows={4} />
-        </Form.Item>
-      </Col>
-      <Col span={12}>
-        <Form.Item label="Upload Image 01" name="section2_image">
-          <Upload.Dragger name="file" beforeUpload={() => false}>
-            <p className="ant-upload-text">Upload an image Jpg or Png</p>
-          </Upload.Dragger>
-        </Form.Item>
-      </Col>
-    </Row>
-  </Card> */}
+    
     </div>
   );
 };

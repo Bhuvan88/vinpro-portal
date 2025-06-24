@@ -1,6 +1,7 @@
 import { Tabs, Breadcrumb } from "antd";
 import { useRouter } from "next/router";
-import Section1 from "../../src/components/websettings/home/section";
+// import Section1 from "../../src/components/websettings/home/section";
+import Section1 from "../../src/components/websettings/home/section1";
 import Section2 from "../../src/components/websettings/home/section2";
 import Section3 from "../../src/components/websettings/home/section3";
 import Section4 from "../../src/components/websettings/home/section4";
@@ -20,10 +21,11 @@ const WebsettingsPage = () => {
   };
 
   const tabItems = [
+    // { key: "Section1", label: "Section1" },
     { key: "Home page Section 1", label: "Section 1" },
     { key: "Home page Section 2", label: "Section 2" },
     { key: "Home page Section 3", label: "Section 3" },
-    { key: "Home page Section 4", label: "Section 4" },
+    // { key: "Home page Section 4", label: "Section 5" },
   ];
 
   return (
@@ -47,14 +49,14 @@ const WebsettingsPage = () => {
           ...item,
           children: (() => {
             switch (item.key) {
+       
               case "Home page Section 1":
                 return <Section1 />;
               case "Home page Section 2":
                 return <Section2 />;
               case "Home page Section 3":
                 return <Section3 />;
-              case "Home page Section 4":
-                return <Section4 />;
+             
               default:
                 return null;
             }
