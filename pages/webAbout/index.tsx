@@ -4,6 +4,10 @@ import Section1 from "../../src/components/websettings/about/section";
 import Section2 from "../../src/components/websettings/about/section2";
 import Section3 from "../../src/components/websettings/about/section3";
 import Section4 from "../../src/components/websettings/about/section4";
+import Section5 from "../../src/components/websettings/about/section5";
+import { commonServerSideProps } from "src/commonServerSideProps";
+
+export const getServerSideProps = commonServerSideProps;
 
 const WebsettingsPage = () => {
   const router = useRouter();
@@ -21,6 +25,7 @@ const WebsettingsPage = () => {
     { key: "AboutSection2", label: "Section 2" },
     { key: "AboutSection3", label: "Section 3" },
     { key: "AboutSection4", label: "Section 4" },
+    { key: "AboutSection5", label: "Section 5" },
   ];
 
   return (
@@ -52,6 +57,8 @@ const WebsettingsPage = () => {
                 return <Section3 />;
               case "AboutSection4":
                 return <Section4 />;
+                case "AboutSection5":
+                return <Section5 />;
               default:
                 return null;
             }

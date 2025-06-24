@@ -187,22 +187,18 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         }}
         bodyStyle={{ padding: 24 }}
       >
-         <Card
-                >
                   <img
                     src="./images/about/section4.png"
                     alt="Image 2"
-                    style={{ width: "50%", height: "auto" }}
+                    style={{ width: "100%", height: "auto" }}
                   />
-                </Card>
+
         
         <Create
-          title="Section 4"
+          title={false}
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
-          headerProps={{
-            extra: false,
-          }}
+          goBack={false}
         >
           <Form
             {...formProps}

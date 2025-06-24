@@ -72,7 +72,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           setExistingRecordId(record.id);
           setImage1Id(record.image1 || null); // Set Image1 ID if available
           setImage2Id(record.image2 || null); // Set Image2 ID if available
-         
         } else {
           setExistingRecordId(null);
         }
@@ -143,8 +142,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }),
   });
 
- 
-
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
     if (params.description && typeof params.description !== "string") {
@@ -167,9 +164,8 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
       <Card
-        title={sectionTitle}
+        title={"About Section 2"}
         style={{
           marginBottom: 24,
           borderRadius: 8,
@@ -177,19 +173,19 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         }}
         bodyStyle={{ padding: 24 }}
       >
-         <Card
-                >
-                  <img
-                    src="./images/about/section2.png"
-                    alt="Image 2"
-                    style={{ width: "50%", height: "auto" }}
-                  />
-                </Card>
-        
+
+          <img
+            src="./images/about/section2.png"
+            alt="Image 2"
+            style={{ width: "100%", height: "auto" }}
+          />
+   
+
         <Create
-          title="Save"
+          title={false}
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
+          goBack={false}
         >
           <Form
             {...formProps}
@@ -251,82 +247,56 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                     }}
                   />
                 </FormIconInput>
-
-               
               </Col>
 
-             <Row gutter={24}>
-                           <Col span={12}>
-                             <div className="icon-input-field">
-                               <CustomIcon
-                                 type="PictureOutlined"
-                                 styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                               />
-             
-                               <Form.Item label={t("Image 1")}>
-                                 <Form.Item
-                                   name="image1"
-                                   valuePropName="fileList"
-                                   getValueProps={(data) =>
-                                     getValueProps({ data, imageUrl: apiUrl })
-                                   }
-                                   noStyle
-                                 >
-                                   <Upload.Dragger
-                                     name="file"
-                                     listType="picture"
-                                     multiple={false}
-                                     beforeUpload={() => false}
-                                     {...getUploadProps("image1")}
-                                   >
-                                     <p className="ant-upload-text">
-                                       {t("drag&dropafileinthisarea")}
-                                     </p>
-                                   </Upload.Dragger>
-                                 </Form.Item>
-                               </Form.Item>
-                             </div>
-                           </Col>
-                           {Image1id && (
-                             <Col span={12}>
-                               <img
-                                 src={`${apiUrl}assets/${Image1id}`}
-                                 alt="Image 1"
-                                 style={{ width: "30%", height: "auto" }}
-                               />
-                             </Col>
-                           )}
-                         </Row>
-            
+              <Row gutter={24}>
+                <Col span={12}>
+                  <div className="icon-input-field">
+                    <CustomIcon
+                      type="PictureOutlined"
+                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                    />
+
+                    <Form.Item label={t("Image 1")}>
+                      <Form.Item
+                        name="image1"
+                        valuePropName="fileList"
+                        getValueProps={(data) =>
+                          getValueProps({ data, imageUrl: apiUrl })
+                        }
+                        noStyle
+                      >
+                        <Upload.Dragger
+                          name="file"
+                          listType="picture"
+                          multiple={false}
+                          beforeUpload={() => false}
+                          {...getUploadProps("image1")}
+                        >
+                          <p className="ant-upload-text">
+                            {t("drag&dropafileinthisarea")}
+                          </p>
+                        </Upload.Dragger>
+                      </Form.Item>
+                    </Form.Item>
+                  </div>
+                </Col>
+                {Image1id && (
+                  <Col span={12}>
+                    <img
+                      src={`${apiUrl}assets/${Image1id}`}
+                      alt="Image 1"
+                      style={{ width: "30%", height: "auto" }}
+                    />
+                  </Col>
+                )}
+              </Row>
             </Row>
           </Form>
         </Create>
       </Card>
 
-      {/* <Card
-    title="Home Page Section 02"
-    style={{ borderRadius: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-    bodyStyle={{ padding: 24 }}
-  >
-    <Row gutter={24}>
-      <Col span={12}>
-        <Form.Item label="Title" name="section2_title">
-          <Input placeholder="Enter title" />
-        </Form.Item>
-        <Form.Item label="Description" name="section2_description">
-          <Input.TextArea placeholder="Enter description" rows={4} />
-        </Form.Item>
-      </Col>
-      <Col span={12}>
-        <Form.Item label="Upload Image 01" name="section2_image">
-          <Upload.Dragger name="file" beforeUpload={() => false}>
-            <p className="ant-upload-text">Upload an image Jpg or Png</p>
-          </Upload.Dragger>
-        </Form.Item>
-      </Col>
-    </Row>
-  </Card> */}
-    </div>
+     
   );
 };
 

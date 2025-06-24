@@ -72,7 +72,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           setExistingRecordId(record.id);
           setImage1Id(record.image1 || null); // Set Image1 ID if available
           setImage2Id(record.image2 || null); // Set Image2 ID if available
-         
         } else {
           setExistingRecordId(null);
         }
@@ -109,14 +108,14 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   useEffect(() => {
-    if (fileInfo?.data && Image1id){
+    if (fileInfo?.data && Image1id) {
       formProps.form?.setFieldsValue({
         image1: mapToFileList(fileInfo.data), // 👈 this sets the value of "image1" field
       });
     }
   }, [fileInfo, Image1id]);
   useEffect(() => {
-    if (fileInfo2?.data && image2Id){
+    if (fileInfo2?.data && image2Id) {
       formProps.form?.setFieldsValue({
         image2: mapToFileList(fileInfo2.data), // 👈 this sets the value of "image2" field
       });
@@ -143,8 +142,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     }),
   });
 
- 
-
   const defaultMapper = (params: any) => {
     mediaUploadMapper(params, mediaConfigList);
     if (params.description && typeof params.description !== "string") {
@@ -164,10 +161,16 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     if (Array.isArray(params.image2) && params.image2.length > 0) {
       params.image2 = params.image2[0]?.id || params.image2[0];
     }
-    if (Array.isArray(params.image2) && params.image2.length === 0 || !params.image2) {
+    if (
+      (Array.isArray(params.image2) && params.image2.length === 0) ||
+      !params.image2
+    ) {
       params.image2 = null; // Set to null if no image is selected
     }
-    if (Array.isArray(params.image1) && params.image1.length === 0 || !params.image1) {
+    if (
+      (Array.isArray(params.image1) && params.image1.length === 0) ||
+      !params.image1
+    ) {
       params.image1 = null; // Set to null if no image is selected
     }
     params["section_title"] = sectionTitle;
@@ -175,7 +178,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
+    <div >
       <Card
         title={"About Section 1"}
         style={{
@@ -183,23 +186,22 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           borderRadius: 8,
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
-        bodyStyle={{ padding: 24 }}
+      
       >
-       
-
+      
+        <img
+          src="./images/about/section1.png"
+          alt="Image 2"
+          style={{ width: "100%", height: "auto" }}
+        />
+  
         <Create
-          title="Section 1"
+          title={false}
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
+           goBack={false}
         >
-           <Card
-        >
-          <img
-            src="./images/about/section1.png"
-            alt="Image 2"
-            style={{ width: "50%", height: "auto" }}
-          />
-        </Card>
+         
           <Form
             {...formProps}
             name="websettings"
@@ -231,94 +233,91 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   icon="FileTextOutlined"
                   children={<Input />}
                 />
-
-           
               </Col>
-
-<Row gutter={24}>
-              <Col span={12}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
-
-                  <Form.Item label={t("Image 1")}>
-                    <Form.Item
-                      name="image1"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
-                    >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image1")}
-                      >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
-                    </Form.Item>
-                  </Form.Item>
-                </div>
-              </Col>
-              {Image1id && (
-                <Col span={12}>
-                  <img
-                    src={`${apiUrl}assets/${Image1id}`}
-                    alt="Image 1"
-                    style={{ width: "30%", height: "auto" }}
-                  />
-                </Col>
-              )}
-            </Row>
 
               <Row gutter={24}>
                 <Col span={12}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
+                  <div className="icon-input-field">
+                    <CustomIcon
+                      type="PictureOutlined"
+                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                    />
 
-                  <Form.Item label={t("Image 2")}>
-                    <Form.Item
-                      name="image2"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
-                    >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image2")}
+                    <Form.Item label={t("Image 1")}>
+                      <Form.Item
+                        name="image1"
+                        valuePropName="fileList"
+                        getValueProps={(data) =>
+                          getValueProps({ data, imageUrl: apiUrl })
+                        }
+                        noStyle
                       >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
+                        <Upload.Dragger
+                          name="file"
+                          listType="picture"
+                          multiple={false}
+                          beforeUpload={() => false}
+                          {...getUploadProps("image1")}
+                        >
+                          <p className="ant-upload-text">
+                            {t("drag&dropafileinthisarea")}
+                          </p>
+                        </Upload.Dragger>
+                      </Form.Item>
                     </Form.Item>
-                  </Form.Item>
-                </div>
+                  </div>
+                </Col>
+                {Image1id && (
+                  <Col span={12}>
+                    <img
+                      src={`${apiUrl}assets/${Image1id}`}
+                      alt="Image 1"
+                      style={{ width: "30%", height: "auto" }}
+                    />
+                  </Col>
+                )}
+              </Row>
+
+              <Row gutter={24}>
+                <Col span={12}>
+                  <div className="icon-input-field">
+                    <CustomIcon
+                      type="PictureOutlined"
+                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                    />
+
+                    <Form.Item label={t("Image 2")}>
+                      <Form.Item
+                        name="image2"
+                        valuePropName="fileList"
+                        getValueProps={(data) =>
+                          getValueProps({ data, imageUrl: apiUrl })
+                        }
+                        noStyle
+                      >
+                        <Upload.Dragger
+                          name="file"
+                          listType="picture"
+                          multiple={false}
+                          beforeUpload={() => false}
+                          {...getUploadProps("image2")}
+                        >
+                          <p className="ant-upload-text">
+                            {t("drag&dropafileinthisarea")}
+                          </p>
+                        </Upload.Dragger>
+                      </Form.Item>
+                    </Form.Item>
+                  </div>
                 </Col>
                 {image2Id && (
-                  
-                <Col span={12}>
-                <img 
-                  src={`${apiUrl}assets/${existingData?.data?.[0]?.image2}`}
-                  alt="Image 2"
-                  style={{ width: "30%", height: "auto" }}
-                />
-                </Col>
+                  <Col span={12}>
+                    <img
+                      src={`${apiUrl}assets/${existingData?.data?.[0]?.image2}`}
+                      alt="Image 2"
+                      style={{ width: "30%", height: "auto" }}
+                    />
+                  </Col>
                 )}
               </Row>
             </Row>

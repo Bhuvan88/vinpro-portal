@@ -182,7 +182,6 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
       <Card
         title={"Home Page Section 3"}
         style={{
@@ -190,15 +189,15 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           borderRadius: 8,
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
-        bodyStyle={{ padding: 24 }}
+     
       >
-        <Card>
+     
           <img
             src="./images/home/section4.png"
             alt="Image 2"
-            style={{ width: "80%", height: "auto" }}
+            style={{ width: "100%", height: "auto" }}
           />
-        </Card>
+
 
         <Create
           title={false}
@@ -358,7 +357,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           </Form>
         </Create>
       </Card>
-    </div>
+
   );
 };
 
