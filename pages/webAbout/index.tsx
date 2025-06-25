@@ -5,6 +5,7 @@ import Section2 from "../../src/components/websettings/about/section2";
 import Section3 from "../../src/components/websettings/about/section3";
 import Section4 from "../../src/components/websettings/about/section4";
 import Section5 from "../../src/components/websettings/about/section5";
+import Section6 from "../../src/components/websettings/about/section6";
 import { commonServerSideProps } from "src/commonServerSideProps";
 
 export const getServerSideProps = commonServerSideProps;
@@ -26,6 +27,7 @@ const WebsettingsPage = () => {
     { key: "AboutSection3", label: "Section 3" },
     { key: "AboutSection4", label: "Section 4" },
     { key: "AboutSection5", label: "Section 5" },
+    { key: "AboutSection6", label: "Section 6" },
   ];
 
   return (
@@ -59,6 +61,8 @@ const WebsettingsPage = () => {
                 return <Section4 />;
                 case "AboutSection5":
                 return <Section5 />;
+                case "AboutSection6":
+                return <Section6 />;
               default:
                 return null;
             }
