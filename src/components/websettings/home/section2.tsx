@@ -270,7 +270,37 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                
               </Col>
 
+               <Col span={24}>
+                             <div className="icon-input-field">
+                               <CustomIcon
+                                 type="PictureOutlined"
+                                 styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                               />
              
+                               <Form.Item label={t("Image 1")}>
+                                 <Form.Item
+                                   name="image1"
+                                   valuePropName="fileList"
+                                   getValueProps={(data) =>
+                                     getValueProps({ data, imageUrl: apiUrl })
+                                   }
+                                   noStyle
+                                 >
+                                   <Upload.Dragger
+                                     name="file"
+                                     listType="picture"
+                                     multiple={false}
+                                     beforeUpload={() => false}
+                                     {...getUploadProps("image1")}
+                                   >
+                                     <p className="ant-upload-text">
+                                       {t("drag&dropafileinthisarea")}
+                                     </p>
+                                   </Upload.Dragger>
+                                 </Form.Item>
+                               </Form.Item>
+                             </div>
+                           </Col>
             
             </Row>
           </Form>
