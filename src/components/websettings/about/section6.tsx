@@ -91,7 +91,16 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
 
 
  
+useEffect(() => {
+  if (existingData?.data?.[0]) {
+    const data = existingData.data[0];
 
+    // Reassign form fields
+    formProps.form?.setFieldsValue({
+      list_details: data.list_details ? JSON.parse(data.list_details) : [],
+    });
+  }
+}, [existingData]);
 
   const { formProps, saveButtonProps, formLoading } = useForm({
     resource: "webcontent",
@@ -100,7 +109,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     mutationMode: "pessimistic",
     redirect: false,
     onMutationSuccess: () => {
-      formProps.form?.resetFields();
+    //   formProps.form?.resetFields();
       refetch(); // Refetch to get the latest data
       // callback("success");
     },
