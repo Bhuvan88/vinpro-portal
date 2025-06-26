@@ -67,7 +67,7 @@ const WebsettingsPage = () => {
         </div>
       </Col>
       <Col span={8}>
-        <div className="card-container" onClick={() => handleTabChange("/webemployer")} style={{ cursor: "pointer" }}>
+        <div className="card-container" onClick={() => handleTabChange("/webEmployer")} style={{ cursor: "pointer" }}>
           <Card style={{ alignItems: "center", width: "100%" }}>
             <Typography.Title level={5} className="headTitle">
               Employer of records
@@ -81,7 +81,7 @@ const WebsettingsPage = () => {
         </div>
       </Col>
       <Col span={8}>
-        <div className="card-container" onClick={() => handleTabChange("/webstaffing")} style={{ cursor: "pointer" }}>
+        <div className="card-container" onClick={() => handleTabChange("/webStaffing")} style={{ cursor: "pointer" }}>
           <Card style={{ alignItems: "center", width: "100%" }}>
             <Typography.Title level={5} className="headTitle">
               Staffing Solution
