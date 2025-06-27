@@ -96,7 +96,7 @@ const WebsettingsPage = () => {
       </Col>
 
       <Col span={8}>
-        <div className="card-container" onClick={() => handleTabChange("/webhr")} style={{ cursor: "pointer" }}>
+        <div className="card-container" onClick={() => handleTabChange("/webHrPayroll")} style={{ cursor: "pointer" }}>
           <Card style={{ alignItems: "center", width: "100%" }}>
             <Typography.Title level={5} className="headTitle">
               HR and Payroll
