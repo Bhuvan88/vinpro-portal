@@ -76,7 +76,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     queryOptions: {
       enabled: visible,
       onSuccess: (response) => {
-        console.log("Existing Data:", response?.data);
+        //console.log("Existing Data:", response?.data);
 
         if (response?.data?.[0]) {
           const record = response?.data?.[0];
@@ -230,6 +230,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           >
             <Row gutter={24}>
               <Col span={24}>
+              
                 <FormIconInput
                   label="Title"
                   name="title"
@@ -237,7 +238,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   icon="FileTextOutlined"
                   children={<Input />}
                 />
-
+              {/*
                 <FormIconInput
                   label="Subtitle"
                   name="subtitle"
@@ -245,6 +246,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 >
                   <Input placeholder="Enter subtitle" />
                 </FormIconInput>
+                */}
 
                 <FormIconInput
                   label="Description"
@@ -252,7 +254,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   icon="EditOutlined"
                 >
                   <Editor
-                    id={sectionTitle}
+                    id={"AboutSection3"}
                     apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
                     init={{
                       height: 300,
@@ -275,39 +277,8 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   />
                 </FormIconInput>
               </Col>
+              
 
-              <Col span={24}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
-
-                  <Form.Item label={t("Image 1")}>
-                    <Form.Item
-                      name="image1"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
-                    >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image1")}
-                      >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
-                    </Form.Item>
-                  </Form.Item>
-                </div>
-              </Col>
-            </Row>
             <Divider orientation="left">List</Divider>
             <Col span={24}>
               <Form.List name="list_details">
@@ -355,6 +326,41 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 )}
               </Form.List>
             </Col>
+
+
+              <Col span={24}>
+                <div className="icon-input-field">
+                  <CustomIcon
+                    type="PictureOutlined"
+                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                  />
+
+                  <Form.Item label={t("Image 1")}>
+                    <Form.Item
+                      name="image1"
+                      valuePropName="fileList"
+                      getValueProps={(data) =>
+                        getValueProps({ data, imageUrl: apiUrl })
+                      }
+                      noStyle
+                    >
+                      <Upload.Dragger
+                        name="file"
+                        listType="picture"
+                        multiple={false}
+                        beforeUpload={() => false}
+                        {...getUploadProps("image1")}
+                      >
+                        <p className="ant-upload-text">
+                          {t("drag&dropafileinthisarea")}
+                        </p>
+                      </Upload.Dragger>
+                    </Form.Item>
+                  </Form.Item>
+                </div>
+              </Col>
+            
+            </Row>
           </Form>
         </Create>
       </Card>

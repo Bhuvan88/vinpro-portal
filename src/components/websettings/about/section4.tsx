@@ -231,7 +231,14 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   children={<Input />}
                 />
 
-              
+                 <FormIconInput
+                  label="Subtitle"
+                  name="subtitle"
+                  icon="FileTextOutlined"
+                >
+                  <Input placeholder="Enter subtitle" />
+                </FormIconInput>
+                
               </Col>
 
               <Col span={24}>

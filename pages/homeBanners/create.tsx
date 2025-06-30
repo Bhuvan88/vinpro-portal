@@ -198,7 +198,7 @@ const BannerCreate: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 noStyle
                 rules={[
                   {
-                    required: true,
+                    required: false,
                     message: t("enterimage"),
                   },
                 ]}

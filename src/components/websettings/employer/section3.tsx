@@ -242,7 +242,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   icon="EditOutlined"
                 >
                   <Editor
-                    id={sectionTitle}
+                    id={"EmployerSection3"}
                     apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
                     init={{
                       height: 300,
