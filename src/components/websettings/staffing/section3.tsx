@@ -209,13 +209,13 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
         >
           <Row gutter={24}>
             <Col span={24}>
-              <FormIconInput
+              {/*<FormIconInput
                 label="Title"
                 name="title"
                 rules={[{ required: true, message: "Enter title" }]}
                 icon="FileTextOutlined"
                 children={<Input />}
-              />
+              />*/}
 
               <FormIconInput
                 label="Description"

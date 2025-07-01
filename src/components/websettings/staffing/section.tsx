@@ -178,7 +178,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   return (
-    <div >
+    <div>
       <Card
         title={"Staffing section 1"}
         style={{
@@ -186,22 +186,19 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
           borderRadius: 8,
           boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         }}
-      
       >
-      
         <img
           src="./images/staffing/section1.png"
           alt="Image 2"
           style={{ width: "100%", height: "auto" }}
         />
-  
+
         <Create
           title={false}
           saveButtonProps={saveButtonProps}
           isLoading={formLoading}
-           goBack={false}
+          goBack={false}
         >
-         
           <Form
             {...formProps}
             name="websettings"
@@ -235,48 +232,48 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 />
               </Col>
               <Col span={24}>
-              <Row gutter={24}>
-                <Col span={12}>
-                  <div className="icon-input-field">
-                    <CustomIcon
-                      type="PictureOutlined"
-                      styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                    />
-
-                    <Form.Item label={t("Image 1")}>
-                      <Form.Item
-                        name="image1"
-                        valuePropName="fileList"
-                        getValueProps={(data) =>
-                          getValueProps({ data, imageUrl: apiUrl })
-                        }
-                        noStyle
-                      >
-                        <Upload.Dragger
-                          name="file"
-                          listType="picture"
-                          multiple={false}
-                          beforeUpload={() => false}
-                          {...getUploadProps("image1")}
-                        >
-                          <p className="ant-upload-text">
-                            {t("drag&dropafileinthisarea")}
-                          </p>
-                        </Upload.Dragger>
-                      </Form.Item>
-                    </Form.Item>
-                  </div>
-                </Col>
-                {Image1id && (
+                <Row gutter={24}>
                   <Col span={12}>
-                    <img
-                      src={`${apiUrl}assets/${Image1id}`}
-                      alt="Image 1"
-                      style={{ width: "30%", height: "auto" }}
-                    />
+                    <div className="icon-input-field">
+                      <CustomIcon
+                        type="PictureOutlined"
+                        styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                      />
+
+                      <Form.Item label={t("Image 1")}>
+                        <Form.Item
+                          name="image1"
+                          valuePropName="fileList"
+                          getValueProps={(data) =>
+                            getValueProps({ data, imageUrl: apiUrl })
+                          }
+                          noStyle
+                        >
+                          <Upload.Dragger
+                            name="file"
+                            listType="picture"
+                            multiple={false}
+                            beforeUpload={() => false}
+                            {...getUploadProps("image1")}
+                          >
+                            <p className="ant-upload-text">
+                              {t("drag&dropafileinthisarea")}
+                            </p>
+                          </Upload.Dragger>
+                        </Form.Item>
+                      </Form.Item>
+                    </div>
                   </Col>
-                )}
-              </Row>
+                  {Image1id && (
+                    <Col span={12}>
+                      <img
+                        src={`${apiUrl}assets/${Image1id}`}
+                        alt="Image 1"
+                        style={{ width: "30%", height: "auto" }}
+                      />
+                    </Col>
+                  )}
+                </Row>
               </Col>
 
               <Row gutter={24}>
@@ -322,39 +319,39 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 )}
               </Row>
             </Row>
+            {/*
             <FormIconInput
-                  label="Description"
-                  name="description"
-                  icon="EditOutlined"
-                >
-                  <Editor
-                    id={sectionTitle}
-                    apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
-                    init={{
-                      height: 300,
-                      menubar: false,
-                      plugins: [
-                        "advlist autolink lists link image charmap preview anchor",
-                        "searchreplace visualblocks code fullscreen",
-                        "insertdatetime media table paste help wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | formatselect | bold italic backcolor | " +
-                        "alignleft aligncenter alignright alignjustify | " +
-                        "bullist numlist outdent indent | removeformat | help",
-                    }}
-                    value={formProps.form?.getFieldValue("description") || ""}
-                    onEditorChange={(content, editor) => {
-                      console.log("Editor content:", content);
-                      formProps.form?.setFieldsValue({ description: content });
-                    }}
-                  />
-                </FormIconInput>
+              label="Description"
+              name="description"
+              icon="EditOutlined"
+            >
+              <Editor
+                id={sectionTitle}
+                apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
+                init={{
+                  height: 300,
+                  menubar: false,
+                  plugins: [
+                    "advlist autolink lists link image charmap preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table paste help wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | formatselect | bold italic backcolor | " +
+                    "alignleft aligncenter alignright alignjustify | " +
+                    "bullist numlist outdent indent | removeformat | help",
+                }}
+                value={formProps.form?.getFieldValue("description") || ""}
+                onEditorChange={(content, editor) => {
+                  console.log("Editor content:", content);
+                  formProps.form?.setFieldsValue({ description: content });
+                }}
+              />
+            </FormIconInput>
+            */}
           </Form>
         </Create>
       </Card>
-
-    
     </div>
   );
 };
