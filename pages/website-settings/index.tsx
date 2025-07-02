@@ -110,13 +110,27 @@ const WebsettingsPage = () => {
         </div>
       </Col>
       <Col span={8}>
-        <div className="card-container" onClick={() => handleTabChange("/webcontact")} style={{ cursor: "pointer" }}>
+        <div className="card-container" onClick={() => handleTabChange("/webContact")} style={{ cursor: "pointer" }}>
           <Card style={{ alignItems: "center", width: "100%" }}>
             <Typography.Title level={5} className="headTitle">
               Contact
             </Typography.Title>
             <img
               src="./images/contact.png"
+              alt="Refine"
+              style={{ width: "100%", marginTop: 15 }}
+            />
+          </Card>
+        </div>
+      </Col>
+       <Col span={8}>
+        <div className="card-container" onClick={() => handleTabChange("/webFooter")} style={{ cursor: "pointer" }}>
+          <Card style={{ alignItems: "center", width: "100%" }}>
+            <Typography.Title level={5} className="headTitle">
+              Footer About us
+            </Typography.Title>
+            <img
+              src="./images/footerabout.png"
               alt="Refine"
               style={{ width: "100%", marginTop: 15 }}
             />
