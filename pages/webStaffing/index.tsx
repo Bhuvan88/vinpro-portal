@@ -7,12 +7,19 @@ import Section4 from "../../src/components/websettings/staffing/section4";
 import Section5 from "../../src/components/websettings/staffing/section5";
 import Section6 from "../../src/components/websettings/staffing/section6";
 import { commonServerSideProps } from "src/commonServerSideProps";
-
+import React, { useEffect, useState } from "react";
+import { useTeam } from "src/teamProvider";
 export const getServerSideProps = commonServerSideProps;
 
 const WebsettingsPage = () => {
   const router = useRouter();
   const sectionTitle = router.query.section_title || "StaffingSection1";
+  const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
+
+  useEffect(() => {
+        setSelectedMenu("/website-settings", "/website-settings");
+        setHeaderTitle("Website Settings");
+  }, []);
 
   const handleTabChange = (key: string) => {
     router.push({
@@ -54,27 +61,27 @@ const WebsettingsPage = () => {
               case "StaffingSection1":
                 return <Section1 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "StaffingSection2":
                 return <Section2 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "StaffingSection3":
                 return <Section3 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "StaffingSection4":
                 return <Section4 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
                 case "StaffingSection5":
                 return <Section5 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
                 case "StaffingSection6":
                 return <Section6 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               default:
                 return null;
             }

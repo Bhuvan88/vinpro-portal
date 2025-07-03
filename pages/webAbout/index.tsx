@@ -15,12 +15,12 @@ export const getServerSideProps = commonServerSideProps;
 const WebsettingsPage = () => {
   const router = useRouter();
   const sectionTitle = router.query.section_title || "AboutSection1";
-    const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
+  const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
 
-   useEffect(() => {
+  useEffect(() => {
         setSelectedMenu("/website-settings", "/website-settings");
         setHeaderTitle("Website Settings");
-    }, []);
+  }, []);
 
   const handleTabChange = (key: string) => {
     router.push({
@@ -62,27 +62,27 @@ const WebsettingsPage = () => {
               case "AboutSection1":
                 return <Section1 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "AboutSection2":
                 return <Section2 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "AboutSection3":
                 return <Section3 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "AboutSection4":
                 return <Section4 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
                 case "AboutSection5":
                 return <Section5 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
                 case "AboutSection6":
                 return <Section6 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               default:
                 return null;
             }

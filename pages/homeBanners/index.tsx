@@ -54,9 +54,11 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const apiUrl = useApiUrl();
 
   useEffect(() => {
-    setSelectedMenu("/featured", "/banners");
+    setSelectedMenu("/banners", "/banners");
     setHeaderTitle(t("banners"));
   }, []);
+
+
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({

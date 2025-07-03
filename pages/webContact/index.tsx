@@ -2,14 +2,21 @@ import { Tabs, Breadcrumb } from "antd";
 import { useRouter } from "next/router";
 // import Section1 from "../../src/components/websettings/home/section";
 import Section1 from "../../src/components/websettings/contact/section";
-
+import { useTeam } from "src/teamProvider";
 import { commonServerSideProps } from "src/commonServerSideProps";
+import React, { useEffect, useState } from "react";
 
 export const getServerSideProps = commonServerSideProps;
 
 const WebsettingsPage = () => {
   const router = useRouter();
   const sectionTitle = router.query.section_title || "Home page Section 1";
+  const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
+
+  useEffect(() => {
+        setSelectedMenu("/website-settings", "/website-settings");
+        setHeaderTitle("Website Settings");
+  }, []);
 
   const handleTabChange = (key: string) => {
     router.push({
@@ -50,7 +57,7 @@ const WebsettingsPage = () => {
               case "Home page Section 1":
                 return <Section1 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
              
              
               default:

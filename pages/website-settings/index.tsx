@@ -4,16 +4,24 @@ import Section1 from "../../src/components/websettings/home/section";
 import Section2 from "../../src/components/websettings/home/section2";
 import Section3 from "../../src/components/websettings/home/section3";
 import Section4 from "../../src/components/websettings/home/section4";
+import React, { useEffect, useState } from "react";
+import { useTeam } from "src/teamProvider";
 
 const WebsettingsPage = () => {
   const router = useRouter();
   const sectionTitle = router.query.section_title || "Home page Section 1";
 
+  const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
+  
+    useEffect(() => {
+          setSelectedMenu("/website-settings", "/website-settings");
+          setHeaderTitle("Website Settings");
+    }, []);
+
   const handleTabChange = (page: string) => {
     router.push(page);
   };
 
- 
   return (
     <Row gutter={[16, 16]}>
       <Col span={8}>

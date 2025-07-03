@@ -12,12 +12,19 @@ import Section9 from "../../src/components/websettings/hrpayroll/section9";
 import Section10 from "../../src/components/websettings/hrpayroll/section10";
 import Section11 from "../../src/components/websettings/hrpayroll/section11";
 import { commonServerSideProps } from "src/commonServerSideProps";
-
+import React, { useEffect, useState } from "react";
+import { useTeam } from "src/teamProvider";
 export const getServerSideProps = commonServerSideProps;
 
 const WebsettingsPage = () => {
   const router = useRouter();
   const sectionTitle = router.query.section_title || "HrpayrollSection1";
+  const { setSelectedMenu, setHeaderTitle, identity, isAdmin } = useTeam();
+
+  useEffect(() => {
+        setSelectedMenu("/website-settings", "/website-settings");
+        setHeaderTitle("Website Settings");
+  }, []);
 
   const handleTabChange = (key: string) => {
     router.push({
@@ -64,47 +71,47 @@ const WebsettingsPage = () => {
               case "HrpayrollSection1":
                 return <Section1 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection2":
                 return <Section2 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection3":
                 return <Section3 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection4":
                 return <Section4 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection5":
                 return <Section5 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection6":
                 return <Section6 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection7":
                 return <Section7 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection8":
                 return <Section8 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection9":
                 return <Section9 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection10":
                 return <Section10 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               case "HrpayrollSection11":
                 return <Section11 callback={function (status: string): void {
                   throw new Error("Function not implemented.");
-                } } visible={false} />;
+                } } visible={true} />;
               default:
                 return null;
             }
