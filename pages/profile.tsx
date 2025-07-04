@@ -111,11 +111,11 @@ const EditProfile: React.FC = () => {
                <Row gutter={24}> 
                <Col span={12}> 
                     <Form.Item
-					label="Email"
+					label="Username"
 					name={"email"}
 					rules={[{ required: true, message: t("entercontactemail") },{type: "email", message: t("invalidemailaddress")}]}
 					children={<Input type={"email"} 
-                                 disabled={selectedRole === "Administrator" ? true : false}
+                                //  disabled={selectedRole === "Administrator" ? true : false}
                                  value={passwordQueryResult?.data?.data?.email}/>}					
 				/>
                     </Col>
