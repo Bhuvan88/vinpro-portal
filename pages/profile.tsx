@@ -41,7 +41,7 @@ const EditProfile: React.FC = () => {
         id: identity?.id,
         action: "edit",
         redirect: false,
-        successNotification: { message: t("successfullyupdated"), type: "success" },
+        successNotification: { message: "Successfully Updated", type: "success" },
         onMutationSuccess() {
           setIsLoading(false);  
           refetch();             
@@ -56,7 +56,7 @@ const EditProfile: React.FC = () => {
         id: identity?.id,
         action: "edit",
         redirect: false,
-        successNotification: { message: t("passwordupdatedsuccessfully"), type: "success" },
+        successNotification: { message: "Password Successfully Updated", type: "success" },
     });
 
     const {isLoading } = queryResult;
@@ -76,7 +76,7 @@ const EditProfile: React.FC = () => {
         <div  style={{ height: "calc(100vh - 120px)", overflow: "auto" }}>
             <div className="flex" style={{ alignItems: "center" }}>                                    
              <Typography.Title level={4} style={{ margin: "0px 0px 10px" }}>
-                {t("myprofile")}
+                My Profile
             </Typography.Title></div>
                 <Form
                 {...formProps}
@@ -89,7 +89,7 @@ const EditProfile: React.FC = () => {
             <Row gutter={24}>                 
                 <Col span={12}> 
                 <Form.Item
-                    label={t("firstname")}
+                    label="First Name"
                     name="first_name"
                     rules={[
                         { required: true , message: t("firstnameisrequired") },
@@ -99,7 +99,7 @@ const EditProfile: React.FC = () => {
 
             <Col span={12}>                
                 <Form.Item
-                    label={t("lastname")}
+                    label="Last Name"
                     name="last_name"
                     rules={[
                         { required: true , message: t("lastnameisrequired") },
@@ -111,7 +111,7 @@ const EditProfile: React.FC = () => {
                <Row gutter={24}> 
                <Col span={12}> 
                     <Form.Item
-					label={t("contactemail")}
+					label="Email"
 					name={"email"}
 					rules={[{ required: true, message: t("entercontactemail") },{type: "email", message: t("invalidemailaddress")}]}
 					children={<Input type={"email"} 
@@ -119,16 +119,7 @@ const EditProfile: React.FC = () => {
                                  value={passwordQueryResult?.data?.data?.email}/>}					
 				/>
                     </Col>
-                    <Col span={12}>
-                     <Form.Item
-                            label={t("mobile")}
-                            name="mobile"
-                            rules={[
-                                { required: true, message: t("entercontactnumber") },{min:8,max:10}
-                                ]}
-                                children={<Input type="number"/>}
-                        />       
-                        </Col>
+                    
                         </Row>
                         <Row gutter={24} >
                             <Col span={12}>
@@ -193,23 +184,23 @@ const EditProfile: React.FC = () => {
         <Row gutter={24}>                 
         <Col span={12}>	                    
                < Form.Item 
-                            label={t("newpassword")} name="password" 
+                            label="New Password" name="password" 
                             rules={[{ required: true, message: t("passwordisrequired")},
-                            {min:6,message:t("passwordmustbeatleast6characters")}]}
+                            {min:6,message:"Password must be atleast 6 characters"}] }
                 >
                      <Input.Password type="password" />
                 </Form.Item>
          </Col>
          <Col span={12}>
                     <Form.Item
-                            label={t("retypenewpassword")}
-                                rules={[{ required: true,message:t("pleaseenterretypenewpassword")},
+                            label="Confirm Password"
+                                rules={[{ required: true,message:"Confirm Password is required" },
                                             ({ getFieldValue }) => ({
                                                 validator(_, value) {
                                                     if (!value || getFieldValue("password") === value) {
                                                         return Promise.resolve();
                                                     }
-                                                    return Promise.reject(new Error(t("thetwopasswordsthatyouentereddonotmatch")));
+                                                    return Promise.reject(new Error("The two passwords that you entered do not match!"));
                                                 },
                                             }),
                                         ]}

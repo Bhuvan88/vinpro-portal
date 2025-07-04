@@ -114,6 +114,14 @@
 		"resource": "eor_notes",
 		"link": "/notes",
 		"roles": [ "Administrator" ]
+	},
+	{
+		"icon": "LockOutlined",
+		"title": "Change Password",
+		"module": "administration",
+		"resource": "",
+		"link": "/profile",
+		"roles": [ "Administrator" ]
 	}
 	
 ]
