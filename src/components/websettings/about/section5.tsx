@@ -227,7 +227,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 >
                   <Editor
                     id={sectionTitle}
-                    apiKey="iyoxbsi6qt2fnv3umd4zbs52tca0yupfw2h2o6g3n16mx9hv"
+                    apiKey="oryeu92g939fbxwfklzq88xsr3cs65etuskbzzvn6mgawy90"
                     init={{
                       height: 300,
                       menubar: false,
