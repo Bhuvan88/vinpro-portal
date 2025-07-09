@@ -24,12 +24,15 @@ import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+// import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
 };
-
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const { TextArea } = Input;
   const t = useTranslate();
@@ -38,6 +41,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const [existingRecordId, setExistingRecordId] = useState<string | null>(null);
   const [Image1id, setImage1Id] = useState<string | null>(null);
   const [image2Id, setImage2Id] = useState<string | null>(null);
+  const [value, setValue] = useState<string>(""); // Removed unused state
   const router = useRouter();
   const sectionTitle = "HomeSection1";
   const typeTitle = router.query.type || "webcontent";
@@ -242,8 +246,16 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 >
                   <Input placeholder="Enter subtitle" />
                 </FormIconInput> */}
+                 <FormIconInput
+                  label="Description"
+                  name="description"
+                  icon="EditOutlined"
+                >
 
-                <FormIconInput
+                <ReactQuill theme="snow" value={formProps.form?.getFieldValue("description") || ""} onChange={(value) => formProps.form?.setFieldsValue({ description: value })}  style={{ height: '200px' }} />
+                </FormIconInput>
+
+                {/* <FormIconInput
                   label="Description"
                   name="description"
                   icon="EditOutlined"
@@ -270,7 +282,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                       formProps.form?.setFieldsValue({ description: content });
                     }}
                   />
-                </FormIconInput>
+                </FormIconInput> */}
               </Col>
 
              
