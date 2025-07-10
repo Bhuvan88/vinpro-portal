@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Section1 from "../../src/components/websettings/home/section1";
 import Section2 from "../../src/components/websettings/home/section2";
 import Section3 from "../../src/components/websettings/home/section3";
-import Section4 from "../../src/components/websettings/home/section4";
+
 import { commonServerSideProps } from "src/commonServerSideProps";
 import React, { useEffect, useState } from "react";
 import { useTeam } from "src/teamProvider";

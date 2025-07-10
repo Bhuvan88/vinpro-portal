@@ -13,6 +13,9 @@ import { directusClient } from "src/directusClient";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
@@ -173,6 +176,22 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     return { ...params };
   };
 
+    useEffect(() => {
+    const record = existingData?.data?.[0];
+    if (record) {
+      formProps.form?.setFieldsValue({
+        section_title: sectionTitle,
+        title: record.title || "",
+        subtitle: record.subtitle || "",
+        description: record.description || "",
+        image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+        button_text: record.button_text || "",
+        button_link: record.button_link || "",
+        image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+      });
+    }
+  }, [existingData]);
+
   return (
     <div >
       <Card
@@ -238,43 +257,26 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   <Input placeholder="Enter subtitle" />
                 </FormIconInput>
 
+           
+
+               
+              </Col>
+ <Col span={24}>
                 <FormIconInput
                   label="Description"
                   name="description"
                   icon="EditOutlined"
                 >
-                  <Editor
-                    id={sectionTitle}
-                    apiKey="oryeu92g939fbxwfklzq88xsr3cs65etuskbzzvn6mgawy90"
-                    init={{
-                      height: 300,
-                      menubar: false,
-                      plugins: [
-                        "advlist autolink lists link image charmap preview anchor",
-                        "searchreplace visualblocks code fullscreen",
-                        "insertdatetime media table paste help wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | formatselect | bold italic backcolor | " +
-                        "alignleft aligncenter alignright alignjustify | " +
-                        "bullist numlist outdent indent | removeformat | help",
-                    }}
-                    value={formProps.form?.getFieldValue("description") || ""}
-                    onEditorChange={(content, editor) => {
-                      console.log("Editor content:", content);
-                      formProps.form?.setFieldsValue({ description: content });
-                    }}
-                  />
+
+                <ReactQuill theme="snow" value={formProps.form?.getFieldValue("description") || ""} onChange={(value) => formProps.form?.setFieldsValue({ description: value })}  style={{ height: '200px' }} />
                 </FormIconInput>
+                </Col>
 
-               
-              </Col>
-
-               <Col span={24}>
+               <Col span={24} style={{ marginTop: 20 }}>
                              <div className="icon-input-field">
                                <CustomIcon
                                  type="PictureOutlined"
-                                 styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
+                                 styleProps={{ style: { fontSize: 20, marginTop: 30 } }}
                                />
              
                                <Form.Item label={t("Image 1")}>

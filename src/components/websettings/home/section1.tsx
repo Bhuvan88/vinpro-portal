@@ -185,6 +185,18 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     return { ...params };
   };
 
+  useEffect(() => {
+  const record = existingData?.data?.[0];
+  if (record) {
+    formProps.form?.setFieldsValue({
+      section_title: sectionTitle,
+      title: record.title || "",
+      subtitle: record.subtitle || "",
+      description: record.description || "",
+    });
+  }
+}, [existingData]);
+
   return (
     <div >
       <Card
@@ -222,12 +234,11 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
               setFormData(allValues);
             }}
             initialValues={{
-              section_title: "Home page Section 4",
-              title: existingData?.data?.[0]?.title || "",
-              subtitle: existingData?.data?.[0]?.subtitle || "",
-              description: existingData?.data?.[0]?.description || "",
-              
-            }}
+                section_title: "Home page Section 4",
+                title: existingData?.data?.[0]?.title || "",
+                subtitle: existingData?.data?.[0]?.subtitle || "",
+                description: existingData?.data?.[0]?.description || "",
+              }}
           >
             <Row gutter={24}>
               <Col span={24}>

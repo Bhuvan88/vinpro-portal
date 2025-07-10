@@ -14,6 +14,7 @@ import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
 
+
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
