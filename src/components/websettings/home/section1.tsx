@@ -27,12 +27,12 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 // import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
-
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
 };
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   const { TextArea } = Input;
   const t = useTranslate();
