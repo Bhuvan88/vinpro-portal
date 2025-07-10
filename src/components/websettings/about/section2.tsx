@@ -13,6 +13,10 @@ import { directusClient } from "src/directusClient";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
@@ -78,6 +82,22 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       },
     },
   });
+
+  useEffect(() => {
+        const record = existingData?.data?.[0];
+        if (record) {
+          formProps.form?.setFieldsValue({
+            section_title: sectionTitle,
+            title: record.title || "",
+            subtitle: record.subtitle || "",
+            description: record.description || "",
+            image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+            button_text: record.button_text || "",
+            button_link: record.button_link || "",
+            image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+          });
+        }
+      }, [existingData]);
 
   const { data: fileInfo } = useCustom({
     url: Image1id ? `${apiUrl}files/${Image1id}` : "",
@@ -224,33 +244,13 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                   name="description"
                   icon="EditOutlined"
                 >
-                  <Editor
-                    id={sectionTitle}
-                    apiKey="oryeu92g939fbxwfklzq88xsr3cs65etuskbzzvn6mgawy90"
-                    init={{
-                      height: 300,
-                      menubar: false,
-                      plugins: [
-                        "advlist autolink lists link image charmap preview anchor",
-                        "searchreplace visualblocks code fullscreen",
-                        "insertdatetime media table paste help wordcount",
-                      ],
-                      toolbar:
-                        "undo redo | formatselect | bold italic backcolor | " +
-                        "alignleft aligncenter alignright alignjustify | " +
-                        "bullist numlist outdent indent | removeformat | help",
-                    }}
-                    value={formProps.form?.getFieldValue("description") || ""}
-                    onEditorChange={(content, editor) => {
-                      console.log("Editor content:", content);
-                      formProps.form?.setFieldsValue({ description: content });
-                    }}
-                  />
+
+                <ReactQuill theme="snow" value={formProps.form?.getFieldValue("description") || ""} onChange={(value) => formProps.form?.setFieldsValue({ description: value })}  style={{ height: '200px' }} />
                 </FormIconInput>
               </Col>
 
               <Row gutter={24}>
-                <Col span={12}>
+                <Col span={12} style={{ marginTop: 20 }}>
                   <div className="icon-input-field">
                     <CustomIcon
                       type="PictureOutlined"
@@ -281,15 +281,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                     </Form.Item>
                   </div>
                 </Col>
-                {Image1id && (
-                  <Col span={12}>
-                    <img
-                      src={`${apiUrl}assets/${Image1id}`}
-                      alt="Image 1"
-                      style={{ width: "30%", height: "auto" }}
-                    />
-                  </Col>
-                )}
+                
               </Row>
             </Row>
           </Form>

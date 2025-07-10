@@ -13,6 +13,9 @@ import { directusClient } from "src/directusClient";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
+import 'react-quill/dist/quill.snow.css';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 type CreateDrawerProps = {
   callback: (status: string) => void;
@@ -78,6 +81,23 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       },
     },
   });
+
+   useEffect(() => {
+        const record = existingData?.data?.[0];
+        if (record) {
+          formProps.form?.setFieldsValue({
+            section_title: sectionTitle,
+            title: record.title || "",
+            subtitle: record.subtitle || "",
+            description: record.description || "",
+            image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+            button_text: record.button_text || "",
+            button_link: record.button_link || "",
+            image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+          });
+        }
+      }, [existingData]);
+  
 
   const { data: fileInfo } = useCustom({
     url: Image1id ? `${apiUrl}files/${Image1id}` : "",

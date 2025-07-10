@@ -96,6 +96,22 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     },
   });
 
+  useEffect(() => {
+          const record = existingData?.data?.[0];
+          if (record) {
+            formProps.form?.setFieldsValue({
+              section_title: sectionTitle,
+              title: record.title || "",
+              subtitle: record.subtitle || "",
+              description: record.description || "",
+              image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+              button_text: record.button_text || "",
+              button_link: record.button_link || "",
+              image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+            });
+          }
+        }, [existingData]);
+
   const mapToFileList = (fileData) => {
     if (!fileData) return [];
 
