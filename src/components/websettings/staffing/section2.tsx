@@ -13,9 +13,9 @@ import { directusClient } from "src/directusClient";
 import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
-import 'react-quill/dist/quill.snow.css';
-import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 type CreateDrawerProps = {
   callback: (status: string) => void;
   visible: boolean;
@@ -96,21 +96,21 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
     },
   });
 
-    useEffect(() => {
-          const record = existingData?.data?.[0];
-          if (record) {
-            formProps.form?.setFieldsValue({
-              section_title: sectionTitle,
-              title: record.title || "",
-              subtitle: record.subtitle || "",
-              description: record.description || "",
-              image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-              button_text: record.button_text || "",
-              button_link: record.button_link || "",
-              image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
-            });
-          }
-        }, [existingData]);
+  useEffect(() => {
+    const record = existingData?.data?.[0];
+    if (record) {
+      formProps.form?.setFieldsValue({
+        section_title: sectionTitle,
+        title: record.title || "",
+        subtitle: record.subtitle || "",
+        description: record.description || "",
+        image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+        button_text: record.button_text || "",
+        button_link: record.button_link || "",
+        image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+      });
+    }
+  }, [existingData]);
 
   const mapToFileList = (fileData) => {
     if (!fileData) return [];
@@ -234,15 +234,20 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
                 icon="FileTextOutlined"
                 children={<Input />}
               />
- <FormIconInput
-                  label="Description"
-                  name="description"
-                  icon="EditOutlined"
-                >
-
-                <ReactQuill theme="snow" value={formProps.form?.getFieldValue("description") || ""} onChange={(value) => formProps.form?.setFieldsValue({ description: value })}  style={{ height: '200px' }} />
-                </FormIconInput>
-            
+              <FormIconInput
+                label="Description"
+                name="description"
+                icon="EditOutlined"
+              >
+                <ReactQuill
+                  theme="snow"
+                  value={formProps.form?.getFieldValue("description") || ""}
+                  onChange={(value) =>
+                    formProps.form?.setFieldsValue({ description: value })
+                  }
+                  style={{ height: "200px" }}
+                />
+              </FormIconInput>
             </Col>
 
             <Row gutter={24} style={{ marginTop: 20 }}>
