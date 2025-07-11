@@ -23,7 +23,7 @@ const WebsettingsPage = () => {
   };
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[16, 16]} style={{marginBottom:40}}>
       <Col span={8}>
         <div
           className="card-container"
@@ -42,6 +42,7 @@ const WebsettingsPage = () => {
           </Card>
         </div>
       </Col>
+       
       <Col span={8}>
         <div
           className="card-container"
@@ -138,7 +139,25 @@ const WebsettingsPage = () => {
               Footer About us
             </Typography.Title>
             <img
-              src="./images/footerabout.png"
+              src="./images/footer.jpg"
+              alt="Refine"
+              style={{ width: "100%",marginTop: 15 }}
+            />
+          </Card>
+        </div>
+      </Col>
+      <Col span={8}>
+        <div
+          className="card-container"
+          onClick={() => handleTabChange("/webAddress")}
+          style={{ cursor: "pointer" }}
+        >
+          <Card style={{ alignItems: "center", width: "100%" }}>
+            <Typography.Title level={5} className="headTitle">
+              Website Address
+            </Typography.Title>
+            <img
+              src="./images/address.jpg"
               alt="Refine"
               style={{ width: "100%", marginTop: 15 }}
             />

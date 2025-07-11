@@ -11,7 +11,6 @@ import { Footer } from '../footer';
 
 import { useRouter } from 'next/router';
 
-
 export const Layout: React.FC<LayoutProps> = ({ children}) => {
 	const { data: identity } = useGetIdentity({
 		v3LegacyAuthProviderCompatible:true
@@ -160,7 +159,7 @@ export const Layout: React.FC<LayoutProps> = ({ children}) => {
 		<>
 		{ pathname=="/home" ? <div>{children}</div> :
 		
-		<AntdLayout style={{ height: '100vh', flexDirection: 'row',overflowX: "hidden", minWidth: 1024, }} >
+		<AntdLayout style={{ height: '100vh', flexDirection: 'row',overflow: "hidden", minWidth: 1024, }} >
 			<Sider />
 			<AntdLayout>
 				<Header />
@@ -170,13 +169,12 @@ export const Layout: React.FC<LayoutProps> = ({ children}) => {
 							//padding: breakpoint.sm ? 24 : 12,
 							//minHeight: 360
 							padding: 5,
-							//height: "calc(100vh - 96px)",
-							overflow: "hidden",
+							height: "calc(100vh - 10px)",
+							overflow: "scroll",
 						}}
 					>
 						{children}
-
-
+						
 					</div>
 					{/* <OffLayoutArea /> */}
 				</AntdLayout.Content>

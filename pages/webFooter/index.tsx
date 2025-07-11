@@ -29,9 +29,7 @@ const WebsettingsPage = () => {
   const tabItems = [
     // { key: "Section1", label: "Section1" },
     { key: "WebfooterSection1", label: "Section 1" },
-  
-    // { key: "Home page Section 4", label: "Section 5" },
-  ];
+    ];
 
   return (
     <div>
@@ -56,11 +54,8 @@ const WebsettingsPage = () => {
             switch (item.key) {
        
               case "WebfooterSection1":
-                return <Section1 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
-             
-             
+                return <Section1 />;
+            
               default:
                 return null;
             }

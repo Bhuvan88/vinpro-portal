@@ -29,8 +29,8 @@ const EditProfile: React.FC = () => {
   });
 
   useEffect(() => {
-    setSelectedMenu("../profile", "../profile");
-    setHeaderTitle(t("myprofile"));
+    setSelectedMenu("/changepassword", "/changepassword");
+    setHeaderTitle("Change Password");
   }, []);
 
   const { formProps, queryResult } = useForm({
@@ -75,115 +75,7 @@ const EditProfile: React.FC = () => {
   return (
     <Card loading={isLoading}>
       <div style={{ height: "calc(100vh - 120px)", overflow: "auto" }}>
-        <div className="flex" style={{ alignItems: "center" }}>
-          <Typography.Title level={4} style={{ margin: "0px 0px 30px" }}>
-            My Profile
-          </Typography.Title>
-        </div>
-        <Form
-          {...formProps}
-          layout="vertical"
-          onFinish={(values) => {
-            setIsLoading(true);
-            return (
-              formProps.onFinish && formProps.onFinish(defaultMapper(values))
-            );
-          }}
-        >
-          <Row gutter={24}>
-            <Col span={12}>
-              <Form.Item
-                label="First Name"
-                name="first_name"
-                rules={[{ required: true, message: t("firstnameisrequired") }]}
-                children={<Input />}
-              />
-            </Col>
-
-            <Col span={12}>
-              <Form.Item
-                label="Last Name"
-                name="last_name"
-                rules={[{ required: true, message: t("lastnameisrequired") }]}
-                children={<Input />}
-              />
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col span={12}>
-              <Form.Item
-                label="Username"
-                name={"email"}
-                rules={[
-                  { required: true, message: t("entercontactemail") },
-                  { type: "email", message: t("invalidemailaddress") },
-                ]}
-                children={
-                  <Input
-                    type={"email"}
-                    //  disabled={selectedRole === "Administrator" ? true : false}
-                    value={passwordQueryResult?.data?.data?.email}
-                  />
-                }
-              />
-            </Col>
-          </Row>
-          <Row gutter={24}>
-            <Col span={12}>
-              <Form.Item label={"Profile Picture"}>
-                <Form.Item
-                  style={{ marginBottom: 40 }}
-                  name="avatar"
-                  valuePropName="fileList"
-                  getValueProps={(data) =>
-                    getValueProps({
-                      data,
-                      imageUrl: apiUrl,
-                      getFileUrl: (item) => {
-                        return apiUrl + "assets/" + item;
-                      },
-                    })
-                  }
-                >
-                  <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    multiple={false}
-                    {...getUploadProps("avatar")}
-                    accept="image/png, image/jpeg"
-                    showUploadList={{
-                      showPreviewIcon: false,
-                    }}
-                  >
-                    <button
-                      style={{ border: 0, background: "none" }}
-                      type="button"
-                    >
-                      <PlusOutlined />
-                      <div style={{ marginTop: 8 }}>{t("upload")}</div>
-                    </button>
-                  </Upload>
-                </Form.Item>
-              </Form.Item>
-            </Col>
-          </Row>
-          <br/>
-          <Row>
-            <Col span={6}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={isloading}
-                size="large"
-                block
-              >
-                {"Update Profile"}
-              </Button>
-            </Col>
-          </Row>
-        </Form>
-{/*
-        <Typography.Title level={4} style={{ margin: "20px 0px 10px" }}>
+        <Typography.Title level={4} style={{ margin: "20px 0px 20px" }}>
           {"Change Password"}
         </Typography.Title>
         <Form
@@ -200,7 +92,7 @@ const EditProfile: React.FC = () => {
                 label="New Password"
                 name="password"
                 rules={[
-                  { required: true, message: t("passwordisrequired") },
+                  { required: true, message: "Password is required" },
                   { min: 6, message: "Password must be atleast 6 characters" },
                 ]}
               >
@@ -231,7 +123,7 @@ const EditProfile: React.FC = () => {
               </Form.Item>
             </Col>
           </Row>
-
+              <br/>
           <Row>
             <Col span={6}>
               <Form.Item>
@@ -242,7 +134,6 @@ const EditProfile: React.FC = () => {
             </Col>
           </Row>
         </Form>
-*/}
       </div>
     </Card>
   );

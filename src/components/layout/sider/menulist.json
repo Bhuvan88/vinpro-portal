@@ -68,7 +68,7 @@
 	},
 	{
 		"icon": "PictureOutlined",
-		"title": "Banner",
+		"title": "Partners",
 		"module": "administration",
 		"resource": "banners",
 		"link": "/banners",
@@ -120,7 +120,7 @@
 		"title": "Change Password",
 		"module": "administration",
 		"resource": "",
-		"link": "/profile",
+		"link": "/changepassword",
 		"roles": [ "Administrator" ]
 	}
 	

@@ -16,7 +16,7 @@ import {
   getDefaultSortOrder,
   ImageField,
   useSelect,
-  TextField
+  TextField,
 } from "@refinedev/antd";
 import {
   Table,
@@ -52,28 +52,34 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
   const apiUrl = useApiUrl();
 
   useEffect(() => {
-    setSelectedMenu("/featured", "/banners");
-    setHeaderTitle (t("banners"));
+    setSelectedMenu("/banners", "/banners");
+    setHeaderTitle(t("banners"));
   }, []);
 
   const { tableProps, sorters, tableQueryResult, filters, searchFormProps } =
     useTable<any>({
       resource: "banners",
       syncWithLocation: true,
-      pagination: 
-      { 
-         pageSize:20,
-         mode:"server"
+      pagination: {
+        pageSize: 20,
+        mode: "server",
       },
       queryOptions: {
         initialData,
       },
       metaData: {
-        fields: ["id","image","client_name","link","isactive","date_created"],
+        fields: [
+          "id",
+          "image",
+          "client_name",
+          "link",
+          "isactive",
+          "date_created",
+        ],
       },
       onSearch: (params: any) => {
         const filters: CrudFilters = [];
-        const { search ,merchant, city} = params;
+        const { search, merchant, city } = params;
 
         filters.push({
           field: "search",
@@ -81,26 +87,18 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           value: search,
         });
 
-      
-
         return filters;
       },
-      sorters: {              
-                initial: [
-                  {
-                    field: "date_created",
-                    order: "desc",
-                  },
-                ],
-           },
+      sorters: {
+        initial: [
+          {
+            field: "date_created",
+            order: "desc",
+          },
+        ],
+      },
     });
 
-    console.log('tableProps',tableProps);
-
-
-    
-
-    
   const createCallback = (status) => {
     if (status === "success") {
       setShowCreateDrawer(false);
@@ -126,39 +124,38 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
       setShowEditDrawer(false);
     }
   };
-  
+
   const { triggerExport, isLoading } = useExport<any>({
     resource: "banners",
     filters: filters,
     metaData: {
-      fields: ["id","image","link","isactive","date_created" ],
+      fields: ["id", "image", "link", "isactive", "date_created"],
     },
     mapData: (item) => {
       return {
         Id: item.id,
-        Image:item.image,
+        Image: item.image,
         Link: item.link,
         Merchant: item.merchant?.name,
-        City: item?.city?.map((item: any) => item?.city_id?.name).join(", "),   
-        Status:item.isactive,     
-        Date_Created:dayjs(item?.date_created, 'YYYY-MM-DD HH:mm').format('DD-MM-YYYY HH:mm'),
+        City: item?.city?.map((item: any) => item?.city_id?.name).join(", "),
+        Status: item.isactive,
+        Date_Created: dayjs(item?.date_created, "YYYY-MM-DD HH:mm").format(
+          "DD-MM-YYYY HH:mm"
+        ),
       };
     },
   });
 
-  const content=(
+  const content = (
     <div>
-        <Form.Item name="search" className="card-search mt-20 ml-10">
-                <Input                
-                  allowClear
-                  className="search-input"
-                  placeholder={t("search")}
-                  prefix={<CustomIcon type="SearchOutlined" />}
-                />
-              </Form.Item>
-
-        
-          
+      <Form.Item name="search" className="card-search mt-20 ml-10">
+        <Input
+          allowClear
+          className="search-input"
+          placeholder={t("search")}
+          prefix={<CustomIcon type="SearchOutlined" />}
+        />
+      </Form.Item>
     </div>
   );
 
@@ -168,19 +165,19 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
         <div className="flex-row" style={{ alignItems: "center" }}>
           <Typography.Title level={5} className="headTitle">
             {t("banners")}
-          </Typography.Title>         
+          </Typography.Title>
         </div>
-        
+
         <div style={{ marginRight: 30 }}>
-          <Space> 
-          <Form
-            layout="vertical"
-            {...searchFormProps}
-            onValuesChange={() => {
-              searchFormProps.form?.submit();
-            }}
-          >
-            {/* <Space>           
+          <Space>
+            <Form
+              layout="vertical"
+              {...searchFormProps}
+              onValuesChange={() => {
+                searchFormProps.form?.submit();
+              }}
+            >
+              {/* <Space>           
             <Tooltip title={t("Filter")}>
                     <Popover
                       placement="bottom"
@@ -195,15 +192,15 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
                     </Popover>
                   </Tooltip>                  
             </Space> */}
-          </Form>          
-          <CreateButton
-            onClick={() => setShowCreateDrawer(true)}
-            type="primary"
-            className="mr-5"
-          >
-            {t("new")}
-          </CreateButton>
-          {/* <ExportButton
+            </Form>
+            <CreateButton
+              onClick={() => setShowCreateDrawer(true)}
+              type="primary"
+              className="mr-5"
+            >
+              {t("new")}
+            </CreateButton>
+            {/* <ExportButton
             type="primary"
             onClick={triggerExport}
             loading={isLoading}
@@ -212,9 +209,9 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             {t("export")}
           </ExportButton> */}
           </Space>
-        </div>  
+        </div>
       </div>
-      
+
       <Table
         rowKey="id"
         {...tableProps}
@@ -226,7 +223,9 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) =>
-              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t("items")}`,
+              `${t("showing")} ${range[0]}-${range[1]} ${t("of")} ${total} ${t(
+                "items"
+              )}`,
           },
         }}
       >
@@ -236,18 +235,18 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           key="sno"
           title={t("sno")}
           render={(text, object, index) => index + 1}
-         // render={(value) => <TextField value={value} />}
-         // defaultSortOrder={getDefaultSortOrder("id", sorter)}
-         // sorter
+          // render={(value) => <TextField value={value} />}
+          // defaultSortOrder={getDefaultSortOrder("id", sorter)}
+          // sorter
         />
-         <Table.Column
+        <Table.Column
           width={80}
           dataIndex="client_name"
           key="client_name"
           title="Client"
-         render={(value) => <TextField value={value} />}
+          render={(value) => <TextField value={value} />}
 
-         // sorter
+          // sorter
         />
         <Table.Column
           width={100}
@@ -284,7 +283,6 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
           //sorter
         />
 
-       
         <Table.Column
           width={80}
           dataIndex="isactive"
@@ -318,15 +316,15 @@ const BannerList: React.FC<IResourceComponentsProps> = ({ initialData }) => {
             />
           )}
         />
-       
-
 
         <Table.Column
           width={130}
           dataIndex="date_created"
           key="date_created"
           title="Date Created"
-          render={(value) => value && <DateField value={value} format="MMM DD, YYYY HH:mm"/>}
+          render={(value) =>
+            value && <DateField value={value} format="MMM DD, YYYY HH:mm" />
+          }
           //defaultSortOrder={getDefaultSortOrder("date_created", sorters)}
           sorter
         />

@@ -59,29 +59,17 @@ const WebsettingsPage = () => {
           children: (() => {
             switch (item.key) {
               case "StaffingSection1":
-                return <Section1 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section1 />;
               case "StaffingSection2":
-                return <Section2 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section2  />;
               case "StaffingSection3":
-                return <Section3 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section3  />;
               case "StaffingSection4":
-                return <Section4 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section4  />;
                 case "StaffingSection5":
-                return <Section5 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section5  />;
                 case "StaffingSection6":
-                return <Section6 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section6  />;
               default:
                 return null;
             }

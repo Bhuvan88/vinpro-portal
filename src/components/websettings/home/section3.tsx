@@ -24,15 +24,11 @@ import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import 'react-quill/dist/quill.snow.css';
-import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-type CreateDrawerProps = {
-  callback: (status: string) => void;
-  visible: boolean;
-};
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const Websettings: React.FC = () => {
   const { TextArea } = Input;
   const t = useTranslate();
   const apiUrl = useApiUrl();
@@ -76,10 +72,8 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       ],
     },
     queryOptions: {
-      enabled: visible,
+      enabled: true,
       onSuccess: (response) => {
-        console.log("Existing Data:", response?.data);
-
         if (response?.data?.[0]) {
           const record = response?.data?.[0];
           setExistingRecordId(record.id);
@@ -136,20 +130,20 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   }, [fileInfo2]);
 
   useEffect(() => {
-      const record = existingData?.data?.[0];
-      if (record) {
-        formProps.form?.setFieldsValue({
-          section_title: sectionTitle,
-          title: record.title || "",
-          subtitle: record.subtitle || "",
-          description: record.description || "",
-          image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-          button_text: record.button_text || "",
-          button_link: record.button_link || "",
-          image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
-        });
-      }
-    }, [existingData]);
+    const record = existingData?.data?.[0];
+    if (record) {
+      formProps.form?.setFieldsValue({
+        section_title: sectionTitle,
+        title: record.title || "",
+        subtitle: record.subtitle || "",
+        description: record.description || "",
+        image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+        button_text: record.button_text || "",
+        button_link: record.button_link || "",
+        image2: fileInfo2 ? [fileInfo2.data] : [], // Ensure it's
+      });
+    }
+  }, [existingData]);
 
   const { formProps, saveButtonProps, formLoading } = useForm({
     resource: "webcontent",
@@ -200,164 +194,162 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
   };
 
   return (
-      <Card
-        title={"Home Page Section 3"}
-        style={{
-          marginBottom: 24,
-          borderRadius: 8,
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        }}
-     
+    <Card
+      title={"Home Page Section 3"}
+      style={{
+        marginBottom: 24,
+        borderRadius: 8,
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+      }}
+    >
+      <img
+        src="./images/home/section4.png"
+        alt="Image 2"
+        style={{ width: "100%", height: "auto" }}
+      />
+
+      <Create
+        title={false}
+        saveButtonProps={saveButtonProps}
+        isLoading={formLoading}
+        goBack={false}
       >
-     
-          <img
-            src="./images/home/section4.png"
-            alt="Image 2"
-            style={{ width: "100%", height: "auto" }}
-          />
-
-
-        <Create
-          title={false}
-          saveButtonProps={saveButtonProps}
-          isLoading={formLoading}
-          goBack={false}
+        <Form
+          {...formProps}
+          name="websettings"
+          onFinish={(values) => {
+            formProps.onFinish && formProps.onFinish(defaultMapper(values));
+          }}
+          layout="vertical"
+          style={{ maxWidth: 800 }}
+          onValuesChange={(changedValues, allValues) => {
+            setFormData(allValues);
+          }}
+          initialValues={{
+            section_title: "Home page Section 4",
+            title: existingData?.data?.[0]?.title || "",
+            subtitle: existingData?.data?.[0]?.subtitle || "",
+            description: existingData?.data?.[0]?.description || "",
+            image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
+            list_details: existingData?.data[0]?.list_details
+              ? JSON.parse(existingData.data[0].list_details)
+              : [], // Initialize with existing data
+          }}
         >
-          <Form
-            {...formProps}
-            name="websettings"
-            onFinish={(values) => {
-              formProps.onFinish && formProps.onFinish(defaultMapper(values));
-            }}
-            layout="vertical"
-            style={{ maxWidth: 800 }}
-            onValuesChange={(changedValues, allValues) => {
-              setFormData(allValues);
-            }}
-            initialValues={{
-              section_title: "Home page Section 4",
-              title: existingData?.data?.[0]?.title || "",
-              subtitle: existingData?.data?.[0]?.subtitle || "",
-              description: existingData?.data?.[0]?.description || "",
-              image1: fileInfo ? [fileInfo.data] : [], // Ensure it's an array for Upload component
-              list_details: existingData?.data[0]?.list_details
-                ? JSON.parse(existingData.data[0].list_details)
-                : [], // Initialize with existing data
-            }}
-          >
-            <Row gutter={24}>
-              <Col span={24}>
-                <FormIconInput
-                  label="Title"
-                  name="title"
-                  rules={[{ required: true, message: "Enter title" }]}
-                  icon="FileTextOutlined"
-                  children={<Input />}
+          <Row gutter={24}>
+            <Col span={24}>
+              <FormIconInput
+                label="Title"
+                name="title"
+                rules={[{ required: true, message: "Enter title" }]}
+                icon="FileTextOutlined"
+                children={<Input />}
+              />
+
+              <FormIconInput
+                label="Subtitle"
+                name="subtitle"
+                icon="FileTextOutlined"
+              >
+                <Input placeholder="Enter subtitle" />
+              </FormIconInput>
+
+              <FormIconInput
+                label="Description"
+                name="description"
+                icon="EditOutlined"
+              >
+                <ReactQuill
+                  theme="snow"
+                  value={formProps.form?.getFieldValue("description") || ""}
+                  onChange={(value) =>
+                    formProps.form?.setFieldsValue({ description: value })
+                  }
+                  style={{ height: "200px" }}
+                />
+              </FormIconInput>
+            </Col>
+
+            <Col span={24} style={{ marginTop: 20 }}>
+              <div className="icon-input-field">
+                <CustomIcon
+                  type="PictureOutlined"
+                  styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
                 />
 
-                <FormIconInput
-                  label="Subtitle"
-                  name="subtitle"
-                  icon="FileTextOutlined"
-                >
-                  <Input placeholder="Enter subtitle" />
-                </FormIconInput>
-
-        
-                <FormIconInput
-                  label="Description"
-                  name="description"
-                  icon="EditOutlined"
-                >
-
-                <ReactQuill theme="snow" value={formProps.form?.getFieldValue("description") || ""} onChange={(value) => formProps.form?.setFieldsValue({ description: value })}  style={{ height: '200px' }} />
-                </FormIconInput>
-               
-              </Col>
-
-              <Col span={24} style={{ marginTop: 20 }}>
-                <div className="icon-input-field">
-                  <CustomIcon
-                    type="PictureOutlined"
-                    styleProps={{ style: { fontSize: 20, marginTop: 15 } }}
-                  />
-
-                  <Form.Item label={t("Image 1")}>
-                    <Form.Item
-                      name="image1"
-                      valuePropName="fileList"
-                      getValueProps={(data) =>
-                        getValueProps({ data, imageUrl: apiUrl })
-                      }
-                      noStyle
+                <Form.Item label={t("Image 1")}>
+                  <Form.Item
+                    name="image1"
+                    valuePropName="fileList"
+                    getValueProps={(data) =>
+                      getValueProps({ data, imageUrl: apiUrl })
+                    }
+                    noStyle
+                  >
+                    <Upload.Dragger
+                      name="file"
+                      listType="picture"
+                      multiple={false}
+                      beforeUpload={() => false}
+                      {...getUploadProps("image1")}
                     >
-                      <Upload.Dragger
-                        name="file"
-                        listType="picture"
-                        multiple={false}
-                        beforeUpload={() => false}
-                        {...getUploadProps("image1")}
-                      >
-                        <p className="ant-upload-text">
-                          {t("drag&dropafileinthisarea")}
-                        </p>
-                      </Upload.Dragger>
-                    </Form.Item>
+                      <p className="ant-upload-text">
+                        {t("drag&dropafileinthisarea")}
+                      </p>
+                    </Upload.Dragger>
                   </Form.Item>
-                </div>
-              </Col>
-            </Row>
-            <Divider orientation="left">List</Divider>
-            <Col span={24}>
-              <Form.List name="list_details">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, ...restField }) => (
-                      <div key={key}>
-                        {/* Wrapping last name input and minus button in a flex container */}
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <Form.Item
-                            {...restField}
-                            name={name}
-                            rules={[
-                              { required: true, message: "Missing lable" },
-                            ]}
-                            style={{ flex: 1 }} // Makes input take full width
-                          >
-                            <Input placeholder="list item" />
-                          </Form.Item>
-
-                          {/* Minus Button aligned to the right */}
-                          <MinusCircleOutlined
-                            onClick={() => remove(name)}
-                            style={{
-                              marginLeft: 10,
-                              fontSize: 16,
-                              cursor: "pointer",
-                              marginTop: -25,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                    <Form.Item>
-                      <Button
-                        type="dashed"
-                        onClick={() => add()}
-                        block
-                        icon={<PlusOutlined />}
-                      >
-                        Add field
-                      </Button>
-                    </Form.Item>
-                  </>
-                )}
-              </Form.List>
+                </Form.Item>
+              </div>
             </Col>
-          </Form>
-        </Create>
-      </Card>
+          </Row>
+          <Divider orientation="left">List</Divider>
+          <Col span={24}>
+            <Form.List name="list_details">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <div key={key}>
+                      {/* Wrapping last name input and minus button in a flex container */}
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <Form.Item
+                          {...restField}
+                          name={name}
+                          rules={[{ required: true, message: "Missing lable" }]}
+                          style={{ flex: 1 }} // Makes input take full width
+                        >
+                          <Input placeholder="list item" />
+                        </Form.Item>
 
+                        {/* Minus Button aligned to the right */}
+                        <MinusCircleOutlined
+                          onClick={() => remove(name)}
+                          style={{
+                            marginLeft: 10,
+                            fontSize: 16,
+                            cursor: "pointer",
+                            marginTop: -25,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </Col>
+        </Form>
+      </Create>
+    </Card>
   );
 };
 

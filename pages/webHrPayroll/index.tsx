@@ -69,49 +69,27 @@ const WebsettingsPage = () => {
           children: (() => {
             switch (item.key) {
               case "HrpayrollSection1":
-                return <Section1 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section1  />;
               case "HrpayrollSection2":
-                return <Section2 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section2  />;
               case "HrpayrollSection3":
-                return <Section3 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section3  />;
               case "HrpayrollSection4":
-                return <Section4 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section4  />;
               case "HrpayrollSection5":
-                return <Section5 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section5  />;
               case "HrpayrollSection6":
-                return <Section6 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section6  />;
               case "HrpayrollSection7":
-                return <Section7 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section7  />;
               case "HrpayrollSection8":
-                return <Section8 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section8  />;
               case "HrpayrollSection9":
-                return <Section9 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section9  />;
               case "HrpayrollSection10":
-                return <Section10 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section10  />;
               case "HrpayrollSection11":
-                return <Section11 callback={function (status: string): void {
-                  throw new Error("Function not implemented.");
-                } } visible={true} />;
+                return <Section11  />;
               default:
                 return null;
             }

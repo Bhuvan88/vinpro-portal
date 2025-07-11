@@ -36,21 +36,13 @@ const WebsettingsPage = () => {
         children: (() => {
           switch (item.key) {
             case "Home page Section 1":
-              return <Section1 callback={function (status: string): void {
-                throw new Error("Function not implemented.");
-              } } visible={false} />;
+              return <Section1 />;
             case "Home page Section 2":
-              return <Section2 callback={function (status: string): void {
-                throw new Error("Function not implemented.");
-              } } visible={false} />;
+              return <Section2 />;
             case "Home page Section 3":
-              return <Section3 callback={function (status: string): void {
-                throw new Error("Function not implemented.");
-              } } visible={false} />;
+              return <Section3 />;
             case "Home page Section 4":
-              return <Section4 callback={function (status: string): void {
-                throw new Error("Function not implemented.");
-              } } visible={false} />;
+              return <Section4 />;
             default:
               return null;
           }

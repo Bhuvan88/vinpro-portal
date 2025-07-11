@@ -29,7 +29,6 @@ export const EditInvoice: React.FC<EditProps> = ({ callback,visible, record }) =
     const apiUrl = useApiUrl();
     console.log('record -->', record);
   
-
     const {
         formProps,
         saveButtonProps,

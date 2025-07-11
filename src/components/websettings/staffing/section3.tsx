@@ -17,12 +17,8 @@ import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-type CreateDrawerProps = {
-  callback: (status: string) => void;
-  visible: boolean;
-};
 
-const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const Websettings: React.FC = () => {
   const { TextArea } = Input;
   const t = useTranslate();
   const apiUrl = useApiUrl();
@@ -66,7 +62,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       ],
     },
     queryOptions: {
-      enabled: visible,
+      enabled: true,
       onSuccess: (response) => {
         console.log("Existing Data:", response?.data);
 

@@ -14,12 +14,7 @@ import { CustomIcon } from "@components/datacomponents/CustomIcon";
 import { Editor } from "@tinymce/tinymce-react";
 import { useRouter } from "next/router";
 
-type CreateDrawerProps = {
-  callback: (status: string) => void;
-  visible: boolean;
-};
-
-const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
+const Websettings: React.FC = () => {
   const { TextArea } = Input;
   const t = useTranslate();
   const apiUrl = useApiUrl();
@@ -63,7 +58,7 @@ const Websettings: React.FC<CreateDrawerProps> = ({ callback, visible }) => {
       ],
     },
     queryOptions: {
-      enabled: visible,
+      enabled: true,
       onSuccess: (response) => {
         console.log("Existing Data:", response?.data);
 
